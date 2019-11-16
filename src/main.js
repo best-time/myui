@@ -3,6 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
+import "./main.less";
+
+import UI from "./../packages";
+
+Vue.use(UI)
 
 Vue.config.productionTip = false;
 

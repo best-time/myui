@@ -1,6 +1,8 @@
 const path = require('path')
 
 module.exports = {
+
+  runtimeCompiler: true,
     // 配置入口
     pages:{
         index:{

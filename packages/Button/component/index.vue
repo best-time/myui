@@ -123,7 +123,7 @@ export default {
     }
   },
   methods: {
-    handleClike: () => {
+    handleClike() {
       this.$emit("click");
     }
   }

@@ -3,7 +3,7 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <h2>button</h2>
-    <Button type="primary" @click="handleClick">主要按钮</Button>
+    <Button type="primary" @click="handleClick">alert</Button>
     <Button>主要按钮</Button>
     <Button disabled>主要按钮</Button>
     <Button plain>纯文字</Button>
@@ -28,6 +28,21 @@
       <span slot="right">顺丰快递</span>
 
     </Cell>
+
+    <br>
+    <grids-group :rows="3" title="等分3列">
+            <grids-item :key="n" v-for="n in 4">
+                <span slot="text">grids-3</span>
+            </grids-item>
+        </grids-group>
+
+        <br>
+         <grids-group :rows="4" title="等分4列">
+            <grids-item :key="n" v-for="n in 6">
+                <span slot="text">grids-3</span>
+            </grids-item>
+        </grids-group>
+
   </div>
 </template>
 
@@ -42,7 +57,7 @@ export default {
   // },
   methods: {
     handleClick() {
-      console.log(1);
+      this.$dialog.alert({mes: '消息一出，休想滚动屏幕[移动终端]！'});
     }
   }
 };

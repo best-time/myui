@@ -3,8 +3,19 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import List from "../views/List.vue";
 import CardList from "../views/CardList.vue";
+import NavBar from "../views/NavBar.vue";
+import Layout from "../views/Layout.vue";
 
 Vue.use(VueRouter);
+
+
+const routeList = [
+  {name: "layout", component: Layout},
+  {name: "list", component: List},
+  {name: "navbar", component: NavBar},
+  {name: "clist", component: CardList}
+]
+const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 
 const routes = [
   {
@@ -12,16 +23,7 @@ const routes = [
     name: "home",
     component: Home
   },
-  {
-    path: "/list",
-    name: "list",
-    component: List
-  },
-  {
-    path: "/clist",
-    name: "clist",
-    component: CardList
-  },
+  ...routeArr,
   {
     path: "/about",
     name: "about",

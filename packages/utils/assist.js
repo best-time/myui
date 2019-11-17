@@ -1,3 +1,5 @@
+export const pCls = "y"
+
 export const oneOf = arr => {
   const set = new Set(arr);
   return target => set.has(target);

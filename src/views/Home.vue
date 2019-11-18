@@ -43,6 +43,37 @@
         <span slot="text">grids-3</span>
       </grids-item>
     </grids-group>
+
+    <br />
+
+    <div class="demo-small-pitch">
+      <slider autoplay="0">
+        <slider-item>
+          <a href="http://www.ydcss.com">
+            <img src="http://m.ydui.org/img/1.jpg" />
+          </a>
+        </slider-item>
+        <slider-item>
+          <a href="http://www.ydcss.com">
+            <img src="http://m.ydui.org/img/2.jpg" />
+          </a>
+        </slider-item>
+        <slider-item>
+          <a href="http://www.ydcss.com">
+            <img src="http://m.ydui.org/img/3.jpg" />
+          </a>
+        </slider-item>
+      </slider>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <Button @click.native="show1 = true">带取消</Button>
+    <Button @click.native="show2 = true">不带取消</Button>
+    <actionsheet :items="myItems1" v-model="show1" cancel="取消"></actionsheet>
+
+    <actionsheet :items="myItems2" v-model="show2"></actionsheet>
   </div>
 </template>
 
@@ -55,6 +86,47 @@ export default {
   // components: {
   //   HelloWorld
   // },
+  data() {
+    return {
+      show1: false,
+      show2: false,
+      myItems1: [
+        {
+          label: "拍照",
+          method: () => {
+            this.$dialog.toast({ mes: "咔擦，此人太帅！", timeout: 1000 });
+            //注意： method: function() {} 和 method() {}  这样是无法正常使用当前this的
+          }
+        },
+        {
+          label: "从相册中偷取",
+          method: () => {
+            this.$dialog.toast({
+              mes: "看到了不该看到的东西！",
+              timeout: 1000
+            });
+          }
+        }
+      ],
+      myItems2: [
+        {
+          label: "示例菜单一 - 我是不会关闭的",
+          method: () => {
+            this.$dialog.toast({ mes: "Say: 我是不会关闭的！", timeout: 1000 });
+          },
+          stay: true // 不关闭
+        },
+        {
+          label: "示例菜单二 - 自动关闭",
+          method: () => {
+            this.$dialog.toast({ mes: "Say: 我关闭啦啦啦！", timeout: 1000 });
+          }
+        },
+        { label: "示例菜单三 - 自动关闭" },
+        { label: "示例菜单四 - 自动关闭" }
+      ]
+    };
+  },
   methods: {
     handleClick() {
       this.$dialog.alert({ mes: "消息一出，休想滚动屏幕[移动终端]！" });

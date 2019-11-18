@@ -35,6 +35,18 @@ export const isColor = function(value) {
   return colorReg.test(value) || rgbaReg.test(value) || rgbReg.test(value);
 };
 
+export const getScrollview = function (el) {
+  let currentNode = el;
+  while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
+      let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
+      if (overflowY === 'scroll' || overflowY === 'auto') {
+          return currentNode;
+      }
+      currentNode = currentNode.parentNode;
+  }
+  return window;
+};
+
 export const scrollTop = function(el, from = 0, to, duration = 500) {
   if (!window.requestAnimationFrame) {
     window.requestAnimationFrame =
@@ -67,6 +79,7 @@ export const scrollTop = function(el, from = 0, to, duration = 500) {
   scroll(from, to, step);
 };
 
+export const isIOS = !!(window.navigator && window.navigator.userAgent || '').match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 
 export const pageScroll = (function () {
   const fn = function (e) {
@@ -87,3 +100,16 @@ export const pageScroll = (function () {
       }
   };
 })();
+
+
+export const isSupportTouch = () => {
+  const supportTouch =
+    (window.Modernizr && !!window.Modernizr.touch) ||
+    (function() {
+      return !!(
+        "ontouchstart" in window ||
+        (window.DocumentTouch && document instanceof DocumentTouch)
+      );
+    })();
+  return supportTouch;
+}

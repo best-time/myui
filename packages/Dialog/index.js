@@ -1,8 +1,8 @@
 import Alert from './component/alert/index.js';
-// import Confirm from './component/confirm';
-// import Toast from './component/toast';
-// import Notify from './component/notify';
-// import Loading from './component/loading';
+import Confirm from "./component/confirm/index.js"
+import Toast from './component/toast/index.js';
+import Notify from './component/notify/index.js';
+import Loading from './component/loading/index.js';
 
 
 
@@ -19,9 +19,9 @@ import Alert from './component/alert/index.js';
 // };
 
 export {
-    // Confirm,
+    Confirm,
     Alert,
-    // Toast,
-    // Notify,
-    // Loading
+    Toast,
+    Notify,
+    Loading
 };

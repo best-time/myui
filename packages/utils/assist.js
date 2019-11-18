@@ -66,3 +66,24 @@ export const scrollTop = function(el, from = 0, to, duration = 500) {
 
   scroll(from, to, step);
 };
+
+
+export const pageScroll = (function () {
+  const fn = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+  };
+  let islock = false;
+
+  return {
+      lock: function () {
+          if (islock) return;
+          islock = true;
+          document.addEventListener('touchmove', fn, { passive: false }); // 解决chrome报错
+      },
+      unlock: function () {
+          islock = false;
+          document.removeEventListener('touchmove', fn, { passive: false });
+      }
+  };
+})();

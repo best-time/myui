@@ -1,19 +1,20 @@
-import Vue from 'vue';
-import AlertC from "./index.vue"
+import Vue from "vue";
+import AlertC from "./index.vue";
+import { pageScroll } from "../../../utils/assist";
 
 const AlertConstructor = Vue.extend(AlertC);
 
 const instance = new AlertConstructor({
-  el: document.createElement('div')
+  el: document.createElement("div")
 });
 
-AlertConstructor.prototype.closeAlert = function () {
-  // pageScroll.unlock();
+AlertConstructor.prototype.closeAlert = function() {
+  pageScroll.unlock();
 
   const el = instance.$el;
   el.parentNode && el.parentNode.removeChild(el);
 
-  typeof this.callback == 'function' && this.callback();
+  typeof this.callback == "function" && this.callback();
 };
 
 const Alert = (options = {}) => {
@@ -22,7 +23,7 @@ const Alert = (options = {}) => {
 
   document.body.appendChild(instance.$el);
 
-  // pageScroll.lock();
+  pageScroll.lock();
 };
 
 export default Alert;

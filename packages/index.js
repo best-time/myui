@@ -4,7 +4,7 @@
 import Button from "./Button";
 import Cell from "./Cell";
 import { GridsItem, GridsGroup } from "./Grid";
-import { Alert } from "./Dialog"
+import { Alert, Loading, Notify, Toast, Confirm } from "./Dialog"
 // import CaiLink from './CaiLink'
 // import CaiAlert from './CaiAlert'
 // import message from './CaiMessage'
@@ -44,11 +44,11 @@ const install = (Vue) => {
 
     // Vue.prototype.$message = message;
     Vue.prototype.$dialog = {
-        // confirm: Confirm,
+        confirm: Confirm,
         alert: Alert,
-        // toast: Toast,
-        // notify: Notify,
-        // loading: Loading,
+        toast: Toast,
+        notify: Notify,
+        loading: Loading
       };
 }
 

@@ -71,6 +71,12 @@
     <br>
     <br>
     <br>
+
+    <Cell>
+      <span slot="left">所在地区：</span>
+      <input slot="right" type="text" @click.stop="show5 = true" v-model="model5" readonly placeholder="请选择收货地址">
+    </Cell>
+      <cityselect v-model="show5" :done="result1" :items="district"></cityselect>
     
     <br />
     <br />
@@ -95,7 +101,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-
+import {citys} from "@/city.js"
 export default {
   name: "home",
   // components: {
@@ -107,6 +113,9 @@ export default {
       show2: false,
       show3: false,
       show4: false,
+      show5: false,
+      model5: '',
+      district: citys,
       myItems1: [
         {
           label: "拍照",
@@ -145,6 +154,10 @@ export default {
     };
   },
   methods: {
+    result1(ret) {
+        console.log(ret);
+        this.model5 = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+    },
     done1(val) {
         console.log('输入的密码是：' + val);
         this.$dialog.loading.open('验证支付密码');

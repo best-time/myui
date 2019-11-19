@@ -8,6 +8,7 @@ import { Alert, Loading, Notify, Toast, Confirm } from "./Dialog";
 import { Slider, SliderItem } from "./Slide";
 import ActionSheet from "./Actionsheet";
 import Keyboard from "./Keyboard";
+import CitySelect from "./CitySelect"
 // import CaiLink from './CaiLink'
 // import CaiAlert from './CaiAlert'
 // import message from './CaiMessage'
@@ -25,7 +26,8 @@ const components = [
   Slider,
   SliderItem,
   ActionSheet,
-  Keyboard
+  Keyboard,
+  CitySelect
   // CaiIcon,
   // CaiLink,
   // CaiAlert,

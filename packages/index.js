@@ -7,6 +7,7 @@ import { GridsItem, GridsGroup } from "./Grid";
 import { Alert, Loading, Notify, Toast, Confirm } from "./Dialog";
 import { Slider, SliderItem } from "./Slide";
 import ActionSheet from "./Actionsheet";
+import Keyboard from "./Keyboard";
 // import CaiLink from './CaiLink'
 // import CaiAlert from './CaiAlert'
 // import message from './CaiMessage'
@@ -23,7 +24,8 @@ const components = [
   GridsGroup,
   Slider,
   SliderItem,
-  ActionSheet
+  ActionSheet,
+  Keyboard
   // CaiIcon,
   // CaiLink,
   // CaiAlert,

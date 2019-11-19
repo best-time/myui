@@ -66,6 +66,12 @@
       </slider>
     </div>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
     <br />
     <br />
     <br />
@@ -74,6 +80,15 @@
     <actionsheet :items="myItems1" v-model="show1" cancel="取消"></actionsheet>
 
     <actionsheet :items="myItems2" v-model="show2"></actionsheet>
+    <br>
+    <br>
+    <br>
+    <Button @click.native="show3 = true">打开键盘</Button>
+    <Button @click.native="show4 = true">打开乱序键盘</Button>
+
+    <keyboard v-model="show3" :input-done="done1" ref="kbdemo1"></keyboard>
+        <keyboard v-model="show4" :input-done="done2" disorder ref="kbdemo2"></keyboard>
+
   </div>
 </template>
 
@@ -90,6 +105,8 @@ export default {
     return {
       show1: false,
       show2: false,
+      show3: false,
+      show4: false,
       myItems1: [
         {
           label: "拍照",
@@ -128,6 +145,24 @@ export default {
     };
   },
   methods: {
+    done1(val) {
+        console.log('输入的密码是：' + val);
+        this.$dialog.loading.open('验证支付密码');
+
+        setTimeout(() => {
+            this.$refs.kbdemo1.$emit('keyboard.error', '对不起，您的支付密码不正确，请重新输入。');
+            this.$dialog.loading.close();
+        }, 2000);
+    },
+    done2(val) {
+                console.log('输入的密码是：' + val + ' - 无序');
+                this.$dialog.loading.open('验证支付密码');
+
+                setTimeout(() => {
+                    this.$refs.kbdemo2.$emit('keyboard.error', '对不起，您的支付密码不正确，请重新输入。');
+                    this.$dialog.loading.close();
+                }, 2000);
+            },
     handleClick() {
       this.$dialog.alert({ mes: "消息一出，休想滚动屏幕[移动终端]！" });
     },
@@ -200,3 +235,7 @@ export default {
   }
 };
 </script>
+
+<style lang="less">
+
+</style>

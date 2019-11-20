@@ -66,18 +66,37 @@
       </slider>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
+  <h2>tab</h2>
+    <tab class="demo-small-pitch" :change="tabChange">
+      <tab-panel label="选项一" tabkey="1"
+        >土地是以它的肥沃和收获而被估价的；才能也是土地，不过它生产的不是粮食，而是真理。如果只能滋生瞑想和幻想的话，即使再大的才能也只是砂地或盐池，那上面连小草也长不出来的。</tab-panel
+      >
+      <tab-panel label="选项二" tabkey="2"
+        >我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。</tab-panel
+      >
+      <tab-panel label="选项三" tabkey="3">时间是一切财富中最宝贵的财富。</tab-panel>
+      <tab-panel label="选项四" tabkey="4">真理惟一可靠的标准就是永远自相符合。</tab-panel>
+    </tab>
+    <br />
+    <br />
 
+    <h2>areaSelect</h2>
     <Cell>
       <span slot="left">所在地区：</span>
-      <input slot="right" type="text" @click.stop="show5 = true" v-model="model5" readonly placeholder="请选择收货地址">
+      <input
+        slot="right"
+        type="text"
+        @click.stop="show5 = true"
+        v-model="model5"
+        readonly
+        placeholder="请选择收货地址"
+      />
     </Cell>
-      <cityselect v-model="show5" :done="result1" :items="district"></cityselect>
-    
+    <cityselect v-model="show5" :done="result1" :items="district"></cityselect>
+
     <br />
     <br />
     <br />
@@ -86,22 +105,30 @@
     <actionsheet :items="myItems1" v-model="show1" cancel="取消"></actionsheet>
 
     <actionsheet :items="myItems2" v-model="show2"></actionsheet>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
     <Button @click.native="show3 = true">打开键盘</Button>
     <Button @click.native="show4 = true">打开乱序键盘</Button>
 
     <keyboard v-model="show3" :input-done="done1" ref="kbdemo1"></keyboard>
-        <keyboard v-model="show4" :input-done="done2" disorder ref="kbdemo2"></keyboard>
+    <keyboard
+      v-model="show4"
+      :input-done="done2"
+      disorder
+      ref="kbdemo2"
+    ></keyboard>
 
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import {citys} from "@/city.js"
+import { citys } from "@/city.js";
 export default {
   name: "home",
   // components: {
@@ -114,7 +141,7 @@ export default {
       show3: false,
       show4: false,
       show5: false,
-      model5: '',
+      model5: "",
       district: citys,
       myItems1: [
         {
@@ -154,28 +181,37 @@ export default {
     };
   },
   methods: {
+    tabChange(label, tabkey) {
+      console.log(label, tabkey, 'tab-change')
+    },
     result1(ret) {
-        console.log(ret);
-        this.model5 = ret.itemName1 + ' ' + ret.itemName2 + ' ' + ret.itemName3;
+      console.log(ret);
+      this.model5 = ret.itemName1 + " " + ret.itemName2 + " " + ret.itemName3;
     },
     done1(val) {
-        console.log('输入的密码是：' + val);
-        this.$dialog.loading.open('验证支付密码');
+      console.log("输入的密码是：" + val);
+      this.$dialog.loading.open("验证支付密码");
 
-        setTimeout(() => {
-            this.$refs.kbdemo1.$emit('keyboard.error', '对不起，您的支付密码不正确，请重新输入。');
-            this.$dialog.loading.close();
-        }, 2000);
+      setTimeout(() => {
+        this.$refs.kbdemo1.$emit(
+          "keyboard.error",
+          "对不起，您的支付密码不正确，请重新输入。"
+        );
+        this.$dialog.loading.close();
+      }, 2000);
     },
     done2(val) {
-                console.log('输入的密码是：' + val + ' - 无序');
-                this.$dialog.loading.open('验证支付密码');
+      console.log("输入的密码是：" + val + " - 无序");
+      this.$dialog.loading.open("验证支付密码");
 
-                setTimeout(() => {
-                    this.$refs.kbdemo2.$emit('keyboard.error', '对不起，您的支付密码不正确，请重新输入。');
-                    this.$dialog.loading.close();
-                }, 2000);
-            },
+      setTimeout(() => {
+        this.$refs.kbdemo2.$emit(
+          "keyboard.error",
+          "对不起，您的支付密码不正确，请重新输入。"
+        );
+        this.$dialog.loading.close();
+      }, 2000);
+    },
     handleClick() {
       this.$dialog.alert({ mes: "消息一出，休想滚动屏幕[移动终端]！" });
     },
@@ -249,6 +285,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-
-</style>
+<style lang="less"></style>

@@ -9,6 +9,8 @@ import { Slider, SliderItem } from "./Slide";
 import ActionSheet from "./Actionsheet";
 import Keyboard from "./Keyboard";
 import CitySelect from "./CitySelect"
+import { Tab, TabPanel } from "./Tab";
+
 // import CaiLink from './CaiLink'
 // import CaiAlert from './CaiAlert'
 // import message from './CaiMessage'
@@ -27,7 +29,8 @@ const components = [
   SliderItem,
   ActionSheet,
   Keyboard,
-  CitySelect
+  CitySelect,
+  Tab, TabPanel
   // CaiIcon,
   // CaiLink,
   // CaiAlert,

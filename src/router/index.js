@@ -5,6 +5,8 @@ import List from "../views/List.vue";
 import CardList from "../views/CardList.vue";
 import NavBar from "../views/NavBar.vue";
 import Layout from "../views/Layout.vue";
+import Scrolltab from "../views/Scrolltab.vue";
+import Popup from "../views/Popup.vue";
 
 Vue.use(VueRouter);
 
@@ -13,7 +15,9 @@ const routeList = [
   {name: "layout", component: Layout},
   {name: "list", component: List},
   {name: "navbar", component: NavBar},
-  {name: "clist", component: CardList}
+  {name: "clist", component: CardList},
+  {name: "scrolltab", component: Scrolltab},
+  {name: "popup", component: Popup}
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 

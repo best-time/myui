@@ -8,17 +8,10 @@ import { Alert, Loading, Notify, Toast, Confirm } from "./Dialog";
 import { Slider, SliderItem } from "./Slide";
 import ActionSheet from "./Actionsheet";
 import Keyboard from "./Keyboard";
-import CitySelect from "./CitySelect"
+import CitySelect from "./CitySelect";
 import { Tab, TabPanel } from "./Tab";
-
-// import CaiLink from './CaiLink'
-// import CaiAlert from './CaiAlert'
-// import message from './CaiMessage'
-// import CaiRadio from './CaiRadio'
-// import CaiCheckbox from './CaiCheckbox'
-// import CaiDivider from './CaiDivider'
-// import CaiDrawer from './CaiDrawer'
-// import CaiLoading from './CaiLoading'
+import { ScrollTab, ScrollTabPanel } from "./ScrollTab";
+import Popup from "./Popup";
 
 const components = [
   Button,
@@ -30,15 +23,11 @@ const components = [
   ActionSheet,
   Keyboard,
   CitySelect,
-  Tab, TabPanel
-  // CaiIcon,
-  // CaiLink,
-  // CaiAlert,
-  // CaiRadio,
-  // CaiCheckbox,
-  // CaiDivider,
-  // CaiDrawer,
-  // CaiLoading
+  Tab,
+  TabPanel,
+  ScrollTab,
+  ScrollTabPanel,
+  Popup
 ];
 
 // 定义install方法，接收一个vue参数

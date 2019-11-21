@@ -79,7 +79,7 @@ export default {
     },
     provance: String,
     city: String,
-    area: String,
+    arec: String,
     done: Function,
     title: {
       type: String,

@@ -3,13 +3,13 @@
     <Button size="large" type="primary" @click.native="show1 = true">
       中间弹出
     </Button>
-    <Button size="large" type="warning" @click.native="show2 = true">
+    <Button size="large" type="success" @click.native="show2 = true">
       下部弹出
     </Button>
-    <Button size="large" type="danger" @click.native="show3 = true">
+    <Button size="large" type="error" @click.native="show3 = true">
       左侧弹出
     </Button>
-    <Button size="large" type="danger" @click.native="show4 = true">
+    <Button size="large" type="error" @click.native="show4 = true">
       右侧弹出
     </Button>
 
@@ -50,13 +50,13 @@
     </popup>
 
     <popup v-model="show3" position="left" width="60%">
-      <Button type="danger" style="margin: 20px;" @click.native="show3 = false">
+      <Button type="primary" style="margin: 20px;" @click.native="show3 = false">
         Close Left Popup
       </Button>
     </popup>
 
     <popup v-model="show4" position="right">
-      <Button type="danger" style="margin: 20px;" @click.native="show4 = false">
+      <Button type="primary" style="margin: 20px;" @click.native="show4 = false">
         Close Right Popup
       </Button>
     </popup>

@@ -7,6 +7,7 @@ import NavBar from "../views/NavBar.vue";
 import Layout from "../views/Layout.vue";
 import Scrolltab from "../views/Scrolltab.vue";
 import Popup from "../views/Popup.vue";
+import SendCode from "../views/SendCode.vue";
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,8 @@ const routeList = [
   {name: "navbar", component: NavBar},
   {name: "clist", component: CardList},
   {name: "scrolltab", component: Scrolltab},
-  {name: "popup", component: Popup}
+  {name: "popup", component: Popup},
+  {name: "sendcode", component: SendCode}
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 

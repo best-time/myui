@@ -12,6 +12,8 @@ import CitySelect from "./CitySelect";
 import { Tab, TabPanel } from "./Tab";
 import { ScrollTab, ScrollTabPanel } from "./ScrollTab";
 import Popup from "./Popup";
+import { RollNotice, RollNoticeItem } from "./Rollnotice";
+import { Accordion, AccordionItem } from "./Accordion";
 
 const components = [
   Button,
@@ -27,7 +29,9 @@ const components = [
   TabPanel,
   ScrollTab,
   ScrollTabPanel,
-  Popup
+  Popup,
+  RollNotice, RollNoticeItem,
+  Accordion, AccordionItem
 ];
 
 // 定义install方法，接收一个vue参数

@@ -69,7 +69,7 @@
     <br />
     <br />
     <br />
-  <h2>tab</h2>
+    <h2>tab</h2>
     <tab class="demo-small-pitch" :change="tabChange">
       <tab-panel label="选项一" tabkey="1"
         >土地是以它的肥沃和收获而被估价的；才能也是土地，不过它生产的不是粮食，而是真理。如果只能滋生瞑想和幻想的话，即使再大的才能也只是砂地或盐池，那上面连小草也长不出来的。</tab-panel
@@ -77,8 +77,12 @@
       <tab-panel label="选项二" tabkey="2" active
         >我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。</tab-panel
       >
-      <tab-panel label="选项三" tabkey="3">时间是一切财富中最宝贵的财富。</tab-panel>
-      <tab-panel label="选项四" tabkey="4">真理惟一可靠的标准就是永远自相符合。</tab-panel>
+      <tab-panel label="选项三" tabkey="3"
+        >时间是一切财富中最宝贵的财富。</tab-panel
+      >
+      <tab-panel label="选项四" tabkey="4"
+        >真理惟一可靠的标准就是永远自相符合。</tab-panel
+      >
     </tab>
     <br />
     <br />
@@ -98,6 +102,57 @@
     <cityselect v-model="show5" :done="result1" :items="district"></cityselect>
 
     <br />
+    <br />
+    <div class="demo-rollnotice">
+      <span class="itm">快报</span>
+      <rollnotice autoplay="2000">
+        <rollnotice-item
+          ><span style="color:#F00;">&nbsp;荐&nbsp;</span>荣耀V9
+          3月超级钜惠！</rollnotice-item
+        >
+        <rollnotice-item
+          ><span style="color:#F00;">&nbsp;荐&nbsp;</span
+          >3.23京东超级品牌日格力盛典</rollnotice-item
+        >
+        <rollnotice-item
+          ><span style="color:#F00;">&nbsp;荐&nbsp;</span>京东服饰
+          早春新品低至7折</rollnotice-item
+        >
+      </rollnotice>
+    </div>
+
+    <accordion class="demo-small-pitch">
+      <accordion-item title="李白《月下独酌》" open>
+        <div style="padding: .24rem;">
+          <p>花间一壶酒，独酌无相亲。</p>
+          <p>举杯邀明月，对影成三人。</p>
+          <p>月既不解饮，影徒随我身。</p>
+          <p>暂伴月将影，行乐须及春。</p>
+          <p>我歌月徘徊，我舞影零乱。</p>
+          <p>醒时同交欢，醉后各分散。</p>
+          <p>永结无情游，相期邈云汉。</p>
+        </div>
+      </accordion-item>
+      <accordion-item title="杜甫《望岳》">
+        <div style="padding: .24rem;">
+          <p>岱宗夫如何，齐鲁青未了。</p>
+          <p>造化钟神秀，阴阳割昏晓。</p>
+          <p>荡胸生层云，决眦入归鸟。</p>
+          <p>会当凌绝顶，一览众山小。</p>
+        </div>
+      </accordion-item>
+      <accordion-item title="王维《青溪》">
+        <div style="padding: .24rem;">
+          <p>言入黄花川，每逐青溪水。</p>
+          <p>随山将万转，趣途无百里。</p>
+          <p>声喧乱石中，色静深松里。</p>
+          <p>漾漾泛菱荇，澄澄映葭苇。</p>
+          <p>我心素已闲，清川澹如此。</p>
+          <p>请留盘石上，垂钓将已矣。</p>
+        </div>
+      </accordion-item>
+    </accordion>
+
     <br />
     <br />
     <Button @click.native="show1 = true">带取消</Button>
@@ -182,7 +237,7 @@ export default {
   },
   methods: {
     tabChange(label, tabkey) {
-      console.log(label, tabkey, 'tab-change')
+      console.log(label, tabkey, "tab-change");
     },
     result1(ret) {
       console.log(ret);
@@ -285,4 +340,17 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.demo-rollnotice {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 0 12px;
+  img,
+  .itm {
+    width: 73px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}
+</style>

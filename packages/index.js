@@ -1,3 +1,4 @@
+import "./styles/common/reset.less"
 /**
  * 处理所有组件全局install
  */
@@ -14,6 +15,9 @@ import { ScrollTab, ScrollTabPanel } from "./ScrollTab";
 import Popup from "./Popup";
 import { RollNotice, RollNoticeItem } from "./Rollnotice";
 import { Accordion, AccordionItem } from "./Accordion";
+import InfiniteScroll from "./Infinitescroll"
+import PullRefresh from "./Pullfresh"
+import { ListItem, ListOther, ListTheme  } from "./List"
 
 const components = [
   Button,
@@ -31,7 +35,10 @@ const components = [
   ScrollTabPanel,
   Popup,
   RollNotice, RollNoticeItem,
-  Accordion, AccordionItem
+  Accordion, AccordionItem,
+  InfiniteScroll,
+  PullRefresh,
+  ListItem, ListOther, ListTheme
 ];
 
 // 定义install方法，接收一个vue参数

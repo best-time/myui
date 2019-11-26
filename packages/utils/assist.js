@@ -1,4 +1,4 @@
-export const pCls = "y"
+export const pCls = "y";
 
 export const oneOf = arr => {
   const set = new Set(arr);
@@ -35,14 +35,20 @@ export const isColor = function(value) {
   return colorReg.test(value) || rgbaReg.test(value) || rgbReg.test(value);
 };
 
-export const getScrollview = function (el) {
+export const getScrollview = function(el) {
   let currentNode = el;
-  while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
-      let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
-      if (overflowY === 'scroll' || overflowY === 'auto') {
-          return currentNode;
-      }
-      currentNode = currentNode.parentNode;
+  while (
+    currentNode &&
+    currentNode.tagName !== "HTML" &&
+    currentNode.tagName !== "BODY" &&
+    currentNode.nodeType === 1
+  ) {
+    let overflowY = document.defaultView.getComputedStyle(currentNode)
+      .overflowY;
+    if (overflowY === "scroll" || overflowY === "auto") {
+      return currentNode;
+    }
+    currentNode = currentNode.parentNode;
   }
   return window;
 };
@@ -79,28 +85,30 @@ export const scrollTop = function(el, from = 0, to, duration = 500) {
   scroll(from, to, step);
 };
 
-export const isIOS = !!(window.navigator && window.navigator.userAgent || '').match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+export const isIOS = !!(
+  (window.navigator && window.navigator.userAgent) ||
+  ""
+).match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 
-export const pageScroll = (function () {
-  const fn = function (e) {
-      e.preventDefault();
-      e.stopPropagation();
+export const pageScroll = (function() {
+  const fn = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
   };
   let islock = false;
 
   return {
-      lock: function () {
-          if (islock) return;
-          islock = true;
-          document.addEventListener('touchmove', fn, { passive: false }); // 解决chrome报错
-      },
-      unlock: function () {
-          islock = false;
-          document.removeEventListener('touchmove', fn, { passive: false });
-      }
+    lock: function() {
+      if (islock) return;
+      islock = true;
+      document.addEventListener("touchmove", fn, { passive: false }); // 解决chrome报错
+    },
+    unlock: function() {
+      islock = false;
+      document.removeEventListener("touchmove", fn, { passive: false });
+    }
   };
 })();
-
 
 export const isSupportTouch = () => {
   const supportTouch =
@@ -112,4 +120,4 @@ export const isSupportTouch = () => {
       );
     })();
   return supportTouch;
-}
+};

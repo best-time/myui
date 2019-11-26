@@ -8,6 +8,8 @@ import Layout from "../views/Layout.vue";
 import Scrolltab from "../views/Scrolltab.vue";
 import Popup from "../views/Popup.vue";
 import SendCode from "../views/SendCode.vue";
+import Infinitescroll from "../views/Infinitescroll.vue";
+import Pullrefresh from "../views/Pullrefresh.vue";
 
 Vue.use(VueRouter);
 
@@ -19,7 +21,10 @@ const routeList = [
   {name: "clist", component: CardList},
   {name: "scrolltab", component: Scrolltab},
   {name: "popup", component: Popup},
-  {name: "sendcode", component: SendCode}
+  {name: "sendcode", component: SendCode},
+  {name: "infinite", component: Infinitescroll},
+  {name: "pullrefresh", component: Pullrefresh}
+  
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 

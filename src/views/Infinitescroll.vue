@@ -109,15 +109,16 @@ export default {
         const _list = this.list // response.body;
 
           this.list = [...this.list, ..._list];
-
-          if (_list.length < this.pageSize || this.page >= 4) {
+console.log(123)
+// _list.length < this.pageSize || 
+          if (this.page >= 4) {
             // 所有数据加载完毕
             this.$refs.lsdemo.$emit("infinitescroll.loadedDone");
             return;
           }
 
           // 单次请求数据完毕
-          this.$refs.lsdemo.$emit("infinitescroll.finishLoad");
+            this.$refs.lsdemo.$emit("infinitescroll.finishLoad");
 
           this.page++;
       }, 1500)

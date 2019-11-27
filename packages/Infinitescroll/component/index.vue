@@ -38,6 +38,12 @@ export default {
       }
     }
   },
+  mounted() {
+    this.$nextTick(this.init);
+  },
+  destroyed() {
+    this.scrollview.removeEventListener("scroll", this.throttledCheck);
+  },
   methods: {
     init() {
       this.scrollview = getScrollview(this.$el);
@@ -63,6 +69,7 @@ export default {
 
       const scrollview = this.scrollview;
       const contentHeight = document.body.offsetHeight;
+      // 滚动区离顶部距离
       const offsetTop =
         scrollview == window ? 0 : scrollview.getBoundingClientRect().top;
 
@@ -80,7 +87,7 @@ export default {
         Math.floor(this.$refs.tag.getBoundingClientRect().top) - 1;
       const distance =
         !!this.distance && this.distance > 0
-          ? ~~this.distance
+          ? ~~this.distance // 取整
           : Math.floor(contentHeight / 10);
 
       if (
@@ -93,7 +100,7 @@ export default {
       }
     },
     throttle(method, context) {
-      clearTimeout(method.tId);
+      method.tId && clearTimeout(method.tId);
       method.tId = setTimeout(() => {
         method.call(context);
       }, 50);
@@ -101,12 +108,6 @@ export default {
     throttledCheck() {
       this.throttle(this.scrollHandler);
     }
-  },
-  mounted() {
-    this.$nextTick(this.init);
-  },
-  destroyed() {
-    this.scrollview.removeEventListener("scroll", this.throttledCheck);
   }
 };
 </script>

@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script type="text/babel">
+<script>
 import { getScrollview } from "../../utils/assist";
 
 export default {
@@ -66,6 +66,15 @@ export default {
       },
       limitSpeed: 0
     };
+  },
+  
+  mounted() {
+    this.scrollview = getScrollview(this.$el);
+
+    this.$nextTick(this.init);
+  },
+  beforeDestroy() {
+    this.unbindEvents();
   },
   methods: {
     init() {
@@ -229,14 +238,6 @@ export default {
         dragTip.loadingIcon = "";
       }, 150);
     }
-  },
-  mounted() {
-    this.scrollview = getScrollview(this.$el);
-
-    this.$nextTick(this.init);
-  },
-  beforeDestroy() {
-    this.unbindEvents();
   }
 };
 </script>

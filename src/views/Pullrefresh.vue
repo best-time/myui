@@ -90,8 +90,8 @@ export default {
                 : "已是最新内容"
           });
 
-          this.$refs.prdemo.$emit("pullrefresh.finishLoad");
-
+            this.$refs.prdemo.$emit("pullrefresh.finishLoad");
+            
           this.page++;
       }, 1500)
     }

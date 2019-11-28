@@ -10,6 +10,7 @@ import Popup from "../views/Popup.vue";
 import SendCode from "../views/SendCode.vue";
 import Infinitescroll from "../views/Infinitescroll.vue";
 import Pullrefresh from "../views/Pullrefresh.vue";
+import Lightbox from "../views/Lightbox.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +24,9 @@ const routeList = [
   {name: "popup", component: Popup},
   {name: "sendcode", component: SendCode},
   {name: "infinite", component: Infinitescroll},
-  {name: "pullrefresh", component: Pullrefresh}
+  {name: "pullrefresh", component: Pullrefresh},
+  {name: "lightbox", component: Lightbox},
+
   
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))

@@ -1,0 +1,100 @@
+@import "../../styles/index.less";
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: @base-zindex * 1500 + 2;
+  background-color: rgba(0, 0, 0, 1);
+
+  &-head {
+    display: flex;
+    color: #fff;
+    height: 44px;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: @base-zindex * 1500 + 3;
+    background-color: rgba(0, 0, 0, 0.3);
+    transform: translate(0, 0);
+    transition: transform 0.2s;
+    justify-content: space-between;
+    > span {
+      font-size: 12px;
+      padding-left: 12px;
+    }
+    > a {
+      padding-right: 12px;
+      font-size: 13px;
+    }
+  }
+
+  &-img {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    will-change: opacity;
+    transform-origin: center center;
+    transition: cubic-bezier(0.4, 0, 0.22, 1);
+  }
+
+  &-foot {
+    transform: translate(0, 0);
+    transition: transform 0.2s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    z-index: @base-zindex * 1500 + 2;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+  }
+
+  &-scroller {
+    -webkit-overflow-scrolling: touch;
+    max-height: 100px;
+    overflow-y: auto;
+    line-height: 16px;
+  }
+
+  &-up-hide {
+    transform: translate(0, -100%);
+  }
+
+  &-down-hide {
+    transform: translate(0, 100%);
+  }
+
+  &-loading {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    margin-left: -15px;
+    margin-top: -15px;
+  }
+
+  &-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: @base-zindex * 1500 + 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > img {
+      width: 120px;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import "./styles/common/reset.less"
 /**
  * 处理所有组件全局install
+ * http://vue.ydui.org/docs/#/lightbox
  */
 import Button from "./Button";
 import Cell from "./Cell";
@@ -18,6 +19,8 @@ import { Accordion, AccordionItem } from "./Accordion";
 import InfiniteScroll from "./Infinitescroll"
 import PullRefresh from "./Pullfresh"
 import { ListItem, ListOther, ListTheme  } from "./List"
+import { LightBox, LightBoxImg, LightBoxText } from "./Lightbox"
+import Textarea from "./Textarea"
 
 const components = [
   Button,
@@ -38,7 +41,9 @@ const components = [
   Accordion, AccordionItem,
   InfiniteScroll,
   PullRefresh,
-  ListItem, ListOther, ListTheme
+  ListItem, ListOther, ListTheme,
+  LightBox, LightBoxImg, LightBoxText,
+  Textarea
 ];
 
 // 定义install方法，接收一个vue参数

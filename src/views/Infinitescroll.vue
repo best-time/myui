@@ -109,7 +109,6 @@ export default {
         const _list = this.list // response.body;
 
           this.list = [...this.list, ..._list];
-console.log(123)
 // _list.length < this.pageSize || 
           if (this.page >= 4) {
             // 所有数据加载完毕

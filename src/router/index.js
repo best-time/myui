@@ -11,6 +11,9 @@ import SendCode from "../views/SendCode.vue";
 import Infinitescroll from "../views/Infinitescroll.vue";
 import Pullrefresh from "../views/Pullrefresh.vue";
 import Lightbox from "../views/Lightbox.vue";
+import Switch from "../views/Switch.vue";
+import Skeleton from "../views/Skeleton.vue";
+import Timeline from "../views/Timeline.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +29,9 @@ const routeList = [
   {name: "infinite", component: Infinitescroll},
   {name: "pullrefresh", component: Pullrefresh},
   {name: "lightbox", component: Lightbox},
+  {name: "switch", component: Switch},
+  {name: "skeleton", component: Skeleton},
+  {name: "timeline", component: Timeline},
 
   
 ]

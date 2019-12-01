@@ -21,6 +21,8 @@ import PullRefresh from "./Pullfresh"
 import { ListItem, ListOther, ListTheme  } from "./List"
 import { LightBox, LightBoxImg, LightBoxText } from "./Lightbox"
 import Textarea from "./Textarea"
+import { TimeLine, TimeLineItem } from "./Timeline"
+
 
 const components = [
   Button,
@@ -43,7 +45,8 @@ const components = [
   PullRefresh,
   ListItem, ListOther, ListTheme,
   LightBox, LightBoxImg, LightBoxText,
-  Textarea
+  Textarea,
+  TimeLine, TimeLineItem
 ];
 
 // 定义install方法，接收一个vue参数

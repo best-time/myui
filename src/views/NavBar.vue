@@ -13,6 +13,59 @@
             <span>右侧内容</span>
         </div>
     </header>
+
+
+
+
+
+        <navbar slot="navbar" title="NavBar">
+            <router-link to="/asidebar" slot="left">
+                <navbar-back-icon></navbar-back-icon>
+            </router-link>
+        </navbar>
+
+        <navbar title="NavBar1" class="demo-small-pitch"></navbar>
+
+        <navbar title="NavBar2" class="demo-small-pitch">
+            <router-link to="/asidebar" slot="left">
+                <navbar-back-icon></navbar-back-icon>
+            </router-link>
+
+            <router-link to="/asidebar" slot="right">
+                <navbar-next-icon></navbar-next-icon>
+            </router-link>
+        </navbar>
+
+        <navbar class="demo-small-pitch">
+            <router-link to="/asidebar" slot="left">
+                <navbar-back-icon>返回</navbar-back-icon>
+            </router-link>
+
+            <img slot="center" src="http://static.ydcss.com/www/img/logo.png">
+
+            <router-link to="/asidebar" slot="right">
+                <navbar-next-icon>前进</navbar-next-icon>
+            </router-link>
+        </navbar>
+
+        <navbar title="什么鬼，这个标题怎么那么长啊" class="demo-small-pitch">
+            <router-link to="/asidebar" slot="left">
+                <icon name="home-outline" size="18px" color="#666"></icon>
+            </router-link>
+            <router-link to="/asidebar" slot="right">
+                <icon name="share1" size="18px" color="#666"></icon>
+            </router-link>
+            <router-link to="/asidebar" slot="right">
+                <icon name="share1" size="18px" color="#666"></icon>
+            </router-link>
+            <router-link to="/asidebar" slot="right">
+                <icon name="share1" size="18px" color="#666"></icon>
+            </router-link>
+        </navbar>
+
+        <navbar title="Props可修改边框颜色啦~" class="demo-small-pitch" border-color="#337EF6" bgcolor="#FCCECD"></navbar>
+
+
   </div>
 </template>
 
@@ -138,6 +191,11 @@ export default {
 
 .next-icon:before {
   content: '\e608';
+}
+
+
+.demo-small-pitch {
+  margin-top: 20px;
 }
 
 </style>

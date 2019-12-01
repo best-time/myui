@@ -14,6 +14,7 @@ import Lightbox from "../views/Lightbox.vue";
 import Switch from "../views/Switch.vue";
 import Skeleton from "../views/Skeleton.vue";
 import Timeline from "../views/Timeline.vue";
+import Select from "../views/Select.vue";
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,7 @@ const routeList = [
   {name: "switch", component: Switch},
   {name: "skeleton", component: Skeleton},
   {name: "timeline", component: Timeline},
+  {name: "select", component: Select},
 
   
 ]

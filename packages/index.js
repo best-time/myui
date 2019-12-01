@@ -5,6 +5,7 @@ import "./styles/common/reset.less"
  */
 import Button from "./Button";
 import Cell from "./Cell";
+import { CellItem, CellGroup } from "./Cel"
 import { GridsItem, GridsGroup } from "./Grid";
 import { Alert, Loading, Notify, Toast, Confirm } from "./Dialog";
 import { Slider, SliderItem } from "./Slide";
@@ -22,11 +23,14 @@ import { ListItem, ListOther, ListTheme  } from "./List"
 import { LightBox, LightBoxImg, LightBoxText } from "./Lightbox"
 import Textarea from "./Textarea"
 import { TimeLine, TimeLineItem } from "./Timeline"
+import { NavBar, NavBarBackIcon, NavBarNextIcon } from "./Navbar"
+import { Radio, RadioGroup } from "./Radio"
 
 
 const components = [
   Button,
   Cell,
+  CellItem, CellGroup,
   GridsItem,
   GridsGroup,
   Slider,
@@ -46,7 +50,9 @@ const components = [
   ListItem, ListOther, ListTheme,
   LightBox, LightBoxImg, LightBoxText,
   Textarea,
-  TimeLine, TimeLineItem
+  TimeLine, TimeLineItem,
+  NavBar, NavBarBackIcon, NavBarNextIcon,
+  Radio, RadioGroup
 ];
 
 // 定义install方法，接收一个vue参数

@@ -25,6 +25,7 @@ import Textarea from "./Textarea"
 import { TimeLine, TimeLineItem } from "./Timeline"
 import { NavBar, NavBarBackIcon, NavBarNextIcon } from "./Navbar"
 import { Radio, RadioGroup } from "./Radio"
+import { CheckBox, CheckBoxGroup } from "./Checkbox"
 
 
 const components = [
@@ -52,7 +53,8 @@ const components = [
   Textarea,
   TimeLine, TimeLineItem,
   NavBar, NavBarBackIcon, NavBarNextIcon,
-  Radio, RadioGroup
+  Radio, RadioGroup,
+  CheckBox, CheckBoxGroup
 ];
 
 // 定义install方法，接收一个vue参数

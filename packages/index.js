@@ -3,6 +3,8 @@ import "./styles/common/reset.less"
  * 处理所有组件全局install
  * http://vue.ydui.org/docs/#/lightbox
  */
+
+import {Layout} from "./Layout";
 import Button from "./Button";
 import Cell from "./Cell";
 import { CellItem, CellGroup } from "./Cel"
@@ -26,9 +28,11 @@ import { TimeLine, TimeLineItem } from "./Timeline"
 import { NavBar, NavBarBackIcon, NavBarNextIcon } from "./Navbar"
 import { Radio, RadioGroup } from "./Radio"
 import { CheckBox, CheckBoxGroup } from "./Checkbox"
-
+import { MInput } from "./Input"
+import { ScrollNav, ScrollNavPanel } from "./ScrollNav"
 
 const components = [
+  Layout,
   Button,
   Cell,
   CellItem, CellGroup,
@@ -54,7 +58,9 @@ const components = [
   TimeLine, TimeLineItem,
   NavBar, NavBarBackIcon, NavBarNextIcon,
   Radio, RadioGroup,
-  CheckBox, CheckBoxGroup
+  CheckBox, CheckBoxGroup,
+  MInput,
+  ScrollNav, ScrollNavPanel
 ];
 
 // 定义install方法，接收一个vue参数

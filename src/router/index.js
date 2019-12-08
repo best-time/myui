@@ -15,6 +15,8 @@ import Switch from "../views/Switch.vue";
 import Skeleton from "../views/Skeleton.vue";
 import Timeline from "../views/Timeline.vue";
 import Select from "../views/Select.vue";
+import Input from "../views/Input.vue";
+import ScrollNav from "../views/ScrollNav.vue";
 
 Vue.use(VueRouter);
 
@@ -34,8 +36,10 @@ const routeList = [
   {name: "skeleton", component: Skeleton},
   {name: "timeline", component: Timeline},
   {name: "select", component: Select},
+  {name: "input", component: Input},
+  {name: "scrollNav", component: ScrollNav},
 
-  
+
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 

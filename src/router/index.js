@@ -1,5 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
+
+import baseIndex from "../views/index.vue";
 import Home from "../views/Home.vue";
 import List from "../views/List.vue";
 import CardList from "../views/CardList.vue";
@@ -48,6 +51,11 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: '/index',
+    name: 'baseIndex',
+    component: baseIndex
   },
   ...routeArr,
   {

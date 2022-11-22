@@ -20,6 +20,7 @@ import Timeline from "../views/Timeline.vue";
 import Select from "../views/Select.vue";
 import Input from "../views/Input.vue";
 import ScrollNav from "../views/ScrollNav.vue";
+import dragDemo from "../views/drag/index.vue";
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,7 @@ const routeList = [
   {name: "select", component: Select},
   {name: "input", component: Input},
   {name: "scrollNav", component: ScrollNav},
+  {name: "drag1", component: dragDemo},
 
 
 ]

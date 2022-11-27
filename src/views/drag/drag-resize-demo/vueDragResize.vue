@@ -11,9 +11,11 @@
     @touchstart="bodyDown($event)"
     @touchend="up($event)"
   >
+<!--    内容区 -->
     <div :style="sizeStyle" class="content-container" ref="container">
       <slot></slot>
     </div>
+<!--    边框 拉伸  -->
     <div
       :key="index"
       v-for="(stick, index) in sticks"
@@ -27,34 +29,14 @@
 </template>
 
 <script>
-const styleMapping = {
-  y: {
-    t: "top",
-    m: "marginTop",
-    b: "bottom"
-  },
-  x: {
-    l: "left",
-    m: "marginLeft",
-    r: "right"
-  }
-};
-
-function addEvents(events) {
-  events.forEach((cb, eventName) => {
-    document.documentElement.addEventListener(eventName, cb);
-  });
-}
-
-function removeEvents(events) {
-  events.forEach((cb, eventName) => {
-    document.documentElement.removeEventListener(eventName, cb);
-  });
-}
+import {styleMapping, removeEvents, addEvents} from './util'
+import propsMixin from './props.js';
+import watchMixin from './watch.js';
+import computedMixin from './computed.js';
 
 export default {
   name: "vue-drag-resize",
-
+  mixins: [propsMixin, computedMixin, watchMixin],
   emits: [
     "clicked",
     "dragging",
@@ -64,156 +46,9 @@ export default {
     "activated",
     "deactivated"
   ],
-
-  props: {
-    stickSize: {
-      type: Number,
-      default: 8
-    },
-    parentScaleX: {
-      type: Number,
-      default: 1
-    },
-    parentScaleY: {
-      type: Number,
-      default: 1
-    },
-    isActive: {
-      type: Boolean,
-      default: false
-    },
-    preventActiveBehavior: {
-      type: Boolean,
-      default: false
-    },
-    isDraggable: {
-      type: Boolean,
-      default: true
-    },
-    isResizable: {
-      type: Boolean,
-      default: true
-    },
-    aspectRatio: {
-      type: Boolean,
-      default: false
-    },
-    parentLimitation: {
-      type: Boolean,
-      default: false
-    },
-    snapToGrid: {
-      type: Boolean,
-      default: false
-    },
-    gridX: {
-      type: Number,
-      default: 50,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    gridY: {
-      type: Number,
-      default: 50,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    parentW: {
-      type: Number,
-      default: 0,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    parentH: {
-      type: Number,
-      default: 0,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    w: {
-      type: [String, Number],
-      default: 200,
-      validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
-      }
-    },
-    h: {
-      type: [String, Number],
-      default: 200,
-      validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
-      }
-    },
-    minw: {
-      type: Number,
-      default: 50,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    minh: {
-      type: Number,
-      default: 50,
-      validator(val) {
-        return val >= 0;
-      }
-    },
-    x: {
-      type: Number,
-      default: 0,
-      validator(val) {
-        return typeof val === "number";
-      }
-    },
-    y: {
-      type: Number,
-      default: 0,
-      validator(val) {
-        return typeof val === "number";
-      }
-    },
-    z: {
-      type: [String, Number],
-      default: "auto",
-      validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
-      }
-    },
-    dragHandle: {
-      type: String,
-      default: null
-    },
-    dragCancel: {
-      type: String,
-      default: null
-    },
-    sticks: {
-      type: Array,
-      default() {
-        return ["tl", "tm", "tr", "mr", "br", "bm", "bl", "ml"];
-      }
-    },
-    axis: {
-      type: String,
-      default: "both",
-      validator(val) {
-        return ["x", "y", "both", "none"].indexOf(val) !== -1;
-      }
-    },
-    contentClass: {
-      type: String,
-      required: false,
-      default: ""
-    }
-  },
-
   data() {
     return {
-      fixAspectRatio: null,
+      // fixAspectRatio: null,
       active: null,
       zIndex: null,
       parentWidth: null,
@@ -225,7 +60,6 @@ export default {
       minHeight: null
     };
   },
-
   beforeCreate() {
     this.stickDrag = false;
     this.bodyDrag = false;
@@ -246,47 +80,41 @@ export default {
 
     this.currentStick = null;
   },
-
   mounted() {
     this.parentElement = this.$el.parentNode;
-    this.parentWidth = this.parentW
-      ? this.parentW
-      : this.parentElement.clientWidth;
-    this.parentHeight = this.parentH
-      ? this.parentH
-      : this.parentElement.clientHeight;
+    this.parentWidth = this.parentW || this.parentElement.clientWidth;
+    this.parentHeight = this.parentH || this.parentElement.clientHeight;
 
+    // 默认在左上角
     this.left = this.x;
     this.top = this.y;
-    this.right =
-      this.parentWidth -
-      (this.w === "auto" ? this.$refs.container.scrollWidth : this.w) -
-      this.left;
-    this.bottom =
-      this.parentHeight -
-      (this.h === "auto" ? this.$refs.container.scrollHeight : this.h) -
-      this.top;
+
+    const boxW = this.w === "auto" ? this.$refs.container.scrollWidth : this.w
+    const boxH = this.h === "auto" ? this.$refs.container.scrollHeight : this.h
+    this.right = this.parentWidth - boxW - this.left;
+    this.bottom = this.parentHeight - boxH - this.top;
 
     this.domEvents = new Map([
-      ["mousemove", this.move],
-      ["mouseup", this.up],
-      ["mouseleave", this.up],
-      ["mousedown", this.deselect],
-      ["touchmove", this.move],
-      ["touchend", this.up],
-      ["touchcancel", this.up],
-      ["touchstart", this.up]
+      ["mousedown", this.documentDeselect],
+      ["mousemove", this.documentMove],
+      ["mouseup", this.documentUp],
+      ["mouseleave", this.documentUp],
+
+      ["touchstart", this.documentUp],
+      ["touchmove", this.documentMove],
+      ["touchend", this.documentUp],
+      ["touchcancel", this.documentUp]
     ]);
 
     addEvents(this.domEvents);
 
-    if (this.dragHandle) {
+    if (this.dragHandle) { // 定义应该用于拖动组件的选择器
       [...this.$el.querySelectorAll(this.dragHandle)].forEach(dragHandle => {
         dragHandle.setAttribute("data-drag-handle", this._uid);
       });
     }
 
-    if (this.dragCancel) {
+    if (this.dragCancel) { // 定义应该用于防止拖动初始化的选择器
       [...this.$el.querySelectorAll(this.dragCancel)].forEach(cancelHandle => {
         cancelHandle.setAttribute("data-drag-cancel", this._uid);
       });
@@ -298,18 +126,17 @@ export default {
   },
 
   methods: {
-    deselect() {
+    documentDeselect() {
       if (this.preventActiveBehavior) {
         return;
       }
       this.active = false;
     },
 
-    move(ev) {
+    documentMove(ev) {
       if (!this.stickDrag && !this.bodyDrag) {
         return;
       }
-
       ev.stopPropagation();
 
       const pageX =
@@ -323,12 +150,12 @@ export default {
         x: (dimensionsBeforeMove.pointerX - pageX) / this.parentScaleX,
         y: (dimensionsBeforeMove.pointerY - pageY) / this.parentScaleY
       };
-
+console.log(delta, this.stickDrag, this.bodyDrag, this.axis)
       if (this.stickDrag) {
         this.stickMove(delta);
       }
 
-      if (this.bodyDrag) {
+      if (this.bodyDrag) { // 拖动方向限制
         if (this.axis === "x") {
           delta.y = 0;
         } else if (this.axis === "y") {
@@ -347,50 +174,48 @@ export default {
         this.bodyUp(ev);
       }
     },
+    documentUp(ev) {
+      if (this.stickDrag) {
+        this.stickUp(ev);
+      } else if (this.bodyDrag) {
+        this.bodyUp(ev);
+      }
+    },
 
     bodyDown(ev) {
+      console.log(ev, 'ev')
       const { target, button } = ev;
-
       if (!this.preventActiveBehavior) {
         this.active = true;
       }
-
-      if (button && button !== 0) {
+      if (button && button !== 0) { // 0是主按键,通常为左键或为初始化
         return;
       }
-
       this.$emit("clicked", ev);
-
       if (!this.active) {
         return;
       }
-
       if (
         this.dragHandle &&
         target.getAttribute("data-drag-handle") !== this._uid.toString()
       ) {
         return;
       }
-
       if (
         this.dragCancel &&
         target.getAttribute("data-drag-cancel") === this._uid.toString()
       ) {
         return;
       }
-
       if (typeof ev.stopPropagation !== "undefined") {
         ev.stopPropagation();
       }
-
       if (typeof ev.preventDefault !== "undefined") {
         ev.preventDefault();
       }
-
       if (this.isDraggable) {
         this.bodyDrag = true;
       }
-
       const pointerX =
         typeof ev.pageX !== "undefined" ? ev.pageX : ev.touches[0].pageX;
       const pointerY =
@@ -524,6 +349,7 @@ export default {
       this.dimensionsBeforeMove.height = this.height;
 
       this.aspectFactor = this.width / this.height;
+      console.log(JSON.stringify(this.dimensionsBeforeMove), this.aspectFactor)
     },
 
     stickMove(delta) {
@@ -714,19 +540,15 @@ export default {
 
       return limits;
     },
-
     sideCorrectionByLimit(limit, current) {
       let value = current;
-
       if (limit.min !== null && current < limit.min) {
         value = limit.min;
       } else if (limit.max !== null && limit.max < current) {
         value = limit.max;
       }
-
       return value;
     },
-
     rectCorrectionByLimit(rect) {
       const { limits } = this;
       let { newRight, newLeft, newBottom, newTop } = rect;
@@ -789,172 +611,9 @@ export default {
     }
   },
 
-  computed: {
-    positionStyle() {
-      return {
-        top: this.top + "px",
-        left: this.left + "px",
-        zIndex: this.zIndex
-      };
-    },
-
-    sizeStyle() {
-      return {
-        width: this.w == "auto" ? "auto" : this.width + "px",
-        height: this.h == "auto" ? "auto" : this.height + "px"
-      };
-    },
-
-    vdrStick() {
-      return stick => {
-        const stickStyle = {
-          width: `${this.stickSize / this.parentScaleX}px`,
-          height: `${this.stickSize / this.parentScaleY}px`
-        };
-        stickStyle[styleMapping.y[stick[0]]] = `${this.stickSize /
-          this.parentScaleX /
-          -2}px`;
-        stickStyle[styleMapping.x[stick[1]]] = `${this.stickSize /
-          this.parentScaleX /
-          -2}px`;
-        return stickStyle;
-      };
-    },
-
-    width() {
-      return this.parentWidth - this.left - this.right;
-    },
-
-    height() {
-      return this.parentHeight - this.top - this.bottom;
-    },
-
-    rect() {
-      return {
-        left: Math.round(this.left),
-        top: Math.round(this.top),
-        width: Math.round(this.width),
-        height: Math.round(this.height)
-      };
-    }
-  },
-
-  watch: {
-    active(isActive) {
-      if (isActive) {
-        this.$emit("activated");
-      } else {
-        this.$emit("deactivated");
-      }
-    },
-
-    isActive: {
-      immediate: true,
-      handler(val) {
-        this.active = val;
-      }
-    },
-
-    z: {
-      immediate: true,
-      handler(val) {
-        if (val >= 0 || val === "auto") {
-          this.zIndex = val;
-        }
-      }
-    },
-
-    x: {
-      handler(newVal, oldVal) {
-        if (this.stickDrag || this.bodyDrag || newVal === this.left) {
-          return;
-        }
-
-        const delta = oldVal - newVal;
-
-        this.bodyDown({ pageX: this.left, pageY: this.top });
-        this.bodyMove({ x: delta, y: 0 });
-
-        this.$nextTick(() => {
-          this.bodyUp();
-        });
-      }
-    },
-
-    y: {
-      handler(newVal, oldVal) {
-        if (this.stickDrag || this.bodyDrag || newVal === this.top) {
-          return;
-        }
-
-        const delta = oldVal - newVal;
-
-        this.bodyDown({ pageX: this.left, pageY: this.top });
-        this.bodyMove({ x: 0, y: delta });
-
-        this.$nextTick(() => {
-          this.bodyUp();
-        });
-      }
-    },
-
-    w: {
-      handler(newVal, oldVal) {
-        if (this.stickDrag || this.bodyDrag || newVal === this.width) {
-          return;
-        }
-
-        const stick = "mr";
-        const delta = oldVal - newVal;
-
-        this.stickDown(
-          stick,
-          { pageX: this.right, pageY: this.top + this.height / 2 },
-          true
-        );
-        this.stickMove({ x: delta, y: 0 });
-
-        this.$nextTick(() => {
-          this.stickUp();
-        });
-      }
-    },
-
-    h: {
-      handler(newVal, oldVal) {
-        if (this.stickDrag || this.bodyDrag || newVal === this.height) {
-          return;
-        }
-
-        const stick = "bm";
-        const delta = oldVal - newVal;
-
-        this.stickDown(
-          stick,
-          { pageX: this.left + this.width / 2, pageY: this.bottom },
-          true
-        );
-        this.stickMove({ x: 0, y: delta });
-
-        this.$nextTick(() => {
-          this.stickUp();
-        });
-      }
-    },
-
-    parentW(val) {
-      this.right = val - this.width - this.left;
-      this.parentWidth = val;
-    },
-
-    parentH(val) {
-      this.bottom = val - this.height - this.top;
-      this.parentHeight = val;
-    }
-  }
 };
 </script>
 
 <style lang="less">
-@import "./drag-resize/vue-drag-resize.css";
+@import "../drag-resize/vue-drag-resize.css";
 </style>

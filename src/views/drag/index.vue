@@ -31,49 +31,15 @@
       </li>
     </ul>
 
-    <h1>1111</h1>
-    <div id="app-2">
-      <div class="list" id="list">
-        <VueDragResize v-for="(rect, index) in rects"
-                       :key="index"
-                       :w="rect.width"
-                       :h="rect.height"
-                       :x="rect.left"
-                       :y="rect.top"
-                       :parentW="listWidth"
-                       :parentH="listHeight"
-                       :axis="rect.axis"
-                       :isActive="rect.active"
-                       :minw="rect.minw"
-                       :minh="rect.minh"
-                       :isDraggable="rect.draggable"
-                       :isResizable="rect.resizable"
-                       :parentLimitation="rect.parentLim"
-                       :snapToGrid="rect.snapToGrid"
-                       :aspectRatio="rect.aspectRatio"
-                       :z="rect.zIndex"
-                       :contentClass="rect.class"
-                       v-on:activated="activateEv(index)"
-                       v-on:deactivated="deactivateEv(index)"
-                       v-on:dragging="changePosition($event, index)"
-                       v-on:resizing="changeSize($event, index)"
-        >
-          <div class="filler" :style="{backgroundColor:rect.color}"></div>
-        </VueDragResize>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import Drag from "./drag.vue";
-import VueDragResize from './vueDragResize'
-import {rects} from './config'
 export default {
   name: "App",
   components: {
     Drag,
-    VueDragResize
   },
   data() {
     return {
@@ -104,20 +70,7 @@ export default {
       currMoveIndex: false,
 
 
-      rects,
-      listWidth: 0,
-      listHeight: 0
     };
-  },
-  mounted() {
-    let listEl = document.getElementById('list');
-    this.listWidth = listEl.clientWidth;
-    this.listHeight = listEl.clientHeight;
-
-    window.addEventListener('resize', ()=>{
-      this.listWidth = listEl.clientWidth;
-      this.listHeight = listEl.clientHeight;
-    })
   },
   methods: {
     start(item, index) {
@@ -139,29 +92,6 @@ export default {
       this.currMoveItem = false;
     },
 
-
-    activateEv(index) {
-      // this.$store.dispatch('rect/setActive', {id: index});
-    },
-
-    deactivateEv(index) {
-      // this.$store.dispatch('rect/unsetActive', {id: index});
-    },
-
-    changePosition(newRect, index) {
-
-      // this.$store.dispatch('rect/setTop', {id: index, top: newRect.top});
-      // this.$store.dispatch('rect/setLeft', {id: index, left: newRect.left});
-      // this.$store.dispatch('rect/setWidth', {id: index, width: newRect.width});
-      // this.$store.dispatch('rect/setHeight', {id: index, height: newRect.height});
-    },
-
-    changeSize(newRect, index) {
-      // this.$store.dispatch('rect/setTop', {id: index, top: newRect.top});
-      // this.$store.dispatch('rect/setLeft', {id: index, left: newRect.left});
-      // this.$store.dispatch('rect/setWidth', {id: index, width: newRect.width});
-      // this.$store.dispatch('rect/setHeight', {id: index, height: newRect.height});
-    }
   }
 };
 </script>

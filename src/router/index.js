@@ -22,6 +22,8 @@ import Input from "../views/Input.vue";
 import ScrollNav from "../views/ScrollNav.vue";
 import dragDemo from "../views/drag/index.vue";
 import dragDemo2 from "../views/drag/drag2.vue";
+import tableDemo from "../views/table/index.vue";
+import virtualDemo from "../views/virtualList/demo.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +47,8 @@ const routeList = [
   {name: "scrollNav", component: ScrollNav},
   {name: "drag1", component: dragDemo},
   {name: "drag2", component: dragDemo2},
+  {name: "table", component: tableDemo},
+  {name: "virtual", component: virtualDemo},
 
 
 ]

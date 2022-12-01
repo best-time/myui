@@ -24,6 +24,9 @@ import dragDemo from "../views/drag/index.vue";
 import dragDemo2 from "../views/drag/drag2.vue";
 import tableDemo from "../views/table/index.vue";
 import virtualDemo from "../views/virtualList/demo.vue";
+import lazyDemo from "../views/lazyImg/index.vue";
+import lazyDemo2 from "../views/lazyImg/lazy.vue";
+import lazyDemo3 from "../views/lazyImg/lazy-load.vue";
 
 Vue.use(VueRouter);
 
@@ -49,6 +52,9 @@ const routeList = [
   {name: "drag2", component: dragDemo2},
   {name: "table", component: tableDemo},
   {name: "virtual", component: virtualDemo},
+  {name: "lazy-img", component: lazyDemo},
+  {name: "lazy2", component: lazyDemo2},
+  {name: "lazy3", component: lazyDemo3},
 
 
 ]

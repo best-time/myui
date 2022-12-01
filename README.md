@@ -44,3 +44,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 
 参考: https://juejin.im/post/5dca6118e51d454c3c7549ed
+
+
+[vue-lazyload](https://github.com/hilongjw/vue-lazyload#demo)

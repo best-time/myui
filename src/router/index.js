@@ -27,6 +27,7 @@ import virtualDemo from "../views/virtualList/demo.vue";
 import lazyDemo from "../views/lazyImg/index.vue";
 import lazyDemo2 from "../views/lazyImg/lazy.vue";
 import lazyDemo3 from "../views/lazyImg/lazy-load.vue";
+import test1 from "../views/test/f1.vue";
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,7 @@ const routeList = [
   {name: "lazy-img", component: lazyDemo},
   {name: "lazy2", component: lazyDemo2},
   {name: "lazy3", component: lazyDemo3},
+  {name: "test1", component: test1},
 
 
 ]

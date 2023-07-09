@@ -1,0 +1,16 @@
+力扣
+950. 按递增顺序显示卡牌
+/**
+ * @param {number[]} deck
+ * @return {number[]}
+ */
+var deckRevealedIncreasing = function(deck) {
+    deck.sort((a, b) => a - b)
+    let res = [deck.pop()]
+    while(deck.length) {
+        res.unshift(deck.pop(), res.pop())
+        // res.unshift(res.pop())
+        // res.unshift(deck.pop())
+    }
+    return res
+};

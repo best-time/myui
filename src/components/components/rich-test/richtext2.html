@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>简易富文本编辑器</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--    <link rel="shortcut icon" href="./icons/favicon.ico" />-->
+    <link rel="stylesheet" href="./css/richtext.css" />
+  </head>
+  <body>
+  <p id="p-box" data-n="nn" class="ddd">Example: <i>italic</i> and <b>bold</b></p>
+  <p id="p-box2">Example: <i>italic</i> and <b>bold</b></p>
+    <div class="container">
+      <h1 style="text-align: center; margin: 5px 0">简易富文本编辑器</h1>
+      <button class="editor-editable btn" id="editable">只展示</button>
+      <div class="commandZone" id="commandZone"></div>
+      <div class="editor-container" id="editor" contenteditable="true"></div>
+      <br />
+      <br />
+      <br />
+      <h2>contenteditable="true"</h2>
+      <div
+        class="editor-container"
+        contenteditable="true"
+        style="margin-top: 20px"
+      >
+        这是另一个富文本框，只要设置<code>contenteditable="true"</code>即可编辑
+      </div>
+    </div>
+  </body>
+  <script src="js/richtext2.js"></script>
+  <script>
+    function setElementRange() {
+
+      let p = document.getElementById('p-box')
+      let range = new Range()
+
+      range.setStart(p, 0)
+      range.setEnd(p, 2)
+
+
+      // 范围的 toString 以文本形式返回其内容（不带标签）
+      // alert(range) // Example: italic
+      console.log(range) // Range{...}
+
+      // 将此范围应用于文档选择（后文有解释）
+      document.getSelection().addRange(range)
+    }
+    setElementRange()
+
+    function setTextRange() {
+      let p = document.getElementById('p-box2')
+      let range = new Range()
+      range.setStart(p.firstChild, 2);
+      range.setEnd(p.querySelector('b').firstChild, 3);
+      document.getSelection().addRange(range)
+    }
+    setTextRange()
+  </script>
+</html>

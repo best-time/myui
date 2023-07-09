@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>data-cache</title>
+  </head>
+  <body>
+    <p>demo1</p>
+    <pre>
+
+    // 缺点: 因为如果考虑同时两个以上的调用此 api，会因为请求未返回而进行第二次请求api
+
+    const dataCache = new Map()
+
+    async getWares() {
+        let key = 'wares'
+        // 从data 缓存中获取 数据
+        let data = dataCache.get(key)
+        if (!data) {
+            // 没有数据请求服务器
+            const res = await request.get('/getWares')
+
+            // 其他操作
+            ...
+            data = ...
+
+            // 设置数据缓存
+            dataCache.set(key, data)
+
+        }
+        return data
+    }
+    </pre
+    >
+
+
+    <p>demo2</p>
+    <pre>
+        const promiseCache = new Map()
+
+        getWares() {
+            const key = 'wares'
+            let promise = promiseCache.get(key);
+            // 当前promise缓存中没有 该promise
+            if (!promise) {
+                promise = request.get('/getWares').then(res => {
+                    // 对res 进行操作
+                    ...
+                }).catch(error => {
+                    // 在请求回来后，如果出现问题，把promise从cache中删除 以避免第二次请求继续出错S
+                    promiseCache.delete(key)
+                    return Promise.reject(error)
+                })
+                promiseCache.set(key, promise)
+            }
+            // 返回promise
+            return promise
+        }
+    </pre>
+  </body>
+</html>

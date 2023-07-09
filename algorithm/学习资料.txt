@@ -1,0 +1,35 @@
+资料路径及路径
+1.数据结构与算法（c语言）
+教程地址：https://www.bilibili.com/video/BV1nJ411V7bd?p=1&vd_source=cf0dba16201d3dd83b1c9829add4a961
+
+2.数据结构与算法（Java）
+教程地址：https://www.bilibili.com/video/BV1E4411H73v/?spm_id_from=333.337.search-card.all.click
+
+3.数据结构与算法（javascript）
+教程地址：https://www.bilibili.com/video/BV1x7411L7Q7?p=1
+
+4.《代码随想录》LeetCode 刷题攻略
+github：https://github.com/youngyangyang04/leetcode-master
+官网：https://programmercarl.com/other/xunlianying.html
+
+5.AmosCloud Wiki 华为OD机试真题
+网址：https://wiki.amoscloud.com/zh/ProgramingPractice/NowCoder/Adecco/Index
+
+6. 刷题
+【建议的刷题顺序】
+求稳刷题顺序： 滑窗，前缀和，hash，差分 -> 单调栈，并查集  -> DFS，BFS -> 字符串 -> 贪心 -> 动态规划
+快赢刷题顺序（按题型热度来的，可投入时间少的建议这个）：排序 > 字符串 > DFS/BFS > 滑窗 > 双指针 > 二分法
+其中，排序、字符串是基础，第1、2、3题都可能会考。
+
+机考经验总结：https://www.nowcoder.com/discuss/835466
+OJ（内网）：http://oj.rnd.huawei.com/problems/all
+牛客网题库：https://www.nowcoder.com/
+机考题库1：https://www.nowcoder.com/ta/huawei
+机考题库2：https://www.nowcoder.com/exam/oj/ta?tpId=37
+一星题库（Java）：http://www.amoscloud.com/?cat=57
+b站部分算法题教程：
+Java 推荐Up: https://space.bilibili.com/9880352
+Python 推荐Up1: https://www.bilibili.com/video/BV1Ct4y1a72S
+Python 推荐Up2: https://www.bilibili.com/video/BV1sy4y1q79M
+JS 推荐Up：https://www.bilibili.com/video/BV1wA411b7qZ
+

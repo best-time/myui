@@ -11,12 +11,12 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.4.0",
-    "element-plus": "^2.3.7",
+    "element-plus": "2.3.7",
     "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
     "unplugin-element-plus": "^0.7.1",
-    "vue": "^3.2.47",
-    "vue-router": "^4.2.2"
+    "vue": "3.2.47",
+    "vue-router": "4.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",

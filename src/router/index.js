@@ -3,6 +3,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import EntryRoutes from './entry.js'
 import Home from '../views/Home.vue';
 import Vue2 from '../views/vue2.vue';
+import DirectiveDemo from '../views/directive-test.vue';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     path: '/a2',
     name: 'vue2',
     component: Vue2,
+  },
+  {
+    path: '/directive-demo',
+    name: 'directive-demo',
+    component: DirectiveDemo,
   },
 ];
 

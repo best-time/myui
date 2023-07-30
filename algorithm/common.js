@@ -65,3 +65,14 @@ Array.from([1, , 2, , 3], (n) => n || 0)
 function backtracking() {
 
 }
+
+
+// 数组翻转
+function reverseWords(strArr, start, end) {
+    while (start < end) {
+        [strArr[end], strArr[start]] = [strArr[start], strArr[end]]
+        start++;
+        end--;
+    }
+    return strArr
+}

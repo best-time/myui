@@ -446,7 +446,7 @@ function reverseString(resArr = [], start, end) {
     return resArr
 }
 
-console.log(reverseString(('abcdef').split(''), 1, 9))
+// console.log(reverseString(('abcdef').split(''), 1, 9))
 /**
  * @param {string} s
  * @param {number} k
@@ -514,4 +514,63 @@ var replaceSpace = function(s) {
     // 数组转字符串
     return strArr.join('');
 };
-replaceSpace("We are happy.")
+// replaceSpace("We are happy.")
+
+// ----------------------------------------------------------------------------------------------------------------
+
+/*
+字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。
+比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果"cdefgab"。
+
+示例 1：
+输入: s = "abcdefg", k = 2
+输出: "cdefgab"
+
+示例 2：
+输入: s = "lrloseumgh", k = 6
+输出: "umghlrlose"
+
+限制：
+1 <= k < s.length <= 10000
+
+https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+ */
+
+var reverseLeftWords = function(s, n) {
+    const length = s.length;
+    let i = 0;
+    while (i < length - n) { // 把末尾字符往前面添加, 然后截取一个 length 长度
+        s = s[length - 1] + s;
+        i++;
+    }
+    return s.slice(0, length);
+};
+
+// reverseLeftWords('abcdefg', 2)
+
+var reverseLeftWords2 = function (s, n) {
+    /** Utils */
+    function reverseWords(strArr, start, end) {
+        let temp;
+        while (start < end) {
+            // temp = strArr[start];
+            // strArr[start] = strArr[end];
+            // strArr[end] = temp;
+            [strArr[end], strArr[start]] = [strArr[start], strArr[end]]
+            start++;
+            end--;
+        }
+    }
+    /** Main code */
+    let strArr = s.split('');
+    let length = strArr.length;
+    reverseWords(strArr, 0, length - 1); // 整体反转
+    reverseWords(strArr, 0, length - n - 1); // 前 length - n 反转
+    reverseWords(strArr, length - n, length - 1); // length-n length - 1 反转
+    return strArr.join('');
+};
+const res= reverseLeftWords2('abcdefg', 2)
+console.log(res, 573)
+
+
+// KMP 算法

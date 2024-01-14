@@ -4,6 +4,7 @@ import EntryRoutes from './entry.js'
 import Home from '../views/Home.vue';
 import Vue2 from '../views/vue2.vue';
 import DirectiveDemo from '../views/directive-test.vue';
+import DetailDemo from '../views/detail-demo.vue';
 
 const routes = [
   {
@@ -16,10 +17,17 @@ const routes = [
     name: 'vue2',
     component: Vue2,
   },
+    // 指令样例
   {
     path: '/directive-demo',
     name: 'directive-demo',
     component: DirectiveDemo,
+  },
+    // 详情展示组件
+  {
+    path: '/detail-demo',
+    name: 'detail-demo',
+    component: DetailDemo,
   },
 ];
 

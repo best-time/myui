@@ -1,15 +1,13 @@
 {
-  "name": "vue3-learn",
+  "name": "@u/tool",
   "version": "1.0.0",
-  "description": "Vue3源码阅读",
+  "main": "index.js",
   "scripts": {
     "dev": "node scripts/dev.js reactivity -f global"
   },
   "keywords": [
     "Vue.js"
   ],
-  "author": "昆吾kw",
-  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-json": "^4.1.0",
@@ -20,5 +18,8 @@
     "rollup": "^2.76.0",
     "rollup-plugin-typescript2": "^0.32.1",
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^1.6.8"
   }
 }

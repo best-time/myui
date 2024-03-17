@@ -1,2 +1,7 @@
 packages:
+  # 我负责的所有前端项目存储地方
   - 'packages/*'
+  # 公开组件
+  - 'components/**'
+  # api 接口
+  - 'api/**'

@@ -1,70 +1,59 @@
 <template>
 <!--  <el-data-table v-bind="$data" />-->
+  <p><button id="btnTest">Test Button</button></p>
+  <p>Way 1: <el-button id="btn1" type="primary">Way 1 Start</el-button></p>
+  <p>Way 2: <el-button id="btn2" type="primary">Way 2 Start</el-button></p>
+
+  <h2>优雅打开弹窗和关闭</h2>
+  <modal-demo></modal-demo>
+
+  <height-demo></height-demo>
 </template>
-<script>
 
-export default {
-  created() {
+<script setup>
+import {onMounted, nextTick} from 'vue'
 
-  },
-  data() {
-    return {
-      url: 'https://mockapi.eolinker.com/IeZWjzy87c204a1f7030b2a17b00f3776ce0a07a5030a1b/el-data-table?q=basic',
-      columns: [
-        {prop: 'date', label: '日期', align: 'center'},
-        {prop: 'name', label: '姓名'},
-        {prop: 'address', label: '地址'},
-      ],
-      form: [
-        {
-          type: 'input',
-          id: 'name',
-          label: '姓名',
-          rules: [
-            {
-              required: true,
-              message: '请输入姓名',
-              trigger: 'blur',
-              transform: v => v && v.trim()
-            }
-          ],
-          el: {placeholder: '请输入姓名'}
-        },
-      ],
-      searchForm: [
-        {
-          el: {placeholder: '请输入'},
-          label: '姓名',
-          id: 'name',
-          type: 'input'
-        },
-        {
-          el: {placeholder: '请输入',multiple:true},
-          label: '区域',
-          id: 'area',
-          type: 'select',
-          options:[
-            {
-              label:'东区',
-              value:'east',
-            },
-            {
-              label:'南区',
-              value:'south',
-            }
-            ,{
-              label:'西区',
-              value:'west',
-            },
-            {
-              label:'北区',
-              value:'north',
-            }
-          ],
-        }
-      ],
-      hasView: true
+import ModalDemo from './modal/index.vue'
+import HeightDemo from './height.vue'
+
+const listeners = Array.from({length: 400000}, (e, i) => ({
+  eventName: 'click',
+  f: ev => console.log(`${i+1}th binding - ${ev.target.innerHTML} ms`)
+}));
+
+
+const getPrevious = (arr, i) => arr[i-1];
+const getNext = (arr, i) => arr[i];
+
+const vei = {};
+
+const cacheBindEvent = (button = button2) => {
+  for(let i = 1, len = listeners.length; i < len; i++) {
+    const now = getNext(listeners, i);
+    let invoker = vei[now.eventName];
+
+    if(invoker) {
+      invoker.value = now.f;
+      continue;
+    }
+
+    if(!invoker) {
+      invoker = ev => invoker.value(ev);
+      invoker.value = now.f;
+      button.addEventListener(now.eventName, invoker);
+      vei[now.eventName] = invoker;
     }
   }
-}
+};
+
+
+onMounted(() => {
+  console.log(1)
+  nextTick(() => {
+    const button2 = document.querySelector('#btn2');
+
+    cacheBindEvent(button2)
+  })
+})
+
 </script>

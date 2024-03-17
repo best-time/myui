@@ -75,7 +75,6 @@ import img2 from "../assets/scenery_s02.jpg"
 import img3 from "../assets/scenery_s03.jpg"
 import img4 from "../assets/scenery_s04.jpg"
 import img5 from "../assets/scenery_s05.jpg"
-console.log(img1)
 export default {
   data() {
     return {

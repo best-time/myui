@@ -5,6 +5,8 @@ import Home from '../views/Home.vue';
 import Vue2 from '../views/vue2.vue';
 import DirectiveDemo from '../views/directive-test.vue';
 import DetailDemo from '../views/detail-demo.vue';
+import TestDemo from '../views/test/f1.vue';
+import ObserverDemo from '../views/observer/index.vue';
 
 const routes = [
   {
@@ -28,6 +30,16 @@ const routes = [
     path: '/detail-demo',
     name: 'detail-demo',
     component: DetailDemo,
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: TestDemo,
+  },
+  {
+    path: '/observer',
+    name: 'observer',
+    component: ObserverDemo,
   },
 ];
 

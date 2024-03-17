@@ -1,6 +1,4 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+
 
 <template>
 <!--  <div>-->
@@ -14,8 +12,12 @@ import HelloWorld from './components/HelloWorld.vue'
 <!--  <HelloWorld msg="Vite + Vue" />-->
 <!--  <el-button type="primary">111</el-button>-->
 <!--   <img alt="Vue logo" src="./assets/vue.svg" />-->
-  <router-view/>
+  <router-view />
 </template>
+
+<script setup>
+import HelloWorld from './components/HelloWorld.vue'
+</script>
 
 <style scoped>
 .logo {

@@ -7,14 +7,30 @@
   <h2>优雅打开弹窗和关闭</h2>
   <modal-demo></modal-demo>
 
-  <height-demo></height-demo>
+<!--  <height-demo></height-demo>-->
+
+  <h2>-------------------------</h2>
+<!--  <dialog-demo></dialog-demo>-->
+  <div>
+<!--    <el-button @click="clicc"> 点击 2</el-button>-->
+    <el-button @click="openDialog3"> 点击 3</el-button>
+    <el-button @click="openDialog4"> 点击 4</el-button>
+  </div>
+  <div>
+    <modal4-demo></modal4-demo>
+  </div>
 </template>
 
 <script setup>
-import {onMounted, nextTick} from 'vue'
+import {onMounted, nextTick, ref, defineAsyncComponent, render} from 'vue'
 
 import ModalDemo from './modal/index.vue'
 import HeightDemo from './height.vue'
+// import DialogDemo from './modal2/index.vue'
+import useMyDialog from '../../hooks/dialog2'
+
+import Loading from './modal3/index.js'
+import Modal4Demo from './modal4/demo.vue'
 
 const listeners = Array.from({length: 400000}, (e, i) => ({
   eventName: 'click',
@@ -55,5 +71,42 @@ onMounted(() => {
     cacheBindEvent(button2)
   })
 })
+
+// const { show } =   useMyDialog(HeightDemo)
+//
+// const clicc = () => {
+//   show()
+// }
+const title = ref('123')
+const openDialog3 = () => {
+  Loading({
+    mask: true,
+    title: title.value,
+    text:'数据获取中',
+    component: defineAsyncComponent(() => import('./a.vue'))
+  })
+  setTimeout(() => {
+    title.value = '标题变化了'
+  })
+  setTimeout(() => {
+    Loading.close()
+  }, 3000)
+}
+
+const openDialog4 = () => {
+  Loading({
+    mask: true,
+    text:'数据获取中',
+    title: '另外一个弹窗',
+    component: defineAsyncComponent(() => import('./a.vue'))
+  }, 'a')
+  setTimeout(() => {
+    // Loading.close()
+    // console.log(instance)
+    // instance.component.props.title = '修改标题'
+    // instance.component.props.component = defineAsyncComponent(() => import('./b.vue'))
+
+  }, 1000)
+}
 
 </script>

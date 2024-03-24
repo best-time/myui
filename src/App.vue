@@ -13,10 +13,14 @@
 <!--  <el-button type="primary">111</el-button>-->
 <!--   <img alt="Vue logo" src="./assets/vue.svg" />-->
   <router-view />
+  <!-- 全局挂载弹框 -->
+  <dialog-com></dialog-com>
 </template>
 
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import dialogCom from './components/common/dialogCom.vue'
+
 </script>
 
 <style scoped>

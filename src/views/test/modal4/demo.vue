@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <p>modal4</p>
     <el-button type="primary" @click="showDialog">显示提示弹窗</el-button>
   </div>
 </template>

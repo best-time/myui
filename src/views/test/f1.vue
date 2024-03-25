@@ -12,6 +12,7 @@
   <h2>-------------------------</h2>
 <!--  <dialog-demo></dialog-demo>-->
   <div>
+    <p>modal3</p>
 <!--    <el-button @click="clicc"> 点击 2</el-button>-->
     <el-button @click="openDialog3"> 点击 3</el-button>
     <el-button @click="openDialog4"> 点击 4</el-button>
@@ -19,10 +20,17 @@
   <div>
     <modal4-demo></modal4-demo>
   </div>
+  <div class="box2"></div>
+
+  <div>
+    <p>modal5</p>
+    <modal5-demo></modal5-demo>
+  </div>
+
 </template>
 
 <script setup>
-import {onMounted, nextTick, ref, defineAsyncComponent, render} from 'vue'
+import {onMounted, nextTick, ref, defineAsyncComponent, createVNode, render} from 'vue'
 
 import ModalDemo from './modal/index.vue'
 import HeightDemo from './height.vue'
@@ -31,6 +39,8 @@ import useMyDialog from '../../hooks/dialog2'
 
 import Loading from './modal3/index.js'
 import Modal4Demo from './modal4/demo.vue'
+import CC from './c.vue'
+import Modal5Demo from './modal5/index.vue'
 
 const listeners = Array.from({length: 400000}, (e, i) => ({
   eventName: 'click',
@@ -108,5 +118,11 @@ const openDialog4 = () => {
 
   }, 1000)
 }
+
+console.log(createVNode(CC))
+console.log(document.querySelector('.box'))
+onMounted(() => {
+  render(createVNode(CC, {title: '名称1'}), document.querySelector('.box2'))
+})
 
 </script>

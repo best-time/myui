@@ -27,9 +27,16 @@
     <modal5-demo></modal5-demo>
   </div>
 
+  <div>
+    <p>modal7</p>
+    <modal7-demo></modal7-demo>
+  </div>
+  <component1></component1>
+  <a-demo></a-demo>
+
 </template>
 
-<script setup>
+<script setup lang="tsx">
 import {onMounted, nextTick, ref, defineAsyncComponent, createVNode, render} from 'vue'
 
 import ModalDemo from './modal/index.vue'
@@ -41,6 +48,10 @@ import Loading from './modal3/index.js'
 import Modal4Demo from './modal4/demo.vue'
 import CC from './c.vue'
 import Modal5Demo from './modal5/index.vue'
+import Modal7Demo from './modal7/index.vue'
+import {ADemo} from './aa.tsx'
+
+const Component1 = () => <div>Component1123213</div>
 
 const listeners = Array.from({length: 400000}, (e, i) => ({
   eventName: 'click',
@@ -124,5 +135,8 @@ console.log(document.querySelector('.box'))
 onMounted(() => {
   render(createVNode(CC, {title: '名称1'}), document.querySelector('.box2'))
 })
+
+let x: string | number = '123'
+console.log('typescript 变量x: ', x)
 
 </script>

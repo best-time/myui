@@ -13,9 +13,7 @@ export async function createDynamicComponent(instance) {
 
     const close = () => {
         visible.value = false;
-        nextTick(() => {
-            container.remove()
-        })
+        container.remove()
     };
 
     const Comp = await import("./dialog.vue");

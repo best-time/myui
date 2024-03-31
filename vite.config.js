@@ -5,8 +5,24 @@ import Components from 'unplugin-vue-components/vite';
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers';
 import ElementPlus from 'unplugin-element-plus/vite';
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import path, { resolve} from 'path'
+// const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig ({
+  // 别名配置
+  resolve: {
+    alias: {
+      // 键必须以斜线开始和结束
+      '@': resolve(__dirname, './src'),
+      "@assets": resolve(__dirname, "./src/assets"),
+      "@common": resolve(__dirname, "./src/common"),
+      "@utils": resolve(__dirname, "./src/utils"),
+      "@components": resolve(__dirname, "./src/components"),
+      "@styles": resolve(__dirname, "./src/styles"),
+      "@store": resolve(__dirname, "./src/store"),
+      "@views": resolve(__dirname, "./src/views"),
+    },
+  },
   plugins: [
     vue (),
     AutoImport ({

@@ -20,11 +20,13 @@ candidates 中的数字可以无限制重复被选取。
 
 // 无限制重复被选取
 var combinationSum = function(candidates, target) {
-    const res = [], path = [];
+    const res = []
+    const path = [];
+    let sum = 0
     candidates.sort((a,b)=>a-b); // 排序
-    backtracking(0, 0);
+    backtracking(0);
     return res;
-    function backtracking(j, sum) {
+    function backtracking(j) {
         if (sum === target) {
             res.push(Array.from(path));
             return;
@@ -34,9 +36,11 @@ var combinationSum = function(candidates, target) {
             if(n > target - sum) break;
             path.push(n);
             sum += n;
-            backtracking(i, sum);
+            backtracking(i);
             path.pop();
             sum -= n;
         }
     }
 };
+
+console.log(combinationSum([2,3,6,7], 7))

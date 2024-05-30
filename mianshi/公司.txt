@@ -1,0 +1,99 @@
+
+亚新安全 1000 +   东久创新中心
+	mvvm es规范 技术攻坚 性能优化 兼容性适配
+
+千米网 500+  软件大道
+	react react native es2015 module规范  性能 css兼容性
+
+货车之家 100- 500
+	vue
+
+顶象技术 100-499  2月内活跃
+
+亿嘉和  500+  
+	es6 websocket
+
+招商金科 500+  2月内活跃
+
+荣耀终端 1000+
+	css 差异
+
+福富信息 1000+
+	elementUi
+
+安元科技 500
+	web语义化
+
+德锐 100-500
+	css 兼容
+
+端点 500+
+	webpack构建原理 性能分析
+
+满帮工具平台
+
+中汽创智 1000+
+	跨终端
+
+SHEIN
+	框架原理 优化方式 构建工具常用配置 插件机制
+
+金拱门
+	微信小程序 canvas webGl  webpack  微前端
+
+国网电力科学研究院
+
+美的冰箱
+	http协议 跨终端 webpack express/koa
+
+联通智网
+	
+荣耀终端 雨花创新中心B栋15楼
+	swiper.js pixi.js three.js   webpack 
+
+华乘科技  100-500 九龙湖
+	前端leader webpack 团队管理经验
+
+联通数字
+	一定java经验?
+	
+中国联合网络通信有限公司智网
+	react sass less webpack 微前端
+
+慧尔视
+	echarts openlayers web gis 地图类
+
+正大天晴  药科大学附近  远
+	webpack http协议 框架
+
+中国电子系统
+	vue vue-cli vuex vue-router wepback
+
+指掌易	
+	要求不高
+
+米聚互联网
+	electron
+坤湛科技 100-500
+
+机敏软件
+	webpack http协议
+
+360 A栋5楼
+
+vivo
+华为
+
+
+
+// -----------------------已投递
+封疆智能
+shiin
+小溪
+联通智网  no
+趋势科技
+永中软件
+论之语
+福富公司
+
+

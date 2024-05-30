@@ -1,0 +1,181 @@
+## 切换主题(换肤)
+```
+多套样式
+
+vuex 切换  
+缺点: 代码量大  样式不易管理 开发效率低 拓展性差
+
+link 动态加载css文件
+缺点: 重复cv多套文件 没有提取公共样式 需提前知道打包后路径,易引入错误
+
+css变量  兼容性
+body.style.setProperty(key, value)
+css-vars-ponyfill
+
+1. 自定义样式适配
+
+```
+
+```
+<!-- html 节点添加主题自定义属性 -->
+<html data-theme="light">
+  <!-- 使用CSS变量控制样式 -->
+	<body style="background: var(--body-background)"></body>
+</html>
+
+
+// 跟主题无关的变量放到root里
+:root {
+    --border-radius-base: 6px;
+}
+
+// 跟主题相关变量，通过属性选择器提升优先级
+html[data-theme='default']:root {
+    --body-background: #efefef;
+}
+
+html[data-theme='dark']:root {
+    --body-background: #000;
+}
+
+
+```
+
+
+   ```
+2. ui库适配
+   
+   <html data-theme="light"></html>
+   
+   html[data-theme='light'] .ant-button {color: #fff}
+   html[data-theme='dark'] .ant-button {color: #000}
+   
+   
+   ```
+
+3. 动态切换
+
+   ```
+   页面切换主题具体需要从下面三个维度来考虑：
+   
+   系统主题更换
+   页面提供主题切换按钮，用户主动切换
+   通过URL控制当前主题
+   
+   body {
+     background: var(--body-background);
+     transition: background 0.3s;
+   }
+   
+   @media (prefers-color-scheme: light) {
+     :root {
+       --body-background: #efefef;
+       --text-color: #333;
+     }
+   }
+   
+   @media (prefers-color-scheme: dark) {
+     :root {
+       --body-background: #000;
+       --text-color: #ededed;
+     }
+   }
+   
+   
+   # 跟随主题
+   // 给HTML DOM节点添加自定义主题，标识当前主题
+   const toggleTheme = (isDarkMode) => {
+   	const htmlEl = document.documentElement;
+     htmlEl.setAttribute("data-theme", isDarkMode ? "dark" : "light");
+   };
+   
+   const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+   
+   // 页面初始化切换
+   toggleTheme(themeMedia.matches);
+   
+   // 监听系统切换
+   themeMedia.addListener((e) => {
+     toggleTheme(e.matches);
+   });
+   
+   
+   # 按钮切换
+   const buttonEl = document.getElementById("btn");
+   
+   buttonEl.addEventListener("click", () => {
+     const currentTheme = htmlEl.getAttribute("data-theme");
+     const nextTheme = currentTheme === "dark" ? "light" : "dark";
+   
+     htmlEl.setAttribute("data-theme", nextTheme);
+   });
+   
+   # url 切换
+   
+   const search = new URLSearchParams(location.search);
+   const theme = search.get("theme") || "light";
+   
+   document.documentElement.setAttribute("data-theme", theme);
+   
+   
+   webpack 打包  自定义插件
+   
+   // vue.config.js
+		const fs = require("fs");
+		const webpack = require("webpack");
+		
+		// 获取主题文件名
+		const themeFiles = fs.readdirSync("./src/style/theme");
+		let ThemesArr = [];
+		themeFiles.forEach(function (item, index) {
+		  let stat = fs.lstatSync("./src/style/theme/" + item);
+		  if (stat.isDirectory() === true) {
+		    ThemesArr.push(item);
+		  }
+		});
+		
+		module.exports = {
+		  css: {...},
+		  configureWebpack: (config) => {
+		    return {
+		      plugins: [
+		        // 自定义webpack插件
+		        new webpack.DefinePlugin({
+		          THEMEARR: JSON.stringify(ThemesArr),
+		        }),
+		      ],
+		    };
+		  },
+		};
+
+使用
+   
+   // App.vue 
+   mounted() { 
+   	document.getElementsByTagName("body")[0].setAttribute("data-theme", "default"); 
+	},
+	
+	// Home.vue
+		mounted() {
+		  this.themeValue = THEMEARR;
+		  this.currentThemeIndex = this.themeValue.findIndex(
+		    (theme) => theme === "default"
+		  );
+		  this.currentTheme = this.themeValue[this.currentThemeIndex];
+		},
+		methods: {
+		  onConfirm(currentTheme) {
+		    this.currentTheme = currentTheme;
+		    this.showPicker = false;
+		    this.currentThemeIndex = this.themeValue.findIndex(
+		      (theme) => theme === currentTheme
+		    );
+		    document
+		      .getElementsByTagName("body")[0]
+		      .setAttribute("data-theme", THEMEARR[this.currentThemeIndex]);
+		  },
+		}
+   
+   ```
+
+   

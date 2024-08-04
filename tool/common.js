@@ -136,3 +136,67 @@ export const composePromise = function (...args) {
         }, Promise.resolve (init.apply (null, arg)));
     };
 };
+
+
+// 删除提交的查询表单空值属性
+export const deleteEmptyProps = (form, excludeList) => {
+    for (let paramName in form) {
+        if (form.hasOwnProperty(paramName)) {
+            if ((!form[paramName]) && (!excludeList || excludeList && excludeList.indexOf(paramName) < 0)) {
+                delete form[paramName];
+            }
+        }
+    }
+    return form;
+};
+
+
+let isType = type => {
+    return function (value) {
+        return Object.prototype.toString.call(value) === `[object ${type}]`;
+    };
+};
+
+let isObject = isType("Object");
+let isArray = isType("Array");
+
+
+
+
+/**
+ * map转list
+ * {1：启用，2：停用}
+ * 转换为
+ * [
+ *  {value:1,label:'启用’}
+ *  {value:2,label:'停用’}
+ * ]
+ */
+export const mapToList = (map, type = "number", isSort = false) => {
+    let list = []
+    let keyArr = Object.keys(map).sort((a, b) => a - b)
+    keyArr.forEach(key => {
+        list.push({
+            value: type === "number" ? Number(key) : key,
+            label: map[key]
+        })
+    })
+    return list
+}
+/**
+ * list转map
+ * [
+ *  {value:1,label:'启用’}
+ *  {value:2,label:'停用’}
+ * ]
+ * 转换为
+ * {1：启用，2：停用}
+ */
+export const listToMap = (list) => {
+    let map = {}
+    list.forEach(item => {
+        map[item.value] = item.label
+    })
+    return map
+}
+

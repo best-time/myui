@@ -200,3 +200,81 @@ export const listToMap = (list) => {
     return map
 }
 
+const stripHtml = (html) => new DOMParser().parseFromString(html, 'text/html').body.textContent || '';
+
+// stripHtml('<div>test</div>') // 'test'
+// stripHtml('<div>test<i>aaaa</i></div>') // 'testaaaa'
+
+
+function multiply(a, b) {   return a * b;  }
+let double = multiply.bind(null, 2);
+// console.log(double(5)); // 10
+
+
+
+
+
+/**
+   * poolLimit: 并发数
+   * iterable: 并发迭代数组
+   * iteratorFn: 并发执行函数
+   */
+async function asyncPool(poolLimit, iterable, iteratorFn) {
+    //用于保存所有异步请求
+    const ret=[];
+    //用户保存正在进行的请求
+    const executing = new Set();
+    for(const item of iterable) {
+        //构造出请求Promise
+        const p = Promise.resolve().then(() => iteratorFn(item, iterable));
+        ret.push(p);
+        executing.add(p);
+        //请求执行结束后从正在进行的数组中移除
+        const clean = () => executing.delete(p);
+        p.then(clean).catch(clean);
+        //如果正在执行的请求数大于并发数，就使用Promise.race等待一个最快执行完的请求
+        if (executing.size >= poolLimit) {
+            await Promise.race(executing);
+        }
+    }
+    //返回所有结果
+    return Promise.all(ret);
+}
+
+// 使用方法
+const timeout =i=>new Promise(resolve=>setTimeout(()=>resolve(i),i));
+asyncPool(2,[1000,5000,3000,2000],timeout).then(results=>{
+    console.log(results)
+})
+
+
+/*
+Object.getOwnPropertyNames唯一已知的缺点是无法获取以Symbol为名的属性。
+而Object.getOwnPropertySymbols 只能获取以Symbol为名的属性。所以这两个方法是相互补充，一拍即合。
+ */
+function emptyObj(obj) {
+    return Object.getOwnPropertyNames(obj).concat(Object.getOwnPropertySymbols(obj)).length
+}
+
+const a = Symbol()
+const obj1 = {  [a]: 1}
+const obj2 = {b: 2}
+const obj3 = {}
+Object.defineProperty(obj3, 'a', {
+    value: 1,  enumerable: false
+})
+const obj4 = {}
+// console.log(Reflect.ownKeys(obj1).length === 0)  // false
+// console.log(Reflect.ownKeys(obj2).length === 0)  // false
+// console.log(Reflect.ownKeys(obj3).length === 0)  // false
+// console.log(Reflect.ownKeys(obj4).length === 0) // true
+
+
+
+/*
+<template v-for="(_val,name)in $slots" #[name]="options">
+<slot :name="name" v-bind="options || {}"></slot>
+</template>
+
+
+ */

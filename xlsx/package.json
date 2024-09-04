@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "node write.js"
+  },
   "dependencies": {
     "node-xlsx": "^0.24.0"
   }

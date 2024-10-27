@@ -278,3 +278,53 @@ const obj4 = {}
 
 
  */
+
+;(function () {
+    // 将内容复制到剪贴板
+    const copyToClipboard = (content) => {
+        const textarea = document.createElement("textarea")
+
+        textarea.value = content
+        document.body.appendChild(textarea)
+        textarea.select()
+        document.execCommand("Copy")
+        textarea.remove()
+    }
+})()
+;(function () {
+    // 使用URLSearchParams获取URL的搜索参数
+    const getQueryByName = (name) => {
+        const query = new URLSearchParams(location.search)
+        return decodeURIComponent(query.get(name))
+    }
+    // url: https://sunday.com/?name=fatfish&age=100
+    const name = getQueryByName('name') // fatfish
+    const age = getQueryByName('age') // 100
+    const gender = getQueryByName('gender') // null
+})()
+;(function () {
+    // 平滑滚动顶部
+    const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop
+
+        if (c > 0) {
+            window.requestAnimationFrame(scrollToTop)
+            window.scrollTo(0, c - c / 8)
+        }
+    }
+})()
+;(function () {
+    // 获取滚动距离
+    const getScrollPosition = (el = window) => ({
+        x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
+        y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop,
+    })
+
+    getScrollPosition() // { x: 0, y: 215 }
+})()
+;(function () {})()
+;(function () {})()
+;(function () {})()
+;(function () {})()
+;(function () {})()
+;(function () {})()

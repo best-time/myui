@@ -155,3 +155,35 @@ const LazyLoad = {
 }
 
 // export default LazyLoad
+
+
+function loadLazyImg() {
+    const imgNodes = document.querySelectorAll('img')
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+            console.log('/page.tsx [21]--1','entry.isIntersecting',entry.isIntersecting);
+            let lazyImage = entry.target;
+            //视口内赋值src
+            if (entry.isIntersecting && !lazyImage.src) {
+                lazyImage.src = lazyImage.dataset.src;
+                lazyImageObserver.unobserve(lazyImage);
+            }
+        });
+    },{
+        // root:ref.current,//可以指定视口容器，默认是document
+        threshold:0.6,//目标出现在视口内的比例[0-1]
+        rootMargin:'10px'
+    });
+
+    imgNodes.forEach(lazyImage => {
+        //监听每个image node
+        lazyImageObserver.observe(lazyImage);
+    });
+    /*
+    每个img node需要给最小高度或指定高度,不然初始化的时候都会加载导致无法实现懒加载
+root可以指定视口默认document
+threshold目标出现在视口内的比例 [0-1]
+rootMargin目标与视口交集的margin,辅助计算交集的内边距，默认 '0px 0px 0px 0px'
+     */
+}
+

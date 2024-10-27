@@ -8,7 +8,7 @@ import DetailDemo from '../views/detail-demo.vue';
 import TestDemo from '../views/test/f1.vue';
 import ObserverDemo from '../views/observer/index.vue';
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',

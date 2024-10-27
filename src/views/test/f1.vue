@@ -33,7 +33,7 @@
   </div>
   <component1></component1>
   <a-demo></a-demo>
-
+  <p><span id="bb" @click="ccl">点击</span></p>
 </template>
 
 <script setup lang="tsx">
@@ -134,9 +134,23 @@ console.log(createVNode(CC))
 console.log(document.querySelector('.box'))
 onMounted(() => {
   render(createVNode(CC, {title: '名称1'}), document.querySelector('.box2'))
+  document.getElementById('bb').addEventListener('click', function() {
+    console.log(111)
+  })
+
 })
 
 let x: string | number = '123'
 console.log('typescript 变量x: ', x)
 
+const aaa = () => {
+  const a = '123123'
+  console.log(a)
+}
+
+const ccl = () => {
+  console.log('点击按钮')
+}
+
+// window.aaa = aaa
 </script>

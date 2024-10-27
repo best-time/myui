@@ -1,8 +1,4 @@
-// import VueRouter from "vue-router";
-
-
 import baseIndex from "../views/index.vue";
-import Home from "../views/Home.vue";
 import List from "../views/List.vue";
 import CardList from "../views/CardList.vue";
 import NavBar from "../views/NavBar.vue";
@@ -27,10 +23,13 @@ import virtualDemo from "../views/virtualList/demo.vue";
 // import lazyDemo2 from "../views/lazyImg/lazy.vue";
 // import lazyDemo3 from "../views/lazyImg/lazy-load.vue";
 import test1 from "../views/test/f1.vue";
+import AsyncComponent from "../views/asyncComponent/index.vue";
 
 
 
 const routeList = [
+
+    {name: 'component-test', component: () => import('../views/component/index.vue')},
     {name: "layout", component: Layout},
     {name: "list", component: List},
     {name: "navbar", component: NavBar},
@@ -55,17 +54,15 @@ const routeList = [
     // {name: "lazy2", component: lazyDemo2},
     // {name: "lazy3", component: lazyDemo3},
     {name: "test1", component: test1},
-
+    {name: "asyncComponent", component: AsyncComponent},
+    {name: "suspense", component: () => import('../views/suspense/index.vue')},
+    {name: "event", component: () => import('../views/attrEvent/page.vue')},
+    {name: "mulCom", component: () => import('../views/com/index.vue')},
 
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))
 
 const routes = [
-    // {
-    //     path: "/",
-    //     name: "home",
-    //     component: Home
-    // },
     {
         path: '/index',
         name: 'baseIndex',

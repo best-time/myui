@@ -59,6 +59,7 @@ const routeList = [
     {name: "event", component: () => import('../views/attrEvent/page.vue')},
     {name: "mulCom", component: () => import('../views/com/index.vue')},
     {name: "css1", component: () => import('../views/css/css1.vue')},
+    {name: "defineComponent", component: () => import('../views/defineComponent/index.vue')},
 
 ]
 const routeArr = routeList.map(it => ({...it, path: `/${it.name}`}))

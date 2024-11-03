@@ -1,3 +1,8 @@
+
+/*
+v-lazy-click="{ fn: commit, params: { params: 1 } }"
+
+ */
 const lazyClick = {
     inserted: (el, binding, vNode) => {
         el.addEventListener('click', function (e) {

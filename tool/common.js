@@ -322,7 +322,16 @@ const obj4 = {}
 
     getScrollPosition() // { x: 0, y: 215 }
 })()
-;(function () {})()
+;(function () {
+    const listToMapFnGenerator = (valueKey, textKey) => list => {
+        const obj = {}
+        list.forEach(item => {
+            obj[item[valueKey]] = item[textKey]
+        })
+
+        return obj;
+    }
+})()
 ;(function () {})()
 ;(function () {})()
 ;(function () {})()

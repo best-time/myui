@@ -1,4 +1,3 @@
-
 /*
 示例 1：
 
@@ -16,40 +15,45 @@
 输出：0
 解释：除了空子字符串之外不存在其他平衡子字符串，所以答案为 0 。
  */
- const s = "01000111" // 6   000111
-const s1 = "00111" // 4   0011
+const s = '01000111' // 6   000111
+const s1 = '00111' // 4   0011
 // 001  2
 // 010 2
 // 01 2
 // 10 0
-var findTheLongestBalancedSubstring = function(s) {
-    if(s.length <= 1) return 0
-    let count0 = 0
-    let count1 = 0
-    let ans = 0
-    for(let i = 0; i < s.length; i++) {
-        const cur = s[i]
-        if(cur === '0') {
-            if(count1 > 0) {
-                count1 = 0
-                count0 = 1
-            } else {
-                count0++
-            }
-        } else if (cur === '1') {
-            count1++
-            ans = Math.max(ans, Math.min(count1, count0));
-        }
-    }
-
-    return  ans * 2
+var findTheLongestBalancedSubstring = function (s) {
+	if (s.length <= 1) {
+		return 0
+	}
+	// 0的个数
+	let count0 = 0
+	// 1的个数
+	let count1 = 0
+	let ans = 0
+	for (let i = 0; i < s.length; i++) {
+		const cur = s[i]
+		if (cur === '0') {
+			if (count1 > 0) {
+				// 重新计算
+				count1 = 0
+				count0 = 1
+			} else {
+				count0++
+			}
+		} else if (cur === '1') {
+			count1++
+			ans = Math.max(ans, Math.min(count1, count0));
+		}
+	}
+	return ans * 2
 };
 //
-// console.log(findTheLongestBalancedSubstring(s)) // 6
+console.log(findTheLongestBalancedSubstring(s)) // 6
 // console.log(findTheLongestBalancedSubstring(s1)) // 4
 // console.log(findTheLongestBalancedSubstring('111')) // 0
 // console.log(findTheLongestBalancedSubstring('001')) // 2
-console.log(findTheLongestBalancedSubstring('010')) // 2
+// console.log(findTheLongestBalancedSubstring('010')) // 2
+console.log(findTheLongestBalancedSubstring('10')) // 2
 
 
 /*
@@ -68,12 +72,12 @@ nums 中的所有元素都有用到，并且每一行都由不同的整数组成
 解释：nums 中的所有元素都不同，所以我们可以将其全部保存在二维数组中的第一行。
  */
 
-var findMatrix = function(nums) {
-    let res = []
-    while(nums.length) {
+var findMatrix = function (nums) {
+	let res = []
+	while (nums.length) {
 
-    }
-    return res
+	}
+	return res
 };
 
 // console.log(findMatrix([1,3,4,1,2,3,1])) // 111 2 33 4

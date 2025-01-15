@@ -41,6 +41,28 @@
     for (const i of c) {
       console.log(i)
     }
+
+    console.log('------------------------')
+
+    const obj = {
+      list: [{name: 1}, {name: 2}],
+      address: {
+        city: '北京',
+        street: '长安街',
+        info: {
+          desc: 'aaaaa'
+        }
+      }
+    }
+    const { list: [arr1], address: { info } } = obj
+
+    info.desc = 'cccccc'
+    arr1.name= Math.random()
+    arr1.name2= Math.random()
+    console.log(obj)
 </script>
+
+<script src="hooks/storage.js"></script>
+<script></script>
 </body>
 </html>

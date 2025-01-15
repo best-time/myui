@@ -21,6 +21,7 @@ yarn-error.log*
 *.sw?
 package-lock.json
 
-write-vue-main/
+demos/*
+mono
 
 pnpm-lock.yaml

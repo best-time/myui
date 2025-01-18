@@ -1,7 +1,6 @@
 ## webpack 性能优化
 
-webpack详解
-// https://zhuanlan.zhihu.com/p/363928061
+webpack详解 // https://zhuanlan.zhihu.com/p/363928061
 
 ```
 ParallelUglifyPlugin
@@ -179,6 +178,7 @@ LimitChunkCountPlugin   限制chunk分割数量，减小HTTP请求开销
  ```
 
 ## loader
+
 ```javascript
 
 // 配置文件  rules: [{ test: /\.txt$/, use: "raw-loader" }],
@@ -191,29 +191,29 @@ LimitChunkCountPlugin   限制chunk分割数量，减小HTTP请求开销
 // 单一职责 链式组合 模块化 无状态 使用loader工具(loader-utils)
 
 module.exports = function (source) {
-    return source.replace(/var/g, 'const') // var 替换成const
+	return source.replace(/var/g, 'const') // var 替换成const
 }
 // 异步loader
 module.exports = function (source) {
-  const callback = this.async() // webpack 的async 方法
+	const callback = this.async() // webpack 的async 方法
 
-  // 由于有 3 秒延迟，所以打包时需要 3+ 秒的时间
-  setTimeout(() => {
-    callback(null, `${source.replace(/;/g, '')}`)
-  }, 3000)
+	// 由于有 3 秒延迟，所以打包时需要 3+ 秒的时间
+	setTimeout(() => {
+		callback(null, `${source.replace(/;/g, '')}`)
+	}, 3000)
 }
 // 可以在webpack.config.js 中配置
 {
-  resolveLoader: {
-    // 告诉 webpack 该去那个目录下找 loader 模块
-    modules: ['node_modules', path.resolve(__dirname, 'loaders')]
-  }
+	resolveLoader: {
+		// 告诉 webpack 该去那个目录下找 loader 模块
+		modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+	}
 }
 
 // 处理顺序排在最后的 loader
 module.exports = function (source) {
-  // 这个 loader 的功能是把源模块转化为字符串交给 require 的调用方
-  return 'module.exports = ' + JSON.stringify(source);
+	// 这个 loader 的功能是把源模块转化为字符串交给 require 的调用方
+	return 'module.exports = ' + JSON.stringify(source);
 }
 ```
 
@@ -237,8 +237,8 @@ loader 的执行顺序
 
 ```
 
-
 ## plugin
+
 ```
 // 插件可以执行范围更广的任务，包括打包优化，资源管理，注入环境变量
 // webpack 在整个编译周期中会触发很多不同的事件，plugin 可以监听这些事件，并且可以调用 webpack 的 API 对输出资源进行处理
@@ -264,15 +264,16 @@ loader 的执行顺序
 //     指定一个绑定到 webpack 自身的事件钩子。
 //     处理 webpack 内部实例的特定数据。
 //     功能完成后调用 webpack 提供的回调。
-function Plugin(options) { }
+function Plugin(options) {
+}
 
 Plugin.prototype.apply = function (compiler) {
-    // 所有文件资源都被 loader 处理后触发这个事件
-    compiler.plugin('emit', function (compilation, callback) {
-        // 功能完成后调用 webpack 提供的回调
-        console.log('Hello World')
-        callback()
-    })
+	// 所有文件资源都被 loader 处理后触发这个事件
+	compiler.plugin('emit', function (compilation, callback) {
+		// 功能完成后调用 webpack 提供的回调
+		console.log('Hello World')
+		callback()
+	})
 }
 
 module.exports = Plugin
@@ -282,15 +283,16 @@ module.exports = Plugin
 
 ```javascript
 // 复杂demo
-function Plugin(options) { }
+function Plugin(options) {
+}
 
 Plugin.prototype.apply = function (compiler) {
-    // 所有文件资源经过不同的 loader 处理后触发这个事件
-    compiler.plugin('emit', function (compilation, callback) {
-        // 获取打包后的 js 文件名
-        const filename = compiler.options.output.filename
-        // 生成一个 index.html 并引入打包后的 js 文件
-        const html = `<!DOCTYPE html>
+	// 所有文件资源经过不同的 loader 处理后触发这个事件
+	compiler.plugin('emit', function (compilation, callback) {
+		// 获取打包后的 js 文件名
+		const filename = compiler.options.output.filename
+		// 生成一个 index.html 并引入打包后的 js 文件
+		const html = `<!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
@@ -302,20 +304,20 @@ Plugin.prototype.apply = function (compiler) {
                     
                 </body>
                 </html>`
-        // 所有处理后的资源都放在 compilation.assets 中
-        // 添加一个 index.html 文件
-        compilation.assets['index.html'] = {
-            source: function () {
-                return html
-            },
-            size: function () {
-                return html.length
-            }
-        }
+		// 所有处理后的资源都放在 compilation.assets 中
+		// 添加一个 index.html 文件
+		compilation.assets['index.html'] = {
+			source: function () {
+				return html
+			},
+			size: function () {
+				return html.length
+			}
+		}
 
-        // 功能完成后调用 webpack 提供的回调
-        callback()
-    })
+		// 功能完成后调用 webpack 提供的回调
+		callback()
+	})
 }
 
 module.exports = Plugin
@@ -325,39 +327,38 @@ module.exports = Plugin
 // 获取版权信息的plugin
 
 class CopyrightWebpackPlugin {
-    //编写一个构造器
-    constructor(options) {
-         console.log(options)
-     }
+	//编写一个构造器
+	constructor(options) {
+		console.log(options)
+	}
 
-    apply(compiler) {
-        //遇到同步时刻
-        compiler.hooks.compile.tap('CopyrightWebpackPlugin',() => {
-            console.log('compiler');
-        });
-		
-        //遇到异步时刻
-        //当要把代码放到dist目录之前，要走下面这个函数
-        //Compilation存放打包的所有内容，Compilation.assets放置生成的内容
-        compiler.hooks.emit.tapAsync('CopyrightWebpackPlugin', (Compilation, cb) => {
-            // debugger;
-            // 往代码中增加一个文件，copyright.txt
-            Compilation.assets['copyright.txt'] = {
-                source: function() {
-                    return 'copyright by monday';
-                },
-                size: function() {
-                    return 19;
-                }
-            };
-            cb();
-        })
-    }
+	apply(compiler) {
+		//遇到同步时刻
+		compiler.hooks.compile.tap('CopyrightWebpackPlugin', () => {
+			console.log('compiler');
+		});
+
+		//遇到异步时刻
+		//当要把代码放到dist目录之前，要走下面这个函数
+		//Compilation存放打包的所有内容，Compilation.assets放置生成的内容
+		compiler.hooks.emit.tapAsync('CopyrightWebpackPlugin', (Compilation, cb) => {
+			// debugger;
+			// 往代码中增加一个文件，copyright.txt
+			Compilation.assets['copyright.txt'] = {
+				source: function () {
+					return 'copyright by monday';
+				},
+				size: function () {
+					return 19;
+				}
+			};
+			cb();
+		})
+	}
 }
 
 module.exports = CopyrightWebpackPlugin;
 ```
-
 
 ## 动态导入实现
 
@@ -365,7 +366,6 @@ module.exports = CopyrightWebpackPlugin;
 // https://juejin.cn/post/6844903888319954952
 
 ```
-
 
 ## 热更新原理
 
@@ -413,3 +413,32 @@ module.exports = CopyrightWebpackPlugin;
 
 
 ```
+
+## esbuild-loader
+
+- 不支持装饰器
+  ![img.png](img.png)
+
+```javascript
+/** 判断是否具有装饰器 */
+function hasDecorator(fileContent, offset = 0) {
+	const atPosition = fileContent.indexOf('@', offset);
+
+	if (atPosition === -1) {
+		return false;
+	}
+
+	if (atPosition === 1) {
+		return true;
+	}
+
+	if (["'", '"'].includes(fileContent.substr(atPosition - 1, 1))) {
+		return hasDecorator(fileContent, atPosition + 1);
+	}
+
+	return true;
+}
+```
+
+- 不支持按需加载
+- 只能打包成es6

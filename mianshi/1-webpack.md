@@ -1,6 +1,6 @@
 ## webpack 性能优化
 
-webpack详解 // https://zhuanlan.zhihu.com/p/363928061
+[webpack详解](https://zhuanlan.zhihu.com/p/363928061)
 
 ```
 ParallelUglifyPlugin
@@ -66,7 +66,7 @@ module.noParse
     }
     
 预渲染
-  prerender-spa-plugin插件，预渲染极大地提高了首屏加载速度。其原理是此插件在本地模拟浏览器环境，
+prerender-spa-plugin插件，预渲染极大地提高了首屏加载速度。其原理是此插件在本地模拟浏览器环境，
 预先执行我们打包的文件，返回预先解析的首屏html。使用方法入如下：
 
     module.exports = {

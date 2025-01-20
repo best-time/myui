@@ -10,7 +10,7 @@
 
 顶象技术 100-499  2月内活跃
 
-亿嘉和  500+  
+亿嘉和  500+
 	es6 websocket
 
 招商金科 500+  2月内活跃
@@ -47,16 +47,16 @@ SHEIN
 	http协议 跨终端 webpack express/koa
 
 联通智网
-	
+
 荣耀终端 雨花创新中心B栋15楼
-	swiper.js pixi.js three.js   webpack 
+	swiper.js pixi.js three.js   webpack
 
 华乘科技  100-500 九龙湖
 	前端leader webpack 团队管理经验
 
 联通数字
 	一定java经验?
-	
+
 中国联合网络通信有限公司智网
 	react sass less webpack 微前端
 
@@ -69,7 +69,7 @@ SHEIN
 中国电子系统
 	vue vue-cli vuex vue-router wepback
 
-指掌易	
+指掌易
 	要求不高
 
 米聚互联网
@@ -88,12 +88,10 @@ vivo
 
 // -----------------------已投递
 封疆智能
-shiin
+shein
 小溪
 联通智网  no
 趋势科技
 永中软件
 论之语
 福富公司
-
-

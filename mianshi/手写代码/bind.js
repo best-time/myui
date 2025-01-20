@@ -13,11 +13,10 @@ Function.prototype.myBind = function(content) {
 	let resFn = function() {
 		return fn.apply(this instanceof resFn ? this : content, args.concat(...arguments) )
 	}
-	function tmp() {}
-	tmp.prototype = this.prototype;
+	function Tmp() {}
+	Tmp.prototype = this.prototype;
 
-	resFn.prototype = new tmp();
+	resFn.prototype = new Tmp();
 
 	return resFn;
 }
-

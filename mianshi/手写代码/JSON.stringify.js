@@ -11,12 +11,14 @@ undefined、任意函数以及symbol，会被忽略（出现在非数组对象�
 
 function jsonStringify(obj) {
   let type = typeof obj;
+
   if (type !== "object") {
     if (/string|undefined|function/i.test(type)) {
       obj = `"${obj}"`;
     }
     return String(obj);
   }
+
   let json = [];
   let arr = Array.isArray(obj);
   for (let k in obj) {

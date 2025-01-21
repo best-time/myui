@@ -1,7 +1,7 @@
 ## vue
 
-```
-State
+```javascript
+//State
 	 mapState({
 	    // 箭头函数可使代码更简练
 	    count: state => state.count,
@@ -14,7 +14,7 @@ State
 	      return state.count + this.localCount
 	    }
 	  })
-Getters
+//Getters
 	 getters: {
 	    doneTodos: (state, getters) => { // 接受其他 getter 作为第二个参数
 	      return state.todos.filter(todo => todo.done)
@@ -37,7 +37,7 @@ Getters
 	  }
 	  取别名同 mapState
 		
-Mutations
+//Mutations
 	mutations: {
 	    increment (state) {
 	      // 变更状态
@@ -45,10 +45,10 @@ Mutations
 	    }
 	  }
 	store.commit('increment')
-	1.  当需要在对象上添加新属性时，你应该
-	使用 `Vue.set(obj, 'newProp', 123)`, 或者
-    以新对象替换老对象。例如，利用[对象展开运算符 (opens new window)]
-    state.obj = { ...state.obj, newProp: 123 }
+	//1.  当需要在对象上添加新属性时，你应该
+	//使用 `Vue.set(obj, 'newProp', 123)`, 或者
+   // 以新对象替换老对象。例如，利用[对象展开运算符 (opens new window)]
+   // state.obj = { ...state.obj, newProp: 123 }
 
 	methods: {
 	    ...mapMutations([

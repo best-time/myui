@@ -21,7 +21,7 @@ yarn-error.log*
 *.sw?
 package-lock.json
 
-demos/*
-mono
+/mono/
 
 pnpm-lock.yaml
+/demos/

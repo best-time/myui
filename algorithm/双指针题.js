@@ -96,7 +96,6 @@
      const s = 'abba'
      function isPalindrome(s) {
          const len = arr.length
-         if(len % 2 !== 0) return false
          let left = 0;
          let right = len - 1
          while(left < right) {

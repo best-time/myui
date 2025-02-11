@@ -1,9 +1,7 @@
 ## vue 2.0 和vue3 区别
 
+[参考](https://juejin.cn/post/7008412269432274957)
 ```
-// https://juejin.cn/post/7008412269432274957
-
-
 
 优点1：diff算法的优化
     vue3新增了静态标记（patchflag）与上次虚拟节点对比时，只对比带有patch flag的节点（动态数据所在的节点）；
@@ -44,8 +42,6 @@
 优点10：支持多根节点组件
 
 ```
-
-
 
 ```javascript
 

@@ -32,7 +32,7 @@ class MyComponent extends React.Component {
 }
 
 ```
-```
+```text
 区别:
 
 函数组件：
@@ -460,7 +460,7 @@ React 只会匹配相同 class 的 component（这里面的 class 指的是组�
 
 ### setState是同步还是异步?
 在React中，setState()函数通常被认为是异步的，这意味着调用setState()时不会立刻改变react组件中state的值，
-setState通过触发一次组件的更新来引发重汇，多次setState函数调用产生的效果会合并
+setState通过触发一次组件的更新来引发重绘，多次setState函数调用产生的效果会合并
 调用 setState时，React会做的第一件事情是将传递给 setState的对象合并到组件的当前状态。
 这将启动一个称为和解（reconciliation）的过程。和解（reconciliation）的最终目标是以最有效的方式，
 根据这个新的状态来更新UI。 为此，React将构建一个新的 React元素树（您可以将其视为 UI 的对象表示）。

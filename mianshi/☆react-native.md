@@ -97,3 +97,34 @@
 ### React Native 的桥接机制是什么？
 
 答案：React Native 的桥接机制是指 JavaScript 代码和原生代码之间的通信，它允许 JavaScript 发送任务给原生平台执行。
+
+### React Native 的核心组件有哪些？
+
+- View：一个支持布局和样式的容器。
+- Text：用于显示文本。
+- Image：用于显示图片。
+- ScrollView：一个可以容纳多个组件和视图的滚动容器。
+- FlatList：一个高效渲染大量数据列表的接口。
+
+
+### React Native 中的生命周期方法有哪些？
+React Native 遵循与 React 相同的生命周期方法。这些方法包括：
+
+- 挂载：constructor()、componentDidMount()
+- 更新：componentDidUpdate()、shouldComponentUpdate()
+- 卸载：componentWillUnmount()
+
+### 如何提高 React Native 应用的性能？
+
+- 使用 FlatList 组件：高效渲染大列表。
+- 优化图片：压缩图片并使用适当的图片格式。
+- 减少重新渲染：使用 shouldComponentUpdate 或 React.memo 来防止不必要的重新渲染。
+- 优化状态管理：最小化状态更新和重新渲染的次数。
+
+
+
+
+### React Native 和 Flutter 最大的区别
+Flutter 在自己的画布上渲染所有组件。
+
+React Native 将 JavaScript 组件转换为原生组件。

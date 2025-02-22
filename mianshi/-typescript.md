@@ -23,7 +23,7 @@ const person: Person = { name: "John", age: 25 };
 - string（字符串类型）
 - void 类型
 - null 和 undefined 类型
-- 
+
 - array（数组类型）
 - object 对象类型
 - tuple（元组类型）：允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
@@ -33,16 +33,20 @@ const person: Person = { name: "John", age: 25 };
 
 
 ### TypeScript 中 const 和 readonly 的区别
-const可以防止变量的值被修改，在运行时检查，使用const变量保存的数组，可以使用push，pop等方法
-readonly可以防止变量的属性被修改，在编译时检查，使用Readonly Array声明的数组不能使用push，pop等方法
+const可以防止 **变量的值** 被修改，在运行时检查，使用const变量保存的数组，可以使用push，pop等方法
+readonly可以防止 **变量的属性** 被修改，在编译时检查，使用Readonly Array声明的数组不能使用push，pop等方法
 
 
 ### any、never、unknown、null & undefined 和 void 区别
 
 - any: 动态的变量类型（失去了类型检查的作用）。
-- never: 永不存在的值的类型。例如：never 类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型。
+- never: 永不存在的值的类型。
+   例如：never 类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型。
 - unknown: 任何类型的值都可以赋给 unknown 类型，但是 unknown 类型的值只能赋给 unknown 本身和 any 类型。
-- null & undefined: 默认情况下 null 和 undefined 是所有类型的子类型。 就是说你可以把 null 和 undefined 赋值给 number 类型的变量。当你指定了 --strictNullChecks 标记，null 和 undefined 只能赋值给 void 和它们各自。
+
+- null & undefined: 默认情况下 null 和 undefined 是所有类型的子类型。 
+ 就是说你可以把 null 和 undefined 赋值给 number 类型的变量。
+  当你指定了 --strictNullChecks 标记，null 和 undefined 只能赋值给 void 和它们各自。
 - void: 没有任何类型。例如：一个函数如果没有返回值，那么返回值可以定义为void。
 
 
@@ -54,29 +58,6 @@ any 和 unknown 都是顶级类型，但是 unknown 更加严格，不像 any �
 反而 unknown 因为未知性质，不允许访问属性，不允许赋值给其他有明确类型的变量。
 
 
-### keyof
-索引类型查询操作符， 获取一个类型的所有属性名组成的联合类型
-```typescript
-type Person = {
-    name: string,
-    age: number
-}
-
-type PersonKeys = keyof Person // 'name' | 'age'
-```
-
-
-### 泛型
-在编写代码时使用一些以后才指定的类型，在定义函数，接口或者类的时候，
-不预先定义好具体的类型，而在使用的时候在指定类型的一种特性。
-
-
-### any和泛型区别
-泛型有类型推论，编译器会根据传入的参数自动地帮助我们确定T的类型
-
-any则是不检验
-
-
 ### 同名的 interface 或者同名的 interface 和 class 可以合并吗
 同名的interface会自动合并，同名的interface和class会自动聚合。
 
@@ -85,7 +66,8 @@ any则是不检验
 相同点：
 
 - 都可以描述 '对象' 或者 '函数'
-- 都允许拓展(extends)：interface 和 type 都可以拓展，并且两者并不是相互独立的，也就是说 interface 可以 extends type, type 也可以 extends interface 。 虽然效果差不多，但是两者语法不同。
+- 都允许拓展(extends)：interface 和 type 都可以拓展，并且两者并不是相互独立的，
+  也就是说 interface 可以 extends type, type 也可以 extends interface 。 虽然效果差不多，但是两者语法不同。
 
 不同点：
 - type 可以声明基本类型，联合类型，元组
@@ -99,6 +81,18 @@ any则是不检验
 
 联合类型和交叉类型
 
+### keyof
+索引类型查询操作符， 获取一个类型的所有属性名组成的联合类型
+```typescript
+type Person = {
+    name: string,
+    age: number
+}
+
+type PersonKeys = keyof Person // 'name' | 'age'
+```
+
+
 ### 方法重载
 方法重载是指在一个类中定义多个同名的方法，但要求每个方法具有不同的参数的类型或参数的个数。
 基本上，它在派生类或子类中重新定义了基类方法。
@@ -109,6 +103,16 @@ any则是不检验
 它必须具有与父类相同的参数。
 必须存在IS-A关系或继承。
 
+
+### 泛型
+在编写代码时使用一些以后才指定的类型，在定义函数，接口或者类的时候，
+不预先定义好具体的类型，而在使用的时候在指定类型的一种特性。
+
+
+### any和泛型区别
+泛型有类型推论，编译器会根据传入的参数自动地帮助我们确定T的类型
+
+any则是不检验
 
 ### 类成员访问修饰符
 - public：默认的访问修饰符，公共成员可以在任何地方访问。
@@ -139,7 +143,6 @@ MyNamespace.fn(); // "hello world"
 console.log(MyNamespace.a); // 1
 
 ```
-
 
 模块是用来组织代码的另一种方式，它提供了将公共接口和具体实现分开的方法。
 模块是有作用域的，也就是说，它们内部定义的变量、函数等都不会污染全局作用域。

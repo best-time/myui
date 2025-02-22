@@ -119,3 +119,9 @@ teleport
 在index.html中设置 <div id="modal"></div>
 
 ```
+
+
+## vue2 升级vue3
+[文档](https://v3-migration.vuejs.org/zh/breaking-changes/v-on-native-modifier-removed.html)
+mixins 浅覆盖
+v-if优先级高于v-for

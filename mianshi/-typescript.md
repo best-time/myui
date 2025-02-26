@@ -90,6 +90,8 @@ type Person = {
 }
 
 type PersonKeys = keyof Person // 'name' | 'age'
+
+type PersonType = typeof Person['name']
 ```
 
 
@@ -113,6 +115,7 @@ type PersonKeys = keyof Person // 'name' | 'age'
 泛型有类型推论，编译器会根据传入的参数自动地帮助我们确定T的类型
 
 any则是不检验
+
 
 ### 类成员访问修饰符
 - public：默认的访问修饰符，公共成员可以在任何地方访问。

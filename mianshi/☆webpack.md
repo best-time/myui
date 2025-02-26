@@ -2,7 +2,7 @@
 
 [webpack详解](https://zhuanlan.zhihu.com/p/363928061)
 
-ParallelUglifyPlugin
+### ParallelUglifyPlugin
 
 ```
 使用HappyPack开启多进程Loader转换
@@ -32,7 +32,7 @@ ParallelUglifyPlugin
 	]
 ```
 
-UglifyJSPlugin
+### UglifyJSPlugin
 
 ```
 const UglifyJSPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
@@ -159,7 +159,7 @@ cdn 加速
 
 ```
 
-CommonsChunkPlugin
+### CommonsChunkPlugin
 
 ```
 多页面应用提取页面间公共代码，以利用缓存
@@ -184,9 +184,14 @@ CommonsChunkPlugin   把多个页面依赖的公共代码提取到common.js
 	]
 
 
-分割代码以按需加载
-LimitChunkCountPlugin   限制chunk分割数量，减小HTTP请求开销
 
+```
+
+### LimitChunkCountPlugin
+
+分割代码以按需加载
+限制chunk分割数量，减小HTTP请求开销
+```
 	//main.js
 	document.getElementById('btn').addEventListener('click',function(){
 	    import(/* webpackChunkName:"show" */ './show').then((show)=>{
@@ -198,22 +203,11 @@ LimitChunkCountPlugin   限制chunk分割数量，减小HTTP请求开销
 	module.exports = function (content) {
 	    window.alert('Hello ' + content);
 	}
-
-
 ```
 
 ## loader
 
 ```javascript
-// 配置文件  rules: [{ test: /\.txt$/, use: "raw-loader" }],
-// 内联方式 import Styles from "style-loader!css-loader?modules!./styles.css";
-// inline loader一样可以传递options，通过?key=value&foo=bar这种方式
-
-// webpack 自带的功能只能处理 javaScript 和 JSON 文件
-// loader 让 webpack 能够去处理其他类型的文件，并将它们转换成有效的模块，以及被添加到依赖图中
-// 如果有多个loader, loader 的执行顺序从下到上
-// 单一职责 链式组合 模块化 无状态 使用loader工具(loader-utils)
-
 module.exports = function (source) {
   return source.replace(/var/g, 'const') // var 替换成const
 }
@@ -226,6 +220,19 @@ module.exports = function (source) {
     callback(null, `${source.replace(/;/g, '')}`)
   }, 3000)
 }
+```
+
+```javascript
+// 配置文件  rules: [{ test: /\.txt$/, use: "raw-loader" }],
+// 内联方式 import Styles from "style-loader!css-loader?modules!./styles.css";
+// inline loader一样可以传递options，通过?key=value&foo=bar这种方式
+
+// webpack 自带的功能只能处理 javaScript 和 JSON 文件
+// loader 让 webpack 能够去处理其他类型的文件，并将它们转换成有效的模块，以及被添加到依赖图中
+// 如果有多个loader, loader 的执行顺序从下到上
+// 单一职责 链式组合 模块化 无状态 使用loader工具(loader-utils)
+
+
 // 可以在webpack.config.js 中配置
 {
   resolveLoader: {
@@ -241,8 +248,9 @@ module.exports = function (source) {
 }
 ```
 
+## loader 的分类
+
 ```
-loader 的分类
 按执行顺序，loader 可以这么划分：
 
 preLoader。enforce 被设置成 pre 的 loader
@@ -594,3 +602,46 @@ module.exports = {
 };
 
 ```
+
+## plugins
+热更新速度分析
+speed-measure-webpack-plugin
+
+
+### 提升热更新时间
+开发环境屏蔽 CompressionWebpackPlugin
+
+Sourcemap
+
+![img_32.png](img_32.png)
+
+runtimeChunk
+
+```
+module.exports = {
+  configureWebpack: {
+    optimization: {
+      runtimeChunk: "single"
+    }
+  }
+}
+```
+
+模块动态引入
+babel-plugin-dynamic-import-node
+```javascript
+// babel.config.js
+module.exports = {
+    presets: [
+        '@vue/app'
+    ],
+    env: {
+        development: {//仅在开发环境生效
+            plugins: ['dynamic-import-node']
+        }
+    }
+}
+```
+
+
+屏蔽多余路由

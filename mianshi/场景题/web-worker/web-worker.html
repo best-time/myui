@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>worker计算</title>
+  </head>
+  <body>
+    <div>计算从 1 到给定数值的总和</div>
+    <div><input type="text" placeholder="请输入数字" id="num" value="10000000000" /></div>
+    <p><button onclick="calc2()">同步开始计算</button></p>
+    <p><button onclick="calc()">web worker开始计算</button></p>
+    <p>计算结果为：<span id="result">-</span></p>
+    <p><button onclick="clearText()">清空结果</button></p>
+    <br>
+    <div>在计算期间你可以填XX表单</div>
+    <input type="text" placeholder="请输入姓名" />
+    <input type="text" placeholder="请输入年龄" />
+    <script>
+      function calc2() {
+        const num = parseInt(document.getElementById('num').value)
+        let result = 0
+        let startTime = performance.now()
+        // 计算求和（模拟复杂计算）
+        for (let i = 0; i <= num; i++) {
+          result += i
+        }
+        // 由于是同步计算，在没计算完成之前下面的代码都无法执行
+        const time = performance.now() - startTime
+        console.log('总计算花费时间:', time)
+        document.getElementById('result').innerHTML = result
+      }
+			function clearText() {
+							document.getElementById('result').innerHTML = '-'
+            }
+    </script>
+    <script>
+      // 改成web-worker调用
+      const worker = new Worker('./worker.js')
+
+      function calc() {
+        const num = parseInt(document.getElementById('num').value)
+        worker.postMessage(num)
+      }
+
+      worker.onmessage = function (e) {
+        document.getElementById('result').innerHTML = e.data
+      }
+    </script>
+  </body>
+</html>

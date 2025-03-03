@@ -278,12 +278,12 @@ function downloadUrl(url) {
 
 ## 架构
 - 基于数据流的架构
-- ![img_18.png](img_18.png)
+- ![img_18.png](imgs/img_18.png)
 - 渐进式的可视化
-- ![img_19.png](img_19.png)
+- ![img_19.png](imgs/img_19.png)
 - 多线程渲染
-- ![img_20.png](img_20.png)
-- ![img_21.png](img_21.png)
+- ![img_20.png](imgs/img_20.png)
+- ![img_21.png](imgs/img_21.png)
 
 借助web worker
 

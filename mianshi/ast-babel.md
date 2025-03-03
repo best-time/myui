@@ -62,7 +62,7 @@ console.log(result);
 // function hello() {}
 
 ```
-![img_10.png](img_10.png)
+![img_10.png](imgs/img_10.png)
 
 
 ### 能做什么?
@@ -109,7 +109,7 @@ console.log(r.code);
 // const fn = function () { return a + b; };
 ```
 
-![img_11.png](img_11.png)
+![img_11.png](imgs/img_11.png)
 
 根据分析可得：
 
@@ -189,7 +189,7 @@ function ArrowFunctionExpression(path) {
 
 
 ### 按需引入
-![img_12.png](img_12.png)
+![img_12.png](imgs/img_12.png)
 ```javascript
 // import { Button, Icon } from 'vant' 
 // 写法转换为 
@@ -293,7 +293,7 @@ function importPlugin(opt) {
 // var arr = [].concat(arr1, arr2)
 ```
 
-![img_13.png](img_13.png)
+![img_13.png](imgs/img_13.png)
 
 ```javascript
 const babylon = require('babylon');
@@ -373,7 +373,7 @@ function AwaitExpression(path) {
 //   }
 // }
 ```
-![img_14.png](img_14.png)
+![img_14.png](imgs/img_14.png)
 
 特殊情况
 

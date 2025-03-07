@@ -48,6 +48,7 @@ function perf() {
 		type: 'first-input',
 		buffered: true
 	})
+
 	new PerformanceObserver(entryList => {
 		let entries = entryList.getEntries();
 		entries.forEach(entry => {

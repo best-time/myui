@@ -94,14 +94,20 @@ prerender-spa-plugin插件，预渲染极大地提高了首屏加载速度。其
                 route: [ '/', '/team', '/analyst','/voter','/sponsor'],
                 // 这个很重要，如果没有配置这段，也不会进行预编译
                 renderer: new Renderer({
-                    headless: false,
-                    renderAfterDocumentEvent: 'render-active',
+                    // headless: false,
+                    renderAfterDocumentEvent: 'render-event',
                     // renderAfterTime: 5000
                 })
             })
         ]
     }
 
+new Vue({
+  // ...
+  mounted() {
+    document.dispatchEvent(new Event('render-event'));
+  },
+}).$mount('#app');
 
 ```
 

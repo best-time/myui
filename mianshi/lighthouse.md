@@ -159,3 +159,12 @@ https://www.webpagetest.org
 
 计算占比
 ![img_41.png](imgs/img_41.png)
+
+
+#### 命令 
+command + shift + p
+
+coverage/ 覆盖
+查看未使用的代码 js css
+
+memory/ 内存

@@ -51,7 +51,7 @@ lighthouse http://localhost:8080/index.html --local zh --quiet --chrome-flags="-
 https://www.webpagetest.org
 
 
-![img_39.png](imgs/img_39.png)
+![img_39.png](imgs/img2/img_39.png)
 
 - FP (First Paint) 
   浏览器从开始请求网站到屏幕渲染第一个像素点的时间
@@ -116,8 +116,8 @@ https://www.webpagetest.org
   clientHeight clientLeft clientTop clientWidth focus
   getBoundingClientRect
   innerText outerText
-  offset - left top width height
-  scroll - top left width height
+  offsetLeft offsetTop offsetWidth offsetHeight
+  scrollTop scrollLeft scrollWidth scrollHeight
 - MouseEvent
   layerX layerY offsetX offsetY ByPages
 - window
@@ -144,7 +144,7 @@ https://www.webpagetest.org
 
 #### 优化TTI
 
-![img_40.png](imgs/img_40.png)
+![img_40.png](imgs/img2/img_40.png)
 
 
 #### FID 
@@ -158,7 +158,7 @@ https://www.webpagetest.org
 - CLS 累积布局配置偏移
 
 计算占比
-![img_41.png](imgs/img_41.png)
+![img_41.png](imgs/img2/img_41.png)
 
 
 #### 命令 

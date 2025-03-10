@@ -339,7 +339,7 @@ render() {
 - UI Thread：在 iOS/Android 上专门绘制 UI 的线程
 - JS Thread：我们写的业务代码基本都在这个线程上，React 重绘，处理 HTTP 请求的结果，磁盘数据 IO 等等
 - other Thread：泛指其他线程，比如说数据请求线程，磁盘 IO 线程等等
-![img_33.png](imgs/img_33.png)
+![img_33.png](imgs/img2/img_33.png)
 
 - useNativeDrive: true
   JS Thread 和 UI Thread 之间是通过 JSON 字符串传递消息的。对于一些可预测的动画，
@@ -372,8 +372,8 @@ InteractionManager.runAfterInteractions(() => {
 ```
 
 - 使用 react-native-reanimated 和 react-native-gesture-handler
-![img_34.png](imgs/img_34.png)
-![img_35.png](imgs/img_35.png)
+![img_34.png](imgs/img2/img_34.png)
+![img_35.png](imgs/img2/img_35.png)
 
 #### 长列表优化
 - 各种列表间的关系
@@ -381,7 +381,7 @@ InteractionManager.runAfterInteractions(() => {
   - VirtualizedList：虚拟列表核心文件，使用 ScrollView，长列表优化配置项主要是控制它
   - FlatList：使用 VirtualizedList，实现了一行多列的功能，大部分功能都是 VirtualizedList 提供的
   - SectionList：使用 VirtualizedList，底层使用 VirtualizedSectionList，把二维数据转为一维数据
-![img_36.png](imgs/img_36.png)
+![img_36.png](imgs/img2/img_36.png)
 
 - 列表配置项
 ```javascript
@@ -425,7 +425,7 @@ export default class App extends React.Component {
 // 这个属性文档中没有说，是翻源码发现的，我发现开启它后用来演示讲解还是很方便的，可以很直观的学习 initialNumToRender、windowSize、Viewport，Blank areas 等概念。
 
 ```
-![img_37.png](imgs/img_37.png)
+![img_37.png](imgs/img2/img_37.png)
 右侧 debug 指示条的黄色部分表示内存中 Item，各个属性我们再用文字描述一下
 - initialNumToRender: 首批应该渲染的元素数量，刚刚盖住首屏最好。而且从 debug 指示条可以看出，这批元素会一直存在于内存中。
 
@@ -443,7 +443,7 @@ export default class App extends React.Component {
 
 上图是渲染图，我们可以利用 react-devtools 再看看 React 的 Virtual DOM（为了截屏方便，我把 initialNumToRender 和 windowSize 设为 1），
 可以看出和上面的示意图是一致的。
-![img_38.png](imgs/img_38.png)
+![img_38.png](imgs/img2/img_38.png)
 
 - removeClippedSubviews:
 这个翻译过来叫「裁剪子视图」的属性，文档描述不是很清晰，大意是设为 true 可以提高渲染速度，

@@ -124,4 +124,121 @@ teleport
 ## vue2 升级vue3
 [文档](https://v3-migration.vuejs.org/zh/breaking-changes/v-on-native-modifier-removed.html)
 mixins 浅覆盖
-v-if优先级高于v-for
+
+```
+// 创建实例 
+const app = createApp({})
+app.mount('#app')
+
+// 全局方法
+app.config.globalProperties = () => {}
+
+ 移除Vue.extend
+
+// 可以使用多个v-model
+  // v-bind.sync 废弃
+  // 用于自定义组件时，v-model prop 和事件默认名称已更改：
+  // prop：value -> modelValue；
+  // 事件：input -> update:modelValue；
+
+ key
+   新增：对于 v-if/v-else/v-else-if 的各分支项 key 将不再是必须的，
+   因为现在 Vue 会自动生成唯一的 key。
+   非兼容：如果你手动提供 key，那么每个分支必须使用唯一的 key。
+   你将不再能通过故意使用相同的 key 来强制重用分支。
+   非兼容：<template v-for> 的 key 应该设置在 <template> 标签上 (而不是设置在它的子节点上)。
+
+
+ v-if优先级高于v-for
+
+
+ v-bind合并行为, 绑定顺序会影响渲染结果。
+  vue2中
+  <!-- 模板 -->
+  <div id="red" v-bind="{ id: 'blue' }"></div>
+  <!-- 结果 -->
+  <div id="red"></div>
+  
+  vue3
+  <!-- 模板 -->
+  <div id="red" v-bind="{ id: 'blue' }"></div>
+  <!-- 结果 -->
+  <div id="blue"></div>
+
+
+移除 v-on.native 修饰符, 都在emits记录
+
+新增异步组件 defineAsyncComponent
+
+插槽统一
+this.$slots 现在将插槽作为函数公开
+
+$listeners 合并到 $attrs
+
+$attrs 包含 class & style
+
+移除过滤器filters
+
+移除this.$children
+
+移除propsData 
+
+attribute 强制行为 
+  如果值为布尔值 false，则不再移除 attribute。取而代之的是，它将被设置为 attr="false"。
+  若要移除 attribute，应该使用 null 或者 undefined
+
+自定义指令生命周期变化
+  vue2
+  bind - 指令绑定到元素后调用。只调用一次。
+  inserted - 元素插入父 DOM 后调用。
+  update - 当元素更新，但子元素尚未更新时，将调用此钩子。
+  componentUpdated - 一旦组件和子级被更新，就会调用这个钩子。
+  unbind - 一旦指令被移除，就会调用这个钩子。也只调用一次。
+  
+  vue3
+  created - 新增！在元素的 attribute 或事件监听器被应用之前调用。
+  bind → beforeMount
+  inserted → mounted
+  beforeUpdate：新增！在元素本身被更新之前调用，与组件的生命周期钩子十分相似。
+  update → 移除！该钩子与 updated 有太多相似之处，因此它是多余的。请改用 updated。
+  componentUpdated → updated
+  beforeUnmount：新增！与组件的生命周期钩子类似，它将在元素被卸载之前调用。
+  unbind -> unmounted
+
+
+被挂载的应用不会替换元素
+  vue2会替换, vue3作为子元素插入
+
+过渡的 class 名更改 
+  vue2
+  .v-enter, .v-leave-to     .v-leave, .v-enter-to
+  vue3
+  .v-enter-from,.v-leave-to   .v-leave-from,.v-enter-to
+  
+ VNode 生命周期事件
+  vue2 
+   <child-component @hook:updated="onUpdated">
+   vue3
+    <child-component @vue:updated="onUpdated">
+```
+
+
+## 不推荐 computed 中返回函数
+我在项目中见到，有些人在定义 computed 的时候返回的不是一个具体的值，而是函数。随后，我也做过相同的事情。
+
+但阅读了Vue2的源码后，我建议大家不要这么做。原因有2
+1- computed 应该适用于对复杂计算结果的缓存。但返回函数就失去了这个优势。
+2- computed 应该自动根据依赖数据项的更改而自动刷新。但返回函数也失去了这个特性。
+
+可能，有的人会说，computed返回函数，还是可以看到它的值再刷新啊，为什么呢？
+其实，那是因为恰巧 computed 用到的字段，也被别的 computed 或者 render 使用了， 因此当依赖项发生修改时，触发了render的重新执行，进而调用了返回的函数，实现了刷新。
+
+我们始终要注意， computed 返回函数的话， 将没有办法建立起与依赖数据的关系，依赖数据修改后，也就无法刷新 computed 的值。
+
+
+## 提取组件规则
+- 重复使用的代码块
+- 业务逻辑相似
+- 功能模块拆分
+- 代码复杂度过高
+- 页面或组件需要展示相同风格的UI元素

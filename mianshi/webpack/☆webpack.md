@@ -454,7 +454,7 @@ module.exports = CopyrightWebpackPlugin
 ## esbuild-loader
 
 - 不支持装饰器
-  ![img.png](imgs/img2/img.png)
+  ![img.png](../imgs/img2/img.png)
 
 ```javascript
 /** 判断是否具有装饰器 */
@@ -619,7 +619,7 @@ speed-measure-webpack-plugin
 
 Sourcemap
 
-![img_32.png](imgs/img2/img_32.png)
+![img_32.png](../imgs/img2/img_32.png)
 
 runtimeChunk
 

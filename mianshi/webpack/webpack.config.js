@@ -148,6 +148,12 @@ module.exports = {
 			new CssMinimizerPlugin(),
 			// 当生产模式会默认开启TerserPlugin，但是我们需要进行其他配置，就要重新写了
 			new TerserPlugin({
+				terserOptions: {
+					format: {
+						comments: false,
+					},
+				},
+				extractComments: false,
 				parallel: threads, // 开启多进程
 			}),
 			// 压缩图片
@@ -183,6 +189,22 @@ module.exports = {
 		splitChunks: {
 			chunks: "all", // 对所有模块都进行分割
 			// 其他内容用默认配置即可
+			cacheGroups: {
+				vendors: {
+					name: 'vendors',
+					test({ resource }) {
+						return /[\/]node_modules[\/]/.test(resource);
+					},
+					priority: -10
+				},
+				styles: {
+					name: "styles",
+					chunks: "all",
+					type: "css/mini-extract",
+					enforce: true,
+					priority: 10,
+				}
+			}
 		},
 	},
 	// devServer: {

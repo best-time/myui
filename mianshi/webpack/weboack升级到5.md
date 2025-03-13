@@ -61,7 +61,7 @@ loader版本升级
 plugins及一些依赖使用方式的改变
 
 - 项目webpack-dev-server升到了4版本用来配套webpack5，所以npm run dev的命令需要相改为webpack serve启动
-- 需要再plugins里面增加VueLoaderPlugin（vue-loader）
+- 在plugins里面增加VueLoaderPlugin（vue-loader）
 - extract-text-webpack-plugin和optimize-css-assets-webpack-plugin已经过时了需要由mini-css-extract-plugin和css-minimizer-webpack-plugin来代替
 - webpack5自带了资源解析，所以不需要什么url-loader,file-loader之类的，直接用assets就可以解析
 - 调整copyWebpackPlugin（copy-webpack-plugin）使用方法
@@ -74,3 +74,5 @@ plugins及一些依赖使用方式的改变
 - build->util.js文件中修改了一处 MiniCssExtractPlugin.loader。ExtractTextPlugin（extract-text-webpack-plugin）已过时，使用MiniCssExtractPlugin（mini-css-extract-plugin）进行替换。
 - devtool有做一定修改
 - 由于vue-loader升级了，所以之前css如果使用/deep/有可能出错。我是在根节点使用/deep/然后换到::v-deep就正常了。如果有类似问题，可以相应调整。
+
+![img.png](img.png)

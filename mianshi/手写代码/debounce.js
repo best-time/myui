@@ -1,15 +1,15 @@
 // 防抖动函数
 function debounce(fn = () => {}, wait = 100, immediate = false) {
-  let timer;
+  let timer
   return function () {
     if (immediate) {
-      fn.apply(this, arguments);
+      fn.apply(this, arguments)
     }
     if (timer) {
-      clearTimeout(timer);
+      clearTimeout(timer)
     }
     timer = setTimeout(() => {
-      fn.apply(this, arguments);
-    }, wait);
-  };
+      fn.apply(this, arguments)
+    }, wait)
+  }
 }

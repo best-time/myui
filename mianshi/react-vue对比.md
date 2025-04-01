@@ -1,4 +1,5 @@
 ## 不同点
+
 ### 框架层面
 
 ```text
@@ -10,8 +11,8 @@
 而Vue在生命周期上和React相似，但在HTML上使用了模板语言，因而引入了指令、过滤器、插槽的概念
 ```
 
-
 ### 核心思想不同
+
 ```text
 Vue
 
@@ -33,6 +34,7 @@ React本质上核心只有一个Virtual DOM + Diff算法
 ```
 
 ### 组件实现不同
+
 ```text
 Vue
 源码实现是把options挂载到Vue核心类上，然后再new Vue({options})拿到实例
@@ -80,9 +82,7 @@ Vue 会对动态节点进行跟踪，如果一个节点在新旧虚拟 DOM 中�
 Vue 的 diff 算法会通过动态规划的方式找到最优的更新策略，以最小化 DOM 操作的次数。
 （可以没有key）
 
-
 ![img_15.png](imgs/img2/img_15.png)
-
 
 react 生命周期
 ![img_16.png](imgs/img2/img_16.png)

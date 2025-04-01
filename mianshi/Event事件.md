@@ -12,32 +12,33 @@
 - contextmenu 右键菜单
 
 ### 注意：
-执行顺序：mousedown —> mouseup —> click
 
-区别：mouseover和mouseout子元素也会触发，可以冒泡触发
+    执行顺序：mousedown —> mouseup —> click
 
-区别：mouseenter和mouseleave是针对侦听的对象触发，阻止了冒泡
+    区别：mouseover和mouseout子元素也会触发，可以冒泡触发
 
-altKey ctrlKey shiftKey metaKey 是否按键点击
+    区别：mouseenter和mouseleave是针对侦听的对象触发，阻止了冒泡
 
-button buttons which用来判断是鼠标的哪个键操作的
+    altKey ctrlKey shiftKey metaKey 是否按键点击
 
-左键对应的值为 0、1、1
+    button buttons which用来判断是鼠标的哪个键操作的
 
-中键对应的值为 1、4、2
+    左键对应的值为 0、1、1
 
-右键对应的值为 2、2、3
+    中键对应的值为 1、4、2
 
-timeStamp 从页面打开开始到触发事件的时间
+    右键对应的值为 2、2、3
 
+    timeStamp 从页面打开开始到触发事件的时间
 
 ### 总结：
-clientX和clientY与x，y一样的，以浏览器显示区域的左上角开始，指鼠标的坐标。x,y是新浏览器支持
 
-offsetX，offsetY，针对目标元素的左上角坐标，从padding开始。
+    clientX和clientY与x，y一样的，以浏览器显示区域的左上角开始，指鼠标的坐标。x,y是新浏览器支持
 
-layerX,layerY，往上找有定位属性的父元素的左上角（自身有定位属性的话就是相对于自身），都没有的话，就是相对于body的左上角
+    offsetX，offsetY，针对目标元素的左上角坐标，从padding开始。
 
-pageX，pageY相对页面左上角的距离
+    layerX,layerY，往上找有定位属性的父元素的左上角（自身有定位属性的话就是相对于自身），都没有的话，就是相对于body的左上角
 
-screenX screenY 相对显示器屏幕左上角的位置
+    pageX，pageY相对页面左上角的距离
+
+    screenX screenY 相对显示器屏幕左上角的位置

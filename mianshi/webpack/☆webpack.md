@@ -197,6 +197,7 @@ CommonsChunkPlugin   把多个页面依赖的公共代码提取到common.js
 
 分割代码以按需加载
 限制chunk分割数量，减小HTTP请求开销
+
 ```
 	//main.js
 	document.getElementById('btn').addEventListener('click',function(){
@@ -237,7 +238,6 @@ module.exports = function (source) {
 // loader 让 webpack 能够去处理其他类型的文件，并将它们转换成有效的模块，以及被添加到依赖图中
 // 如果有多个loader, loader 的执行顺序从下到上
 // 单一职责 链式组合 模块化 无状态 使用loader工具(loader-utils)
-
 
 // 可以在webpack.config.js 中配置
 {
@@ -441,7 +441,7 @@ module.exports = CopyrightWebpackPlugin
 
     为什么代码的改动保存会自动编译，重新打包？这一系列的重新检测编译就归功于compiler.watch这个方法了。
     监听本地文件的变化主要是通过文件的生成时间是否有变化，这里就不细讲了。
-    
+
     （2）执行setFs方法，这个方法主要目的就是将编译后的文件打包到内存。这就是为什么在开发的过程中，
     你会发现dist目录没有打包后的代码，因为都在内存中。原因就在于访问内存中的代码比访问文件系统中的文件更快，
     而且也减少了代码写入文件的开销，这一切都归功于memory-fs。
@@ -450,6 +450,7 @@ module.exports = CopyrightWebpackPlugin
 
 
 ```
+
 ![img_1.png](img_1.png)
 
 - Webpack Compile：将 JS 源代码编译成 bundle.js
@@ -458,8 +459,7 @@ module.exports = CopyrightWebpackPlugin
 - HMR Runtime：socket服务器，会被注入到浏览器，更新文件的变化
 - bundle.js：构建输出的文件
 - 在HMR Runtime 和 HMR Server之间建立 websocket，即图上4号线，用于实时更新文件变化
-- 
-上面图中，可以分成两个阶段：
+- 上面图中，可以分成两个阶段：
 
 启动阶段为上图 1 - 2 - A - B
 在编写未经过webpack打包的源代码后，Webpack Compile 将源代码和 HMR Runtime 一起编译成 bundle 文件，传输给 Bundle Server 静态资源服务器
@@ -515,18 +515,17 @@ function hasDecorator(fileContent, offset = 0) {
 - 不支持按需加载
 - 只能打包成es6
 
-
 ### webpack mock server
 
 ```javascript
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs')
+const path = require('path')
 
 module.exports = function () {
   // 这里收mock数据的根目录，我们只认这目录下文件
-  let mockDataPath = path.resolve(__dirname, "../mock/");
+  let mockDataPath = path.resolve(__dirname, '../mock/')
   //   判断根目录是否存在mock目录
-  let existsMockDir = fs.existsSync(mockDataPath);
+  let existsMockDir = fs.existsSync(mockDataPath)
   // 获取mock目录下的所有文件的mock数据
   let getMockData = () => {
     // 如果mock目录存在就走if逻辑
@@ -535,121 +534,120 @@ module.exports = function () {
        * 通过readdirSync获取mock目录下的所有文件名称
        * 再通过require取出数据
        */
-      let modules = fs.readdirSync(mockDataPath);
+      let modules = fs.readdirSync(mockDataPath)
       return modules.reduce((pre, module) => {
         return {
           ...pre,
-          ...require(path.join(mockDataPath, "./" + module)),
-        };
-      }, {});
+          ...require(path.join(mockDataPath, './' + module))
+        }
+      }, {})
     } else {
-      console.log("根目录不存在mock文件夹，请创建一个根目录创建一个mock文件夹");
-      return {};
+      console.log('根目录不存在mock文件夹，请创建一个根目录创建一个mock文件夹')
+      return {}
     }
-  };
+  }
 
   // 该函数负责重新处理请求的路径
   let splitApiPath = (mockData) => {
-    let data = {};
+    let data = {}
     for (let path in mockData) {
-      let [method, apiPath, sleep] = path.split(" ");
-      let newApiPath = method.toLocaleUpperCase() + apiPath;
+      let [method, apiPath, sleep] = path.split(' ')
+      let newApiPath = method.toLocaleUpperCase() + apiPath
       data[newApiPath] = {
         path: newApiPath,
         method,
         sleep,
-        callback: mockData[path],
-      };
+        callback: mockData[path]
+      }
     }
-    return data;
-  };
+    return data
+  }
 
   // 该函数是一个延时函数
   let delayFn = (sleep) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve();
-      }, sleep);
-    });
-  };
+        resolve()
+      }, sleep)
+    })
+  }
 
   // 最后返回一个函数
   return async (req, res, next) => {
-    let { baseUrl, method } = req;
+    let { baseUrl, method } = req
     // 只处理请求路径包含api的请求
-    if (baseUrl.indexOf("api") === -1 || !existsMockDir) {
-      return next();
+    if (baseUrl.indexOf('api') === -1 || !existsMockDir) {
+      return next()
     }
-    let mockData = splitApiPath(getMockData());
-    let path = method.toLocaleUpperCase() + baseUrl;
-    let { sleep, callback } = mockData[path];
-    let isFuntion = callback.__proto__ === Function.prototype;
+    let mockData = splitApiPath(getMockData())
+    let path = method.toLocaleUpperCase() + baseUrl
+    let { sleep, callback } = mockData[path]
+    let isFuntion = callback.__proto__ === Function.prototype
     // 如果mock api 有延时存在
     if (sleep && sleep > 0) {
-      await delayFn(sleep);
+      await delayFn(sleep)
     }
     // 如果mock api 的值是一个函数
     if (isFuntion) {
-      callback(req, res);
+      callback(req, res)
     } else {
       // 如果mock api 的值是一个json
       res.json({
-        ...callback,
-      });
+        ...callback
+      })
     }
-    next();
-  };
-};
-
+    next()
+  }
+}
 ```
 
 ```javascript
 module.exports = {
   devServer: {
-    onBeforeSetupMiddleware(server){
-        server.app.use('*',mockServer())
+    onBeforeSetupMiddleware(server) {
+      server.app.use('*', mockServer())
     }
   }
-};
+}
 ```
 
 ```javascript
 // 定义接口
 module.exports = {
-	"GET /api/list": {
-		code: 0,
-		data: {
-			list: [
-				{
-					name: "syf",
-					age: 18,
-				},
-			],
-		},
-	},
-	"POST /api/list 3000": (req, res) => {
-		res.json({
-			code: 0,
-			data: {
-				list: [
-					{
-						name: "gulie",
-						age: 19,
-					},
-				],
-			},
-		});
-	},
-};
-
+  'GET /api/list': {
+    code: 0,
+    data: {
+      list: [
+        {
+          name: 'syf',
+          age: 18
+        }
+      ]
+    }
+  },
+  'POST /api/list 3000': (req, res) => {
+    res.json({
+      code: 0,
+      data: {
+        list: [
+          {
+            name: 'gulie',
+            age: 19
+          }
+        ]
+      }
+    })
+  }
+}
 ```
 
 ## plugins
+
 热更新速度分析
 speed-measure-webpack-plugin
 
-
 ### 提升热更新时间
+
 开发环境屏蔽 CompressionWebpackPlugin
 
 Sourcemap
@@ -670,19 +668,18 @@ module.exports = {
 
 模块动态引入
 babel-plugin-dynamic-import-node
+
 ```javascript
 // babel.config.js
 module.exports = {
-    presets: [
-        '@vue/app'
-    ],
-    env: {
-        development: {//仅在开发环境生效
-            plugins: ['dynamic-import-node']
-        }
+  presets: ['@vue/app'],
+  env: {
+    development: {
+      //仅在开发环境生效
+      plugins: ['dynamic-import-node']
     }
+  }
 }
 ```
-
 
 屏蔽多余路由

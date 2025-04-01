@@ -75,9 +75,7 @@ function compressImg(file) {
   }
 }
 
-function dataURLtoFile() {
-
-}
+function dataURLtoFile() {}
 //图片上传之前处理事件
 function beforeAvatarUpload(file) {
   console.log(file)

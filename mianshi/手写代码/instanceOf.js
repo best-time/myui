@@ -1,13 +1,13 @@
 function instanceOf(ins, obj) {
-  let proto = Object.getPrototypeOf(ins);
+  let proto = Object.getPrototypeOf(ins)
   while (true) {
     if (proto === null) {
-      return false;
+      return false
     }
     if (proto === obj.prototype) {
-      return true;
+      return true
     }
-    proto = Object.getPrototypeOf(proto);
+    proto = Object.getPrototypeOf(proto)
   }
 }
 

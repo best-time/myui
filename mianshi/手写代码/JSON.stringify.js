@@ -10,33 +10,33 @@ undefined、任意函数以及symbol，会被忽略（出现在非数组对象�
  */
 
 function jsonStringify(obj) {
-  let type = typeof obj;
+  let type = typeof obj
 
-  if (type !== "object") {
+  if (type !== 'object') {
     if (/string|undefined|function/i.test(type)) {
-      obj = `"${obj}"`;
+      obj = `"${obj}"`
     }
-    return String(obj);
+    return String(obj)
   }
 
-  let json = [];
-  let arr = Array.isArray(obj);
+  let json = []
+  let arr = Array.isArray(obj)
   for (let k in obj) {
-    let v = obj[k];
-    let type = typeof v;
+    let v = obj[k]
+    let type = typeof v
     if (/string|undefined|function/i.test(type)) {
-      v = `"${v}"`;
-    } else if (type === "object") {
-      v = jsonStringify(v);
+      v = `"${v}"`
+    } else if (type === 'object') {
+      v = jsonStringify(v)
     }
-    json.push((arr ? "" : `"${k}": `) + String(v));
+    json.push((arr ? '' : `"${k}": `) + String(v))
   }
-  const start = arr ? "[" : "{";
-  const end = arr ? "]" : "}";
-  return start + json.join(",") + end;
+  const start = arr ? '[' : '{'
+  const end = arr ? ']' : '}'
+  return start + json.join(',') + end
 }
 
-console.log(jsonStringify({a: 1}))
+console.log(jsonStringify({ a: 1 }))
 console.log(jsonStringify(1))
 console.log(jsonStringify(function A() {}))
 console.log(jsonStringify(null))

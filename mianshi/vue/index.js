@@ -3,12 +3,12 @@ class Dep {
     this.subscribers = new Set()
   }
   depend() {
-    if(activeEffect) {
+    if (activeEffect) {
       this.subscribers.add(activeEffect)
     }
   }
   notify() {
-    this.subscribers.forEach(effect => {
+    this.subscribers.forEach((effect) => {
       effect.update()
     })
   }
@@ -38,12 +38,12 @@ function effect(effect) {
 let targetMap = new WeakMap()
 function getDep(target, key) {
   let depsMap = targetMap.get(target)
-  if(!depsMap) {
+  if (!depsMap) {
     depsMap = new Map()
     targetMap.set(target, depsMap)
   }
   let dep = depsMap.get(key)
-  if(!dep) {
+  if (!dep) {
     dep = new Dep()
     depsMap.set(key, dep)
   }
@@ -62,26 +62,29 @@ const handler = {
     dep.notify()
     Reflect.set(target, key, value)
     return result
-  },
+  }
 }
 const reactive = (target) => {
   return new Proxy(target, handler)
 }
-
 
 const state = reactive({
   count: 1
 })
 
 const render = () => {
-  document.body.innerHTML =`<h2>${state.count}</h2>`
+  document.body.innerHTML = `<h2>${state.count}</h2>`
 }
 
 effect(() => {
   render()
 })
 
-document.body.addEventListener('click', () => {
-  state.count++
-}, false)
+document.body.addEventListener(
+  'click',
+  () => {
+    state.count++
+  },
+  false
+)
 // render()

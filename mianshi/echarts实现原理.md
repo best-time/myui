@@ -1,121 +1,126 @@
 ### ECharts中实现图表的动态加载和更新
+
 setOption
+
 ```javascript
 // 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('main'))
 
 // 设置初始图表
 myChart.setOption({
-    title: { text: 'ECharts 示例' },
-    tooltip: {},
-    xAxis: { data: ["一月", "二月", "三月", "四月", "五月", "六月"] }, 
-    yAxis: {},
-    series: [{ name: '销量', type: 'bar', data: [5, 20, 36, 10, 10, 20] }]
-});
+  title: { text: 'ECharts 示例' },
+  tooltip: {},
+  xAxis: { data: ['一月', '二月', '三月', '四月', '五月', '六月'] },
+  yAxis: {},
+  series: [{ name: '销量', type: 'bar', data: [5, 20, 36, 10, 10, 20] }]
+})
 
 // 在获取新数据后，通过setOption更新数据，比如：
 myChart.setOption({
-    series: [{ data: [10, 22, 30, 23, 17, 33] }]  // 新的数据
-});
-
+  series: [{ data: [10, 22, 30, 23, 17, 33] }] // 新的数据
+})
 ```
 
 ### ECharts的延迟加载
+
 在ECharts的配置项中，设置dataZoom组件的start和end属性，这两个属性控制了初始状态下图表显示数据的范围。
 例如，可以设置start: 0, end: 10，则一开始只显示数据的前10%。
+
 ```javascript
-var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('main'))
 myChart.setOption({
-    dataZoom: [
-        {
-            type: 'slider',
-            start: 0,
-            end: 10
-        }
-    ],
-});
+  dataZoom: [
+    {
+      type: 'slider',
+      start: 0,
+      end: 10
+    }
+  ]
+})
 
 // dataZoom范围改变事件
 myChart.on('datazoom', function (params) {
-	// 获取新的start和end值
-	var start = params.start;
-	var end = params.end;
-	// 加载新的数据
-	var newData = getData(start, end);
-	// 更新图表
-	myChart.setOption({
-		series: [{
-			data: newData
-		}]
-	});
-});
-
+  // 获取新的start和end值
+  var start = params.start
+  var end = params.end
+  // 加载新的数据
+  var newData = getData(start, end)
+  // 更新图表
+  myChart.setOption({
+    series: [
+      {
+        data: newData
+      }
+    ]
+  })
+})
 ```
-
 
 ### 创建特殊图表
+
 自定义系列主要通过 renderItem 函数来定义图形的绘制逻辑
-```javascript
-   var option = {
-     xAxis: {
-       type: 'value'
-     },
-     yAxis: {
-       type: 'value'
-     },
-     series: [{
-       type: 'custom',
-       renderItem: function (params, api) {
-         var xValue = api.value(0);
-         var yValue = api.value(1);
-         var coord = api.coord([xValue, yValue]);
-         var size = api.size([1, 1]);
 
-         return {
-           type: 'rect',
-           shape: {
-             x: coord[0] - size[0] / 2,
-             y: coord[1] - size[1] / 2,
-             width: size[0],
-             height: size[1]
-           },
-           style: api.style()
-         };
-       },
-       data: [
-         [10, 10],
-         [20, 20],
-         [30, 30]
-       ]
-     }]
-   };
-myChart.setOption(option);
-
-```
-
-
-### 全局配置字体、颜色、间距
 ```javascript
 var option = {
-    textStyle: {
-        fontFamily: 'Arial',
-        fontSize: 13,
-    },
-    color: ['#3398DB', '#7B8DE8', '#F49080', '#F7C244', '#57C17B'],
-    grid: {
-      left: 20,
-      right: 20,
-      top: 20,
-      bottom: 20,
-      containLabel: true  // 是否包含坐标轴的标签
-    },
-};
-myChart.setOption(option);
+  xAxis: {
+    type: 'value'
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      type: 'custom',
+      renderItem: function (params, api) {
+        var xValue = api.value(0)
+        var yValue = api.value(1)
+        var coord = api.coord([xValue, yValue])
+        var size = api.size([1, 1])
 
+        return {
+          type: 'rect',
+          shape: {
+            x: coord[0] - size[0] / 2,
+            y: coord[1] - size[1] / 2,
+            width: size[0],
+            height: size[1]
+          },
+          style: api.style()
+        }
+      },
+      data: [
+        [10, 10],
+        [20, 20],
+        [30, 30]
+      ]
+    }
+  ]
+}
+myChart.setOption(option)
 ```
 
+### 全局配置字体、颜色、间距
+
+```javascript
+var option = {
+  textStyle: {
+    fontFamily: 'Arial',
+    fontSize: 13
+  },
+  color: ['#3398DB', '#7B8DE8', '#F49080', '#F7C244', '#57C17B'],
+  grid: {
+    left: 20,
+    right: 20,
+    top: 20,
+    bottom: 20,
+    containLabel: true // 是否包含坐标轴的标签
+  }
+}
+myChart.setOption(option)
+```
 
 ### 事件机制
+
 ECharts支持多种事件，包括但不限于:
 
 click: 鼠标左键点击图表时触发
@@ -125,12 +130,13 @@ mouseout: 鼠标从图表移开时触发
 legendselectchanged: 图例选择状态发生改变时触发
 
 绑定事件
+
 ```javascript
 myChart.on('click', function (params) {
-  console.log(params);
-});
+  console.log(params)
+})
 
-myChart.off('click');
+myChart.off('click')
 ```
 
 ### ECharts创建一个堆叠面积图(stack area chart)
@@ -143,8 +149,6 @@ myChart.off('click');
 - 交互与动态更新：ECharts提供的toolbox和dataZoom等选项可以增加图表的交互性。你也可以使用setOption方法动态更新图表。
 - 考虑响应式布局：根据显示设备的大小和分辨率调整图表的大小和布局。
 
-
-
 ### 实现自定义tooltip
 
 tooltip组件提供了很多可配置的属性，例如：
@@ -152,91 +156,84 @@ tooltip组件提供了很多可配置的属性，例如：
 - trigger：设置提示框触发的条件，可以设置为 'item' 或 'axis'，分别对应的是触发提示框的元素是单个数据项和坐标轴上的所有数据项。
 - formatter：设置提示框显示内容的格式化模版。你可以定义一个函数，这个函数接收参数，然后返回你想要显示的内容。这个属性是最主要的属性，用来自定义 tooltip 的展示内容。
 
-
 ```javascript
-var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('main'))
 
 var option = {
-    title: {
-        text: 'ECharts Tooltip 示例'
-    },
-    tooltip: { 
-        trigger: 'item', 
-        formatter: function(params) {
-            return '我的自定义tooltip<br/>'
-                 + params.seriesName + ' : <br/>'
-                 + params.name + ' : '
-                 + params.value;
-        }
-    },
-    series : [
-        {
-            name:'销量',
-            type:'bar',
-            data:[10, 52, 200, 334, 390, 330, 220]
-        }
-    ]
-};
+  title: {
+    text: 'ECharts Tooltip 示例'
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: function (params) {
+      return '我的自定义tooltip<br/>' + params.seriesName + ' : <br/>' + params.name + ' : ' + params.value
+    }
+  },
+  series: [
+    {
+      name: '销量',
+      type: 'bar',
+      data: [10, 52, 200, 334, 390, 330, 220]
+    }
+  ]
+}
 
-myChart.setOption(option);
-
+myChart.setOption(option)
 ```
 
-
 ### 实现多Y轴
+
 你需要在 yAxis 配置项中定义多个 Y 轴。然后，在系列（series）配置项中，
 对每一个系列设置 yAxisIndex，该值对应着 yAxis 配置项数组的索引，
 从而决定了此系列使用哪一个 Y 轴
+
 ```javascript
-var myChart = echarts.init(document.getElementById('main'));
+var myChart = echarts.init(document.getElementById('main'))
 
 var option = {
-    title: {
-        text: 'ECharts 多 Y 轴示例'
+  title: {
+    text: 'ECharts 多 Y 轴示例'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['系列1', '系列2']
+  },
+  yAxis: [
+    {
+      type: 'value',
+      name: 'Y轴1'
     },
-    tooltip: {
-        trigger: 'axis'
+    {
+      type: 'value',
+      name: 'Y轴2'
+    }
+  ],
+  series: [
+    {
+      name: '系列1',
+      type: 'line',
+      data: [120, 200, 150, 80, 70, 110, 130],
+      yAxisIndex: 0 // 这个系列使用第一个 Y 轴（索引为0）
     },
-    legend: {
-        data:['系列1','系列2']
-    },
-    yAxis: [
-        {
-            type: 'value',
-            name: 'Y轴1',
-        },
-        {
-            type: 'value',
-            name: 'Y轴2',
-        }
-    ],
-    series: [
-        {
-            name:'系列1',
-            type:'line',
-            data: [120, 200, 150, 80, 70, 110, 130],
-            yAxisIndex: 0, // 这个系列使用第一个 Y 轴（索引为0）
-        },
-        {
-            name:'系列2',
-            type:'line',
-            data: [22, 18, 491, 234, 290, 330, 310],
-            yAxisIndex: 1, // 这个系列使用第二个 Y 轴（索引为1）
-        }
-    ]
-};
+    {
+      name: '系列2',
+      type: 'line',
+      data: [22, 18, 491, 234, 290, 330, 310],
+      yAxisIndex: 1 // 这个系列使用第二个 Y 轴（索引为1）
+    }
+  ]
+}
 
-myChart.setOption(option);
-
+myChart.setOption(option)
 ```
-
 
 ### ECharts 渲染大数据量的图表,性能问题
 
 慢：加载缓慢、界面卡顿
 
 难看：图表数据量过大、展示效果不好
-
 
 措施：
 
@@ -245,38 +242,38 @@ myChart.setOption(option);
 - 异步加载和更新数据：可以将大数据分批处理，通过异步方式逐步加载和更新数据。
 - 关闭无用的动画和特效：动画和一些视觉特效可能会占用大量的计算资源，关闭它们可以提高性能。
 
-
 ### 图表图片导出
+
 ECharts 提供了 getDataURL 和 getConnectedDataURL 方法，可以获取当前图表实例的截图。
 
 ```javascript
-btn.addEventListener('click', function (){
-    var url = chartInstance.getDataURL({
-        // 导出的格式，可以是 'jpeg' 或者 'png'
-        type: 'png',
-        // 导出的图片背景色，默认使用 option 里的 backgroundColor
-        backgroundColor: '#fff',
-        // 导出的图片的长宽尺寸，默认使用原图尺寸
-        pixelRatio: 2,
-        // 是否不包含 toolbox。设置为 true 则 toolbox 的 icon 等相关元素不会画到图片里
-        excludeComponents: ['toolbox']
-    });
-    // 下载图片
-    downloadUrl(url);
-});
+btn.addEventListener('click', function () {
+  var url = chartInstance.getDataURL({
+    // 导出的格式，可以是 'jpeg' 或者 'png'
+    type: 'png',
+    // 导出的图片背景色，默认使用 option 里的 backgroundColor
+    backgroundColor: '#fff',
+    // 导出的图片的长宽尺寸，默认使用原图尺寸
+    pixelRatio: 2,
+    // 是否不包含 toolbox。设置为 true 则 toolbox 的 icon 等相关元素不会画到图片里
+    excludeComponents: ['toolbox']
+  })
+  // 下载图片
+  downloadUrl(url)
+})
 
 function downloadUrl(url) {
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'echarts.png';
-    a.click();
+  var a = document.createElement('a')
+  a.href = url
+  a.download = 'echarts.png'
+  a.click()
 }
-
 ```
 
 [文档](https://zhuanlan.zhihu.com/p/347325932)
 
 ## 架构
+
 - 基于数据流的架构
 - ![img_18.png](imgs/img2/img_18.png)
 - 渐进式的可视化
@@ -294,6 +291,7 @@ function downloadUrl(url) {
 主线程中的canvas只需将最重需要执行的指令数组依次执行即可
 
 ## Zrender
+
 Zrender是Echarts底层依赖的2D向量绘制库。
 
 - 图形元素管理：Zrender会将一个个绘制过的图形，作为独立的对象维护管理起来。这些图形对象被存储在一颗树结构中，像DOM树一样。

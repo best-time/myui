@@ -11,47 +11,47 @@
  */
 
 function MyPromise(constructor) {
-  let self = this;
-  self.status = "pending";
-  self.value = null;
-  self.reason = null;
+  let self = this
+  self.status = 'pending'
+  self.value = null
+  self.reason = null
   function resolve(value) {
-    if (self.status === "pending") {
-      self.status = "resolved";
-      self.value = value;
+    if (self.status === 'pending') {
+      self.status = 'resolved'
+      self.value = value
     }
   }
   function reject(reason) {
-    if (self.status === "pending") {
-      self.status = "rejected";
-      self.reason = reason;
+    if (self.status === 'pending') {
+      self.status = 'rejected'
+      self.reason = reason
     }
   }
   try {
-    constructor(resolve, reject);
+    constructor(resolve, reject)
   } catch (error) {
-    reject(error);
+    reject(error)
   }
 }
 
 MyPromise.prototype.then = function (onFullfilled, onRejected) {
-  let self = this;
+  let self = this
   switch (self.status) {
-    case "resolved":
-      onFullfilled(self.value);
-      break;
-    case "rejected":
-      onRejected(self.reason);
-      break;
+    case 'resolved':
+      onFullfilled(self.value)
+      break
+    case 'rejected':
+      onRejected(self.reason)
+      break
     default:
   }
-};
+}
 
 //test
 let p = new MyPromise(function (resolve, reject) {
-  resolve(1);
-});
+  resolve(1)
+})
 p.then(function (x) {
-  console.log(x);
-});
+  console.log(x)
+})
 //输出1

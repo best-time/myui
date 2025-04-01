@@ -13,7 +13,7 @@
     <p><button onclick="calc()">web worker开始计算</button></p>
     <p>计算结果为：<span id="result">-</span></p>
     <p><button onclick="clearText()">清空结果</button></p>
-    <br>
+    <br />
     <div>在计算期间你可以填XX表单</div>
     <input type="text" placeholder="请输入姓名" />
     <input type="text" placeholder="请输入年龄" />
@@ -31,9 +31,9 @@
         console.log('总计算花费时间:', time)
         document.getElementById('result').innerHTML = result
       }
-			function clearText() {
-							document.getElementById('result').innerHTML = '-'
-            }
+      function clearText() {
+        document.getElementById('result').innerHTML = '-'
+      }
     </script>
     <script>
       // 改成web-worker调用

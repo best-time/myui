@@ -7,35 +7,35 @@
  */
 
 function Parent(name) {
-	this.name = name;
+  this.name = name
 }
-Parent.prototype.sayName = function() {
-	console.log('父类名称:', this.name);
+Parent.prototype.sayName = function () {
+  console.log('父类名称:', this.name)
 }
 
 function Child(name, parentName) {
-	Parent.call(this, parentName);
-	this.name = name;
+  Parent.call(this, parentName)
+  this.name = name
 }
 
 function create(proto) {
-	function F(){}
-	F.prototype = proto;
-	return new F();
+  function F() {}
+  F.prototype = proto
+  return new F()
 }
 
 function generate() {
-	Child.prototype = create(Parent.prototype);
-	Child.prototype.sayName = function() {
-		console.log('子类名称:', this.name);
-	}
-	Child.prototype.constructor = Child;
+  Child.prototype = create(Parent.prototype)
+  Child.prototype.sayName = function () {
+    console.log('子类名称:', this.name)
+  }
+  Child.prototype.constructor = Child
 }
 generate()
 
-let parent = new Parent('father');
-parent.sayName();    // 父类名称 father
+let parent = new Parent('father')
+parent.sayName() // 父类名称 father
 
-let child = new Child('son', 'father');
+let child = new Child('son', 'father')
 
 console.log(child.sayName())

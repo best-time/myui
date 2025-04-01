@@ -9,16 +9,17 @@
 
 ### 为什么要使用Docker
 
-- 环境一致性:  避免发生在我的电脑上能运行,别人的电脑上用不了的问题，确保开发、测试和生产环境的一致性
+- 环境一致性: 避免发生在我的电脑上能运行,别人的电脑上用不了的问题，确保开发、测试和生产环境的一致性
 - 版本隔离： 在同一台服务器上运行不同版本的应用（如不同版本的Node.js），避免项目报错
 - 服务迁移： 容器化后的应用可以轻松地在不同服务器间迁移，无需担心环境差异
 - 标准化交付： 提供了一个标准的软件交付方式，减少了人为部署错误
 
-
 ### 验证是否成功
+
 docker --version
 
 ### 尝试运行服务器
+
 docker run -d -p 80:80 --name webserver nginx`
 访问: http://localhost
 
@@ -34,15 +35,15 @@ docker rm webserver
 "http://hub-mirror.c.163.com"
 ]
 
-
 如果是构建过程中npm因为网络原因,安装依赖失败可以考虑使用 npm镜像地址或者使用cnpm
 
 # 运行 npm install 安装cnpm 再通过cnpm安装依赖
+
 RUN npm -g --cache=none --registry https://registry.npmmirror.com \
 && cnpm install
 
-
 dockerfile
+
 ```text
 # 使用 Node.js 16 作为基础镜像
 FROM node:16.14.2
@@ -79,7 +80,6 @@ CMD ["nginx", "-g", "daemon off;"]
 
 dockerignore 与.gitignore 语法一致
 
-
 ### 构建前端镜像
 
 docker build -t gyljr-admin:v1 .
@@ -91,9 +91,7 @@ gyljr-admin 项目名
 
 通过docker run -d -p 3000:80 --name gyljr-admin-web gyljr-admin:v1 来运行
 
-
 ### 常用 Docker 命令速查
-
 
 构建镜像：docker build -t <镜像名> .
 

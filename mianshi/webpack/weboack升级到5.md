@@ -1,5 +1,5 @@
-
 ### webpack3升级到5
+
 [参考](https://juejin.cn/post/7083146700939853832?from=search-suggest)
 
 删除 resolve.alias或resolve.modules
@@ -44,7 +44,6 @@ loader版本升级
     常常因为项目较多在多个项目切换过程中需要频繁切换 NodeJS 版本，
     以及经常因为网络不稳定导致安装失败等问题）。
 
-
 配置 plugins
 
     移除 uglifyjs-webpack-plugin 插件使用 terser-webpack-plugin 压缩js。
@@ -56,7 +55,6 @@ loader版本升级
 
     在 optimization.minimizer 对象下使用 terser-webpack-plugin 插件开启多线程压缩 js 并配置删除注释和日志。
     在 optimization.minimizer 对象下使用 css-minimizer-webpack-plugin 插件压缩 css。
-
 
 plugins及一些依赖使用方式的改变
 

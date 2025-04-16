@@ -8,3 +8,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 
 [package.json](https://juejin.cn/post/7126394898445500423#heading-7)
+
+
+docker build -t mu-ui:0215-1 .
+
+docker build -t mu-ui/multi .  -f Dockerfile.multi

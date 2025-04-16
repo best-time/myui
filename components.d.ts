@@ -10,7 +10,6 @@ declare module 'vue' {
     Detail: typeof import('./src/components/common/detail/index.vue')['default']
     DialogCom: typeof import('./src/components/common/dialogCom.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDialog: typeof import('element-plus/es')['ElDialog']

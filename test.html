@@ -1,68 +1,92 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document-</title>
-</head>
-<body>
+  </head>
+  <body>
+    <script>
+      const a = [1, 2, 3, 4]
+      for (const i of a) {
+        console.log(i)
+      }
 
-<script>
-    const a = [1,2,3,4]
-    for(const i of a){
-      console.log(i)
-    }
+      const person = {
+        name: 'John',
+        age: 30,
+        gender: 'male'
+      }
 
-    const person = {
-      name: 'John',
-      age: 30,
-      gender: 'male'
-    };
+      for (const [key, value] of Object.entries(person)) {
+        console.log(`${key}: ${value}`)
+      }
 
-    for (const [key, value] of Object.entries(person)) {
-      console.log(`${key}: ${value}`);
-    }
+      const matrix = [
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]
+      for (const row of matrix) {
+        console.log(row)
+      }
 
-    const matrix = [[1,2], [3,4], [5,6]]
-    for(const row of matrix) {
-      console.log(row)
-    }
+      const c = {
+        name: 1,
+        age: 30
+        // [Symbol.iterator]: Array.prototype[Symbol.iterator]
+      }
+      c[Symbol.iterator] = Array.prototype[Symbol.iterator]
+      //
+      for (const i of c) {
+        console.log(i)
+      }
 
-    const c = {
-      name: 1,
-      age: 30,
-      // [Symbol.iterator]: Array.prototype[Symbol.iterator]
-    }
-    c[Symbol.iterator] =
-      Array.prototype[Symbol.iterator];
-    //
-    for (const i of c) {
-      console.log(i)
-    }
+      console.log('------------------------')
 
-    console.log('------------------------')
-
-    const obj = {
-      list: [{name: 1}, {name: 2}],
-      address: {
-        city: '北京',
-        street: '长安街',
-        info: {
-          desc: 'aaaaa'
+      const obj = {
+        list: [{ name: 1 }, { name: 2 }],
+        address: {
+          city: '北京',
+          street: '长安街',
+          info: {
+            desc: 'aaaaa'
+          }
         }
       }
-    }
-    const { list: [arr1], address: { info } } = obj
+      const {
+        list: [arr1],
+        address: { info }
+      } = obj
 
-    info.desc = 'cccccc'
-    arr1.name= Math.random()
-    arr1.name2= Math.random()
-    console.log(obj)
-</script>
+      info.desc = 'cccccc'
+      arr1.name = Math.random()
+      arr1.name2 = Math.random()
+      console.log(obj)
+    </script>
 
-<script src="hooks/storage.js"></script>
-<script></script>
-</body>
+    <script src="hooks/storage.js"></script>
+    <script>
+      ;(function () {
+        let path = 'a[0].b.c'
+        path = path.replace(/\[(\d+)]/gi, '.$1')
+        console.log(path)
+        console.log('a[0].b.c'.match(/\[\d+\]/g))
+
+        var str = '张三：1000，李四：5000，王五：8000。'
+        var array = str.match(/\d+/g)
+        console.log(array)
+      })()
+    </script>
+    <script>
+      const read = 0b0001
+      const write = 0b0010
+      const update = 0b0100
+      const del = 0b1000
+    </script>
+  </body>
 </html>

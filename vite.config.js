@@ -23,6 +23,18 @@ export default defineConfig ({
       "@views": resolve(__dirname, "./src/views"),
     },
   },
+  // 设置scss的api类型为modern-compiler
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+        silenceDeprecations: ["legacy-js-api"],
+      },
+      sass: {
+        api: 'modern-compiler'
+      }
+    }
+  },
   plugins: [
     vue (),
     AutoImport ({

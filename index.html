@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,5 +9,85 @@
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script>
+      const a = '{}()[]'
+      const a1 = '{()}[]'
+      const a2 = '{(})[]'
+      const a3 = '{[]}'
+      const a4 = '([)]'
+
+      const strMap = {
+        '{': '}',
+        '(': ')',
+        '[': ']'
+      }
+      function isValid(str) {
+        const res = []
+        for (let i = 0; i < str.length; i++) {
+          const s = str[i]
+          if (s in strMap) {
+            res.push(strMap[s])
+          } else if (res.length && s === res[res.length - 1]) {
+            res.pop()
+          } else {
+            return false
+          }
+        }
+        return res.length === 0
+      }
+
+      console.log(isValid(a))
+      console.log(isValid(a1))
+      console.log(isValid(a2))
+      console.log(isValid(a3))
+      console.log(isValid(a4))
+
+      console.log('---------------------------------------')
+
+      function arrayToTree(arr, parentId = null) {
+        const tree = []
+
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].parentId === parentId) {
+            const children = arrayToTree(arr, arr[i].id)
+            if (children.length) {
+              arr[i].children = children
+            }
+            tree.push(arr[i])
+          }
+        }
+
+        return tree
+      }
+      const b = [
+        { id: 1, parentId: null, name: 'A' },
+        { id: 2, parentId: 1, name: 'B' },
+        { id: 3, parentId: 1, name: 'C' },
+        { id: 4, parentId: 2, name: 'D' },
+        { id: 5, parentId: 2, name: 'E' },
+        { id: 6, parentId: null, name: 'F' }
+      ]
+      console.log(arrayToTree(b))
+
+      function arrayToTreeByMap(arr) {
+        const map = {}
+        const tree = []
+
+        for (let i = 0; i < arr.length; i++) {
+          const currNode = arr[i]
+          currNode.children = []
+          map[currNode.id] = currNode
+
+          if (currNode.parentId === null) {
+            tree.push(currNode)
+          } else {
+            const parentNode = map[currNode.parentId]
+            parentNode.children.push(currNode)
+          }
+        }
+
+        return tree
+      }
+    </script>
   </body>
 </html>

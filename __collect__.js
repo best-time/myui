@@ -30,7 +30,7 @@ Vue.directive('preventReClick', {
 
  */
 const lazyClick = {
-	inserted: (el, binding, vNode) => {
+	inserted: (el, binding, vNode) => {git pull
 		el.addEventListener('click', function (e) {
 			if (binding.modifiers.stop) e.stopPropagation();
 			if (binding.modifiers.prevent) e.preventDefault();

@@ -4,6 +4,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import Footer from '@/views/test/footer.vue'
 
+const dialogConfig = {
+  'close-on-click-modal': false,
+  'close-on-press-escape': false
+}
+
 export function renderDialog(component, props, modalProps) {
   const visible = ref(true)
   const loading = ref(false)
@@ -13,8 +18,7 @@ export function renderDialog(component, props, modalProps) {
     return h(
       ElDialog,
       {
-        'close-on-click-modal': false,
-        'close-on-press-escape': false,
+        ...dialogConfig,
         'model-value': visible.value,
         ...modalProps,
         onClosed() {

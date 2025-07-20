@@ -47,6 +47,13 @@ type ToArrayNonDist<Type> = [Type] extends [any] ? Type[] : never
 type StrArrOrNumArr2 = ToArrayNonDist<string | number>
 // type StrArrOrNumArr = (string | number)[]
 
+type FunctionInfo<T> = T extends (first: infer A, second: infer B) => infer R ? { args: [A, B]; return: R } : never
+
+type LoginFunction = (username: string, password: string) => Promise<boolean>
+
+type LoginInfo = FunctionInfo<LoginFunction>
+// LoginInfo is: { args: [string, string]; return: Promise<boolean> }
+
 // infer 和extend
 
 const a = (a: number) => `${a + 1}`

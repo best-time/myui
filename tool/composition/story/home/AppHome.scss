@@ -1,0 +1,49 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+$menu-size: 265px;
+
+.app-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $menu-size;
+  bottom: 0;
+  background-color: #f9f9f9;
+  border-right: solid 1px #d8d8d8;
+
+  .app-menu-title {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  li {
+    list-style: circle;
+    line-height: 2em;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &[data-active="true"] {
+      color: cadetblue;
+      list-style: initial;
+    }
+  }
+}
+
+.app-content {
+  padding: 20px 20px 20px $menu-size + 20px;
+  box-sizing: border-box;
+}
+
+.demo-active {
+  background-color: aliceblue;
+}

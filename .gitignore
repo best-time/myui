@@ -24,4 +24,5 @@ package-lock.json
 /mono/
 
 pnpm-lock.yaml
-/demos/
+/demos/*
+./demos/*

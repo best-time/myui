@@ -12,7 +12,7 @@
   "keywords": [
     "util"
   ],
-  "author": "t3",
+  "author": "t33",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.11.7",

@@ -1,117 +1,119 @@
-import { kebabCase } from "@peryl/utils/kebabCase";
-import type { SetupContext } from "vue";
-import { onBeforeUnmount } from "vue";
-import type { SimpleFunction } from "@peryl/utils/event";
-import { createPlainEvent } from "@peryl/utils/event";
+import { kebabCase } from '@peryl/utils/kebabCase'
+import type { SetupContext } from 'vue'
+import { onBeforeUnmount } from 'vue'
+import type { SimpleFunction } from '@peryl/utils/event'
+import { createPlainEvent } from '@peryl/utils/event'
 
-export type { SimpleFunction };
+export type { SimpleFunction }
 
 /**
  * designComponent中emits对象类型
- * @author  韦胜健
+ * @
  * @date    2021/3/9 18:12
  */
-export type ObjectEmitOptions = Record<string, (...args: any[]) => boolean>;
+export type ObjectEmitOptions = Record<string, (...args: any[]) => boolean>
 
 /**
  * 获取监听事件的回调函数类型
- * @author  韦胜健
+ * @
  * @date    2021/3/9 18:13
  */
-type EventListener<EmitsValue> = EmitsValue extends (...args: any[]) => any ? Parameters<EmitsValue> : never;
+type EventListener<EmitsValue> = EmitsValue extends (...args: any[]) => any ? Parameters<EmitsValue> : never
 
 /**
  * Event对象类型
- * @author  韦胜健
+ * @
  * @date    2021/3/9 18:13
  */
 export type ComponentEvent<Emit> = {
-  emit: { [key in keyof Emit]: (...args: EventListener<Emit[key]>) => void };
-  on: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => SimpleFunction };
-  once: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => SimpleFunction };
-  off: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => void };
-};
+  emit: { [key in keyof Emit]: (...args: EventListener<Emit[key]>) => void }
+  on: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => SimpleFunction }
+  once: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => SimpleFunction }
+  off: { [key in keyof Emit]: (cb: (...args: EventListener<Emit[key]>) => void) => void }
+}
 
 /**
  * emits转化成props的对象类型
- * @author  韦胜健
+ * @
  * @date    2021/3/9 18:13
  */
-export type EmitToProp<E extends Record<string, (...args: any[]) => any>> = ("onUpdateModelValue" extends keyof E ? { onChange?: (...args: Parameters<E["onUpdateModelValue"]>) => void } : {}) & {
-  [k in keyof E]?: E[k] extends (...args: any[]) => any ? (...args: Parameters<E[k]>) => void : E[k];
-};
+export type EmitToProp<E extends Record<string, (...args: any[]) => any>> = ('onUpdateModelValue' extends keyof E
+  ? { onChange?: (...args: Parameters<E['onUpdateModelValue']>) => void }
+  : {}) & {
+  [k in keyof E]?: E[k] extends (...args: any[]) => any ? (...args: Parameters<E[k]>) => void : E[k]
+}
 
 /**
  * 创建designComponent所需要的emits选项
- * @author  韦胜健
+ * @
  * @date    2021/9/18 10:28
  */
 export function getComponentEmitOptions(emitOptions?: ObjectEmitOptions): any {
   if (!emitOptions) {
-    return {};
+    return {}
   }
   return Object.keys(emitOptions || {}).reduce((prev, key) => {
-    const emitter = emitOptions[key];
-    const match = key.match(/onUpdate([A-Z])(.*)/);
-    const kebabCaseName = kebabCase(key).replace("on-", "");
+    const emitter = emitOptions[key]
+    const match = key.match(/onUpdate([A-Z])(.*)/)
+    const kebabCaseName = kebabCase(key).replace('on-', '')
     if (!!match) {
-      const updateName = `update:${match[1].toLowerCase()}${match[2]}`;
-      prev[updateName] = emitter;
-      if (key === "onUpdateModelValue") {
-        prev["change"] = emitter;
+      const updateName = `update:${match[1].toLowerCase()}${match[2]}`
+      prev[updateName] = emitter
+      if (key === 'onUpdateModelValue') {
+        prev['change'] = emitter
       }
     }
-    prev[kebabCaseName] = emitter;
-    return prev;
-  }, {} as any);
+    prev[kebabCaseName] = emitter
+    return prev
+  }, {} as any)
 }
 
 export function useSetupEvent(ctx: SetupContext, emitsOptions?: ObjectEmitOptions) {
-  const event = createPlainEvent();
+  const event = createPlainEvent()
 
-  const emit = {} as any;
-  const on = {} as any;
-  const once = {} as any;
-  const off = {} as any;
+  const emit = {} as any
+  const on = {} as any
+  const once = {} as any
+  const off = {} as any
 
-  const keys = Object.keys(emitsOptions || {});
+  const keys = Object.keys(emitsOptions || {})
   if (!!emitsOptions && !!(emitsOptions as any).onUpdateModelValue) {
-    keys.push("onChange");
+    keys.push('onChange')
   }
 
   keys.forEach((key) => {
     /*派发事件名称，横杠命名*/
-    const match = key.match(/onUpdate([A-Z])(.*)/);
-    const kebabCaseName = kebabCase(key).replace("on-", "");
+    const match = key.match(/onUpdate([A-Z])(.*)/)
+    const kebabCaseName = kebabCase(key).replace('on-', '')
     if (!!match) {
-      const updateName = `update:${match[1].toLowerCase()}${match[2]}`;
+      const updateName = `update:${match[1].toLowerCase()}${match[2]}`
       emit[key] = (...args: any[]) => {
-        ctx.emit(kebabCaseName, ...args);
-        event.emit(kebabCaseName, ...args);
-        ctx.emit(updateName, ...args);
-        event.emit(updateName, ...args);
-        if (key === "onUpdateModelValue") {
-          ctx.emit("change", ...args);
-          event.emit("change", ...args);
+        ctx.emit(kebabCaseName, ...args)
+        event.emit(kebabCaseName, ...args)
+        ctx.emit(updateName, ...args)
+        event.emit(updateName, ...args)
+        if (key === 'onUpdateModelValue') {
+          ctx.emit('change', ...args)
+          event.emit('change', ...args)
         }
-      };
+      }
     } else {
       emit[key] = (...args: any[]) => {
-        ctx.emit(kebabCaseName, ...args);
-        event.emit(kebabCaseName, ...args);
-      };
+        ctx.emit(kebabCaseName, ...args)
+        event.emit(kebabCaseName, ...args)
+      }
     }
-    on[key] = (fn: SimpleFunction) => event.on(kebabCaseName, fn);
-    once[key] = (fn: SimpleFunction) => event.once(kebabCaseName, fn);
-    off[key] = (fn: SimpleFunction) => event.off(kebabCaseName, fn);
-  });
+    on[key] = (fn: SimpleFunction) => event.on(kebabCaseName, fn)
+    once[key] = (fn: SimpleFunction) => event.once(kebabCaseName, fn)
+    off[key] = (fn: SimpleFunction) => event.off(kebabCaseName, fn)
+  })
 
-  onBeforeUnmount(event.clear);
+  onBeforeUnmount(event.clear)
 
   return {
     emit,
     on,
     once,
-    off,
-  };
+    off
+  }
 }

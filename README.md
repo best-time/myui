@@ -39,3 +39,7 @@ docker run -p 8080:8080 --name test-hello test:v1
 - 运行web项目在同一个网络
   docker run -p 8080:8080 --name test -v D:/test:/app --network test-net -d test:v1
 - 查看数据是否一致
+
+
+### npkill
+删除不在使用的node_modules文件

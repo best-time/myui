@@ -2,6 +2,7 @@
 
 // 1. 基本数据类型使用
 // 字符串类型
+
 const str = 'TypeScript'
 type StrType = typeof str // 推导为 string 类型
 // 数字类型
@@ -177,3 +178,35 @@ class DataManager {
 const manager = new DataManager()
 manager.add(1).add(2).remove(1).clear()
 const data = manager.getData() // data 的类型为 any[]
+
+// ------------------------------------------------------------------------
+
+// 模板字符串字面量类型
+type EventName = `on${Capitalize<string>}` // 正确示范：'onChange' 'onHandle' onClick'// 错误示范：'change' 'handle' 'click'
+type Method = 'GET' | 'POST' | 'DELETE' | 'PUT'
+type Endpoint = `/api/${string}`
+type Route = `${Method} ${Endpoint}`
+// 正确示范：GET /api/users
+// 错误示范：GET /users
+function MakeRoute(route: Route): string {
+  return route
+}
+MakeRoute('GET /api/users')
+
+// 使用索引访问属性
+type User = { name: string; age: number; single: true }
+type UserNameType = User['name'] // string
+type UserBool = User['single'] // boolean
+
+// ------------------------------------------------------------------------
+
+const config2 = {
+  port: 3000,
+  host: 'localhost'
+} satisfies Record<string, any>
+
+// ------------------------------------------------------------------------
+// Result类型模式（避免异常）
+type Result<T, E = Error> =
+  | { success: true; code: number; value: T; data: Recordable }
+  | { code: number; success: false; error: E; errorMsg: string; data: null | Recordable }

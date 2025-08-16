@@ -27,13 +27,21 @@ type app = (typeof APP)[number] // "TaoBao" | "Tmall" | "Alipay"
 // 条件约束
 // 条件类型约束
 type MessageOf<T extends { message: unknown }> = T['message']
+// ------------------------------------------------------------------------
 
 // infer
 // 使用infer推断
 type Flatten<Type> = Type extends Array<infer Item> ? Item : Type
 
+// #demo
+type Flatten1 = Flatten<string[]> // string
+type Flatten2 = Flatten<number> // number
+
+// ------------------------------------------------------------------------
 // 推断函数返回值类型
 type GetReturnType<Type> = Type extends (...args: never[]) => infer Return ? Return : never
+
+// ------------------------------------------------------------------------
 
 // toArray
 type ToArray<Type> = Type extends any ? Type[] : never

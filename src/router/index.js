@@ -1,54 +1,54 @@
 // 路由文件
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 import EntryRoutes from './entry.js'
-import Home from '../views/Home.vue';
-import Vue2 from '../views/vue2.vue';
-import DirectiveDemo from '../views/directive-test.vue';
-import DetailDemo from '../views/detail-demo.vue';
-import TestDemo from '../views/test/f1.vue';
-import ObserverDemo from '../views/observer/index.vue';
+import Home from '../views/Home.vue'
+import Vue2 from '../views/vue2.vue'
+import DirectiveDemo from '../views/directive-test.vue'
+import DetailDemo from '../views/detail-demo.vue'
+// import TestDemo from '../views/test/f1.vue';
+import ObserverDemo from '../views/observer/index.vue'
 
 export const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
   },
   {
     path: '/a2',
     name: 'vue2',
-    component: Vue2,
+    component: Vue2
   },
-    // 指令样例
+  // 指令样例
   {
     path: '/directive-demo',
     name: 'directive-demo',
-    component: DirectiveDemo,
+    component: DirectiveDemo
   },
-    // 详情展示组件
+  // 详情展示组件
   {
     path: '/detail-demo',
     name: 'detail-demo',
-    component: DetailDemo,
+    component: DetailDemo
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: TestDemo,
-  },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: TestDemo
+  // },
   {
     path: '/observer',
     name: 'observer',
-    component: ObserverDemo,
-  },
-];
+    component: ObserverDemo
+  }
+]
 
-const router = createRouter ({
-  history: createWebHistory (),
-  routes: routes.concat(EntryRoutes),
-});
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes.concat(EntryRoutes)
+})
 
-router.beforeEach ((to, from) => {
+router.beforeEach((to, from) => {
   // if(to.meta.requireAuth) {
   //     let token = localStorage.getItem('auth-system-token');
   //     let isLogin = localStorage.getItem('auth-system-login');
@@ -58,6 +58,6 @@ router.beforeEach ((to, from) => {
   //         }
   //     }
   // }
-});
+})
 
-export default router;
+export default router

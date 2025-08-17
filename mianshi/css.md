@@ -186,3 +186,18 @@ Flex 是 Flexible Box 的缩写，意为"弹性布局",用来为盒状模型提�
   clear: both;
 }
 ```
+
+### 移动端全屏高度设置
+
+- svh  (Small Viewport Height):  「最小视口高度」。对应于地址栏和工具栏完全展开时的可见高度。
+- lvh  (Large Viewport Height):  「最大视口高度」。对应于地址栏和工具栏完全收起时的高度（这其实就等同于旧的  100vh）。
+- dvh  (Dynamic Viewport Height):  「动态视口高度」。这是最智能、最实用的单位！它的值会随着浏览器 UI 元素（地址栏）的出现和消失而动态改变。
+```css
+.fullscreen-element  {    
+   /* 如果你希望高度固定，且永远不被遮挡 */   
+   height:  100svh;  
+   /* 或者，也是我最推荐的 */   
+   /* 如果你希望元素能动态地撑满整个可见区域 */
+    height:  100dvh;  
+ }
+```

@@ -167,9 +167,9 @@ DNS解析优化，浏览器访问DNS的时间就可以缩短
    另外，JS 文件也不是不可以放在头部，只要给 script 标签加上 defer 属性就可以了，异步下载，延迟执行。
 
    异步加载js
-   1、<script async src="script.js"></script>：给script标签加async属性，则加载和渲染后续文档元素的过程将和 script.js 的加载与执行并行进行（异步）
-   2、<script defer src="script.js"></script>：给script标签加defer属性，加载后续文档元素的过程将和 script.js 的加载并行进行（异步），但是 script.js 的执行要在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成
-   3、动态创建script标签：等到DOMContentLoaded 事件触发时，生成一个script标签，渲染到页面上上
+   1、<script async src="script.js"></script>：给script标签加async属性，则加载和渲染后续文档元素的过程将和  script.js  的加载与执行并行进行（异步）
+   2、<script defer src="script.js"></script>：给script标签加defer属性，加载后续文档元素的过程将和  script.js  的加载并行进行（异步），但是  script.js  的执行要在所有元素解析完成之后，DOMContentLoaded  事件触发之前完成
+   3、动态创建script标签：等到DOMContentLoaded  事件触发时，生成一个script标签，渲染到页面上上
    4、setTimeout定时器延迟代码执行
 
 9. 静态资源使用 CDN
@@ -612,23 +612,23 @@ const a = 1;
 
 // 词法分析的结果
 [
-  {
-       "type": "Keyword",
-       "value": "const"
-  },
-  {
-       "type": "Identifier",
-       "value": "a"
-  },
-  {
-       "type": "Punctuator",
-       "value": "="
-  },
-  {
-       "type": "Numeric",
-       "value": "1"
-  },
-  {
+   {
+           "type": "Keyword",
+           "value": "const"
+   },
+   {
+           "type": "Identifier",
+           "value": "a"
+   },
+   {
+           "type": "Punctuator",
+           "value": "="
+   },
+   {
+           "type": "Numeric",
+           "value": "1"
+   },
+   {
 "type": "Punctuator",
 "value": ";"
 }
@@ -859,7 +859,25 @@ webpack-bundle-analyzer 包 可以查看资源树
 4. 组件按需加载
 5. 提取公用代码 使用cdn加载
 6. 不拆分css (vue-cli3 中默认会开启一个 css 分离插件，ExtractTextPlugin)
-
+7. 避免使用 import * as utils
+8. TenserPlugin
+```javascript
+optimization: {
+      minimizer: [
+         new TerserPlugin({
+            parallel: true, // 多进程压缩
+            terserOptions: {
+               compress: {
+                  drop_console: true, // 移除console
+                  drop_debugger: true // 移除debugger
+               }
+            }
+         })
+      ]
+   }
+```
+9. 用 lodash-es 替代 lodash
+10. date-fns 替代 moment.js
 // ---------------------------- 面试经 -------------------------------
 
 https://juejin.cn/post/6844904093425598471
@@ -1080,7 +1098,7 @@ TCP 四次挥手
     6）服务器只要收到了客户端发出的确认，立即进入CLOSED状态。同样，撤销TCB后，就结束了这次的TCP连接。可以看到，服务器结束TCP连接的时间要比客户端早一些。
 
 TCP/IP / 如何保证数据包传输的有序可靠？
-对字节流分段并进行编号然后通过 ACK 回复和超时重发这两个机制来保证。
+对字节流分段并进行编号然后通过  ACK 回复和超时重发这两个机制来保证。
 （1）为了保证数据包的可靠传递，发送方必须把已发送的数据包保留在缓冲区；
 （2）并为每个已发送的数据包启动一个超时定时器；
 （3）如在定时器超时之前收到了对方发来的应答信息（可能是对本包的应答，也可以是对本包后续包的应答），则释放该数据包占用的缓冲区;

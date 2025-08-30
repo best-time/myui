@@ -38,8 +38,30 @@ export default defineConfig ({
   plugins: [
     vue (),
     AutoImport ({
-      imports: ['vue', 'vue-router', 'pinia'],
+      imports: [
+        'vue',
+        'vue-router',
+        'pinia',
+        // 定义文件中的某个方法自动引入
+        {
+          '@utils': ['hello']
+        },
+      ],
+      // 配置本地目录自动引入
+      // dirs: ['.src/utils/**', '.src/store/**'],
+      // 默认引入 src/components 目录下的组件
+      // Components({})
+      // 防止组件名冲突
+      // directoryAsNamespace:true
+      // 生成的d.ts文件,在ts中配置引入
       resolvers: [ElementPlusResolver ()],
+      dts: 'src/auto-imports.d.ts',
+      eslintrc: {
+        enabled: true,
+        filepath: './.eslintrc-auto-import.json', // 生成json文件路径
+        globalsPropValue: true
+      }, // 生成eslint配置文件
+      vueTemplate: true
     }),
     Components ({
       resolvers: [ElementPlusResolver ()],

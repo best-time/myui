@@ -1,17 +1,9 @@
 <template>
   <div>
-    <Button size="large" type="primary" @click.native="show1 = true">
-      中间弹出
-    </Button>
-    <Button size="large" type="success" @click.native="show2 = true">
-      下部弹出
-    </Button>
-    <Button size="large" type="error" @click.native="show3 = true">
-      左侧弹出
-    </Button>
-    <Button size="large" type="error" @click.native="show4 = true">
-      右侧弹出
-    </Button>
+    <Button size="large" type="primary" @click.native="show1 = true"> 中间弹出 </Button>
+    <Button size="large" type="success" @click.native="show2 = true"> 下部弹出 </Button>
+    <Button size="large" type="error" @click.native="show3 = true"> 左侧弹出 </Button>
+    <Button size="large" type="error" @click.native="show4 = true"> 右侧弹出 </Button>
 
     <popup v-model="show1" position="center" width="90%">
       <p>
@@ -21,44 +13,28 @@
         这样其他消费者在购买的时候会作为参考，会影响该商品销量，而商家也会因此改进商品质牌质量非常好，与卖家描述的完全一致，
         非常满意，真的很喜欢。
       </p>
-      <p style="color:#F00;margin-top: 10px;">
-        呐~你也看到了，这只是一个普通弹窗，未设置内外边距。
-      </p>
-      <p style="text-align: center;">
+      <p style="color: #f00; margin-top: 10px">呐~你也看到了，这只是一个普通弹窗，未设置内外边距。</p>
+      <p style="text-align: center">
         <Button @click.native="show1 = false">Close Center Popup</Button>
       </p>
     </popup>
 
     <popup v-model="show2" position="bottom" height="60%">
-      <div
-        slot="top"
-        style="height: 30px;line-height: 30px;background-color:#E8E8E8;"
-      >
-        top
-      </div>
+      <div slot="top" style="height: 30px; line-height: 30px; background-color: #e8e8e8">top</div>
       <div>
-        <p :key="n" v-for="n in 30" style="height: 30px;line-height: 30px;">
+        <p :key="n" v-for="n in 30" style="height: 30px; line-height: 30px">
           该容器超出内容出现滚动条，IOS上禁止滚动底层容器{{ n }}
         </p>
       </div>
-      <div
-        slot="bottom"
-        style="height: 30px;line-height: 30px;background-color:#E8E8E8;"
-      >
-        bottom
-      </div>
+      <div slot="bottom" style="height: 30px; line-height: 30px; background-color: #e8e8e8">bottom</div>
     </popup>
 
     <popup v-model="show3" position="left" width="60%">
-      <Button type="primary" style="margin: 20px;" @click.native="show3 = false">
-        Close Left Popup
-      </Button>
+      <Button type="primary" style="margin: 20px" @click.native="show3 = false"> Close Left Popup </Button>
     </popup>
 
     <popup v-model="show4" position="right">
-      <Button type="primary" style="margin: 20px;" @click.native="show4 = false">
-        Close Right Popup
-      </Button>
+      <Button type="primary" style="margin: 20px" @click.native="show4 = false"> Close Right Popup </Button>
     </popup>
   </div>
 </template>
@@ -72,7 +48,7 @@ export default {
       show2: false,
       show3: false,
       show4: false
-    };
+    }
   }
-};
+}
 </script>

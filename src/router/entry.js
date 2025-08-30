@@ -1,9 +1,7 @@
 import baseIndex from '../views/index.vue'
-import List from '../views/List.vue'
 import CardList from '../views/CardList.vue'
 import NavBar from '../views/NavBar.vue'
 import Layout from '../views/Layout.vue'
-import Scrolltab from '../views/Scrolltab.vue'
 import Popup from '../views/Popup.vue'
 import SendCode from '../views/SendCode.vue'
 import Infinitescroll from '../views/Infinitescroll.vue'
@@ -12,9 +10,6 @@ import Lightbox from '../views/Lightbox.vue'
 import Switch from '../views/Switch.vue'
 import Skeleton from '../views/Skeleton.vue'
 import Timeline from '../views/Timeline.vue'
-import Select from '../views/Select.vue'
-import Input from '../views/Input.vue'
-import ScrollNav from '../views/ScrollNav.vue'
 import dragDemo from '../views/drag/index.vue'
 import dragDemo2 from '../views/drag/drag2.vue'
 import tableDemo from '../views/table/index.vue'
@@ -29,10 +24,8 @@ import AsyncComponent from '../views/asyncComponent/index.vue'
 const routeList = [
   { name: 'component-test', component: () => import('../views/component/index.vue') },
   { name: 'layout', component: Layout },
-  { name: 'list', component: List },
   { name: 'navbar', component: NavBar },
   { name: 'clist', component: CardList },
-  { name: 'scrolltab', component: Scrolltab },
   { name: 'popup', component: Popup },
   { name: 'sendcode', component: SendCode },
   { name: 'infinite', component: Infinitescroll },
@@ -41,9 +34,6 @@ const routeList = [
   { name: 'switch', component: Switch },
   { name: 'skeleton', component: Skeleton },
   { name: 'timeline', component: Timeline },
-  { name: 'select', component: Select },
-  { name: 'input', component: Input },
-  { name: 'scrollNav', component: ScrollNav },
   { name: 'drag1', component: dragDemo },
   { name: 'drag2', component: dragDemo2 },
   { name: 'table', component: tableDemo },

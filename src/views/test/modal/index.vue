@@ -7,14 +7,12 @@
   </div>
 </template>
 <script setup>
+import { openModal } from '../../../hooks/modal.js'
 
-import { openModal } from "../../../hooks/modal.js";
+import Notice from './notice.vue'
+import Notice2 from './notice2.vue'
 
-import Notice from "./notice.vue";
-import Notice2 from "./notice2.vue";
-
-    // 打开弹窗
-    const { openAction } = openModal("notice");
-    const { openAction: openAction2 } = openModal("notice2");
+// 打开弹窗
+const { openAction } = openModal('notice')
+const { openAction: openAction2 } = openModal('notice2')
 </script>
-

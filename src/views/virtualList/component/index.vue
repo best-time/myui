@@ -1,9 +1,6 @@
 <template>
   <div ref="list" class="infinite-list-container" @scroll="scrollEvent($event)">
-    <div
-      class="infinite-list-phantom"
-      :style="{ height: listHeight + 'px' }"
-    ></div>
+    <div class="infinite-list-phantom" :style="{ height: listHeight + 'px' }"></div>
     <!--    111111111111111111111-->
     <!--    <div style="height: 50px; background: red"></div>-->
     <div class="infinite-list" :style="{ transform: getTransform }">
@@ -22,7 +19,7 @@
 
 <script>
 export default {
-  name: "VirtualList",
+  name: 'VirtualList',
   props: {
     //所有列表数据
     listData: {
@@ -38,29 +35,26 @@ export default {
   computed: {
     //列表总高度
     listHeight() {
-      return this.listData.length * this.itemHeight;
+      return this.listData.length * this.itemHeight
     },
     //可显示的列表项数
     visibleCount() {
-      return Math.ceil(this.screenHeight / this.itemHeight);
+      return Math.ceil(this.screenHeight / this.itemHeight)
     },
     //偏移量对应的style
     getTransform() {
       // console.log(1111111, this.startOffset);
-      return `translate3d(0, ${this.startOffset}px, 0)`;
+      return `translate3d(0, ${this.startOffset}px, 0)`
     },
     //获取真实显示列表数据
     visibleData() {
-      return this.listData.slice(
-        this.start,
-        Math.min(this.end, this.listData.length)
-      );
+      return this.listData.slice(this.start, Math.min(this.end, this.listData.length))
     }
   },
   mounted() {
-    this.screenHeight = this.$el.clientHeight;
-    this.start = 0;
-    this.end = this.start + this.visibleCount;
+    this.screenHeight = this.$el.clientHeight
+    this.start = 0
+    this.end = this.start + this.visibleCount
   },
   data() {
     return {
@@ -72,22 +66,22 @@ export default {
       start: 0,
       //结束索引
       end: null
-    };
+    }
   },
   methods: {
     scrollEvent() {
       //当前滚动位置
-      let scrollTop = this.$refs.list.scrollTop;
-      console.log(scrollTop, this.itemHeight);
+      let scrollTop = this.$refs.list.scrollTop
+      console.log(scrollTop, this.itemHeight)
       //此时的开始索引
-      this.start = Math.floor(scrollTop / this.itemHeight);
+      this.start = Math.floor(scrollTop / this.itemHeight)
       //此时的结束索引
-      this.end = this.start + this.visibleCount;
+      this.end = this.start + this.visibleCount
       //此时的偏移量
-      this.startOffset = scrollTop - (scrollTop % this.itemHeight);
+      this.startOffset = scrollTop - (scrollTop % this.itemHeight)
     }
   }
-};
+}
 </script>
 
 <style scoped>

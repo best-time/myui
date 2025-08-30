@@ -3,8 +3,8 @@
 </template>
 
 <script setup>
-import { h, ref, onMounted } from "vue";
-import { ElInput } from "element-plus";
+import { h, ref, onMounted } from 'vue'
+import { ElInput } from 'element-plus'
 const model = ref()
 
 const inputRef = ref()
@@ -27,19 +27,19 @@ onMounted(() => {
 // }))
 defineExpose({
   log,
-  inputRef: new Proxy({
-}, {
-  get(_target, prop)  {
-    // console.log(inputRef.value, prop)
-    return inputRef.value?.[prop]
-  },
-  has (_target, prop) {
-    return prop in inputRef.value
-  }
-})
+  inputRef: new Proxy(
+    {},
+    {
+      get(_target, prop) {
+        // console.log(inputRef.value, prop)
+        return inputRef.value?.[prop]
+      },
+      has(_target, prop) {
+        return prop in inputRef.value
+      }
+    }
+  )
 })
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

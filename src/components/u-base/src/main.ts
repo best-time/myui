@@ -18,9 +18,9 @@ import {
   getObjKeys,
   deepGet,
   filterObj,
-  ErrorResult,
-} from './internal/index';
-import {tool} from './index';
+  ErrorResult
+} from './internal/index'
+import { tool } from './index'
 
 export {
   partial,
@@ -43,5 +43,5 @@ export {
   getObjKeys,
   deepGet,
   filterObj,
-  ErrorResult,
-};
+  ErrorResult
+}

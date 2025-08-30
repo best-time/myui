@@ -1,9 +1,8 @@
 <template>
-  <div>basicCom -> {{show}}</div>
+  <div>basicCom -> {{ show }}</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 const show = ref(false)
 
 const changeShow = () => {

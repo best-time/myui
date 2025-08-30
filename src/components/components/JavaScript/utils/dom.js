@@ -6,7 +6,7 @@
  * @returns {HTMLElement}
  */
 function find(name) {
-  return document.querySelector(name);
+  return document.querySelector(name)
 }
 
 /**
@@ -15,23 +15,23 @@ function find(name) {
  * @returns {Array<HTMLElement>}
  */
 function findAll(name) {
-  let nodes = document.querySelectorAll(name);
+  let nodes = document.querySelectorAll(name)
   if (Array.from) {
-    nodes = Array.from(nodes);
+    nodes = Array.from(nodes)
   } else {
-    nodes = [].slice.call(nodes);
+    nodes = [].slice.call(nodes)
   }
-  return nodes;
+  return nodes
 }
 
 /**
  * 设置样式
  * @param {HTMLElement} el 设置样式的元素
- * @param {CSSStyleDeclaration} styles 样式 
+ * @param {CSSStyleDeclaration} styles 样式
  */
 function setStyle(el, styles) {
   for (const key in styles) {
-    el.style[key] = styles[key];
+    el.style[key] = styles[key]
   }
 }
 
@@ -42,9 +42,9 @@ function setStyle(el, styles) {
  */
 function hasClass(el, className) {
   if (el.classList) {
-    return el.classList.contains(className);
+    return el.classList.contains(className)
   } else {
-    return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
+    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
   }
 }
 
@@ -55,11 +55,11 @@ function hasClass(el, className) {
  */
 function addClass(el, className) {
   if (el.classList) {
-    el.classList.add(className);
+    el.classList.add(className)
   } else {
     if (!hasClass(el, className)) {
-      let name = el.className.charAt(el.className.length - 1) === " " ? className : " " + className;
-      el.className += name;
+      let name = el.className.charAt(el.className.length - 1) === ' ' ? className : ' ' + className
+      el.className += name
     }
   }
 }
@@ -71,11 +71,11 @@ function addClass(el, className) {
  */
 function removeClass(el, className) {
   if (el.classList) {
-    el.classList.remove(className);
+    el.classList.remove(className)
   } else {
     if (hasClass(el, className)) {
-      let reg = new RegExp("(\\s|^)" + className + "(\\s|$)");
-      el.className = el.className.replace(reg, " ");
+      let reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+      el.className = el.className.replace(reg, ' ')
     }
   }
 }
@@ -87,12 +87,12 @@ function removeClass(el, className) {
  */
 function toggleClass(el, className) {
   if (el.classList) {
-    el.classList.toggle(className);
+    el.classList.toggle(className)
   } else {
     if (hasClass(el, className)) {
-      removeClass(el, className);
+      removeClass(el, className)
     } else {
-      addClass(el, className);
+      addClass(el, className)
     }
   }
 }
@@ -102,16 +102,20 @@ function toggleClass(el, className) {
  * @param {() => void} callback 动画帧函数
  */
 function update(callback = null) {
-  if (typeof callback !== "function") return console.log("缺少动画函数");
+  if (typeof callback !== 'function') return console.log('缺少动画函数')
   /** 动画帧 */
-  const AnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  const AnimationFrame =
+    window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame
   /** 动画开始 */
   function move() {
-    callback();
+    callback()
     // 判断当前函数销毁或者类型更变之后停止刷帧操作
-    typeof callback === "function" && AnimationFrame(move);
+    typeof callback === 'function' && AnimationFrame(move)
   }
-  move();
+  move()
 }
 
 /**
@@ -121,16 +125,16 @@ function update(callback = null) {
  * @description [一行css适配rem](https://juejin.im/post/6844904066418491406/#heading-13)
  */
 function remSetting(el, designWidth = 750) {
-  const html = document.documentElement; // 注意这里不能使用 document.body
+  const html = document.documentElement // 注意这里不能使用 document.body
   /** 视口宽度 */
-  let width = el.clientWidth;
+  let width = el.clientWidth
   // 首次适配
-  html.style.fontSize = width / designWidth + "px";
+  html.style.fontSize = width / designWidth + 'px'
   // 窗口变动时更新适配
-  window.addEventListener("resize", function () {
-    width = el.clientWidth;
-    html.style.fontSize = width / designWidth + "px";
-  });
+  window.addEventListener('resize', function () {
+    width = el.clientWidth
+    html.style.fontSize = width / designWidth + 'px'
+  })
 }
 
 /**
@@ -143,59 +147,63 @@ function remSetting(el, designWidth = 750) {
  * @param {() => void} options.callback （可选）完成回调
  */
 function setNumberAnimation(options) {
-  const animation = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-  const el = options.el;
-  const int = options.decimals == 0;
-  const result = options.number || 188.88;
-  const time = (options.time || 1000) / 1000;
-  const step = result / (time * 60);
-  let count = 0;
+  const animation =
+    window.requestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.msRequestAnimationFrame
+  const el = options.el
+  const int = options.decimals == 0
+  const result = options.number || 188.88
+  const time = (options.time || 1000) / 1000
+  const step = result / (time * 60)
+  let count = 0
   function move() {
-    count += step;
+    count += step
     if (count >= result) {
-      count = result;
-      el.textContent = int ? Math.round(count) : count.toFixed(options.decimals);
-      typeof options.callback === "function" && options.callback();
+      count = result
+      el.textContent = int ? Math.round(count) : count.toFixed(options.decimals)
+      typeof options.callback === 'function' && options.callback()
     } else {
-      el.textContent = int ? Math.round(count) : count.toFixed(options.decimals);
-      animation(move);
+      el.textContent = int ? Math.round(count) : count.toFixed(options.decimals)
+      animation(move)
     }
   }
-  el.textContent = count;
-  move();
+  el.textContent = count
+  move()
 }
 
-/** 
- * 获取`<body></body>`标签中的所有内容 
- * @param {string} value 
+/**
+ * 获取`<body></body>`标签中的所有内容
+ * @param {string} value
  */
 function getBodyLabelContent(value) {
   // value = value.replace(/\n/g, "");
-  const rule = /<[^>]*?body[^>]*?>([\s\S]*)<\/\s*body\s*>/;
+  const rule = /<[^>]*?body[^>]*?>([\s\S]*)<\/\s*body\s*>/
   // console.log(rule.exec(value));
-  const result = rule.exec(value);
+  const result = rule.exec(value)
   if (result && result.length === 2) {
-    return result[1];
+    return result[1]
   }
-  return value;
+  return value
 }
 
 /**
  * 获取所有`<script></script>`标签的内容
- * @param {string} value 
+ * @param {string} value
  */
 function getAllScriptContent(value) {
-  const rule = /<[^>]*?script[^>]*?>[\s\S]*<\/\s*script\s*>/i;  // /<script id="main">([\s\S]*)<\/script>/;
-  const start = /<script[^>]*?>/g; // <[^>]*?script[^>]*?>
-  const end = /<\/\s*script\s*>/g;
-  const code = rule.exec(value);
-  let result = "";
+  const rule = /<[^>]*?script[^>]*?>[\s\S]*<\/\s*script\s*>/i // /<script id="main">([\s\S]*)<\/script>/;
+  const start = /<script[^>]*?>/g // <[^>]*?script[^>]*?>
+  const end = /<\/\s*script\s*>/g
+  const code = rule.exec(value)
+  let result = ''
   // console.log(code);
   if (code && code.length === 1) {
-    result = code[0];
+    result = code[0]
   }
   // console.log(result.replace(start, ""));
-  return result.replace(start, "").replace(end, ";");
+  return result.replace(start, '').replace(end, ';')
 }
 
 /**
@@ -204,16 +212,16 @@ function getAllScriptContent(value) {
  * @param {string} label 是否过滤指定标签，不指定时则过滤掉所有`html`标签、空格、换行符
  */
 function htmlLabelFilter(val, label) {
-  let result = "";
-  if (!val) return result;
+  let result = ''
+  if (!val) return result
   if (label) {
-    const start = new RegExp(`<(${label})[^>]*>`, "gi");
-    const end = new RegExp(`</(${label})[^>]*>`, "gi");
-    result = val.replace(start, "").replace(end, "");
+    const start = new RegExp(`<(${label})[^>]*>`, 'gi')
+    const end = new RegExp(`</(${label})[^>]*>`, 'gi')
+    result = val.replace(start, '').replace(end, '')
   } else {
-    result = val.replace(/<[^>]+>|&[^>]+;/g, "");
-    result = result.replace(/[|]*\n/g, "");
-    result = result.replace(/&npsp;/ig, "");
+    result = val.replace(/<[^>]+>|&[^>]+;/g, '')
+    result = result.replace(/[|]*\n/g, '')
+    result = result.replace(/&npsp;/gi, '')
   }
-  return result;
+  return result
 }

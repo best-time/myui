@@ -1,331 +1,330 @@
 const commands = [
-  "undo",
-  "redo",
-  "fontName",
-  "fontSize",
+  'undo',
+  'redo',
+  'fontName',
+  'fontSize',
   // 'heading',
-  "bold",
-  "italic",
-  "underline",
-  "strikeThrough",
-  "backColor",
-  "foreColor",
-  "superscript",
-  "subscript",
+  'bold',
+  'italic',
+  'underline',
+  'strikeThrough',
+  'backColor',
+  'foreColor',
+  'superscript',
+  'subscript',
   // 对光标插入位置或者所选内容进行文字对齐
-  "justifyCenter",
-  "justifyFull",
-  "justifyLeft",
-  "justifyRight",
+  'justifyCenter',
+  'justifyFull',
+  'justifyLeft',
+  'justifyRight',
   // 对所选内容去除所有格式
-  "removeFormat",
-  "insertHorizontalRule",
-  "insertUnorderedList",
-  "insertOrderedList",
+  'removeFormat',
+  'insertHorizontalRule',
+  'insertUnorderedList',
+  'insertOrderedList',
   // 'increaseFontSize',
   // 'decreaseFontSize',
-  "createLink",
-  "insertImage",
+  'createLink',
+  'insertImage',
   // 标记使用html标签还是css
-  "styleWithCSS",
+  'styleWithCSS',
   'contentReadOnly',
 
-    "insertParagraph",
-  "indent",
-    "outdent",
-    "unlink"
-];
+  'insertParagraph',
+  'indent',
+  'outdent',
+  'unlink'
+]
 
 function execEditorCommand(name, args = null) {
-  document.execCommand(name, false, args);
+  document.execCommand(name, false, args)
 }
 
-const selectRender = (commandName, options = [], title = "") => {
+const selectRender = (commandName, options = [], title = '') => {
   return `<select class="tool" name="${commandName}" id="${commandName}" title="${title}">
-                ${options.map(
-                  (e) =>
-                    `<option class="${commandName}-option" value="${e.value}">${e.label}</option>`
-                )}
-            </select>`;
-};
+                ${options.map((e) => `<option class="${commandName}-option" value="${e.value}">${e.label}</option>`)}
+            </select>`
+}
 
 const handleEventListener = (commandName) => {
   const eventNameMap = {
-    fontName: "change",
-    fontSize: "change",
-    backColor: "change",
-    foreColor: "change",
-    styleWithCSS: "change",
-    contentReadOnly: "change",
-    heading: "change",
-  };
-  const needInputUrl = ["insertImage", "createLink"];
-  const eventName = eventNameMap[commandName] || "click";
-  const dom = document.getElementById(commandName);
-  if (!dom) return;
+    fontName: 'change',
+    fontSize: 'change',
+    backColor: 'change',
+    foreColor: 'change',
+    styleWithCSS: 'change',
+    contentReadOnly: 'change',
+    heading: 'change'
+  }
+  const needInputUrl = ['insertImage', 'createLink']
+  const eventName = eventNameMap[commandName] || 'click'
+  const dom = document.getElementById(commandName)
+  if (!dom) return
   dom.addEventListener(eventName, () => {
-    if (eventName === "click") {
+    if (eventName === 'click') {
       if (needInputUrl.includes(commandName)) {
-        const value = window.prompt("请输入链接");
-        execEditorCommand(commandName, value);
+        const value = window.prompt('请输入链接')
+        execEditorCommand(commandName, value)
       } else {
-        execEditorCommand(commandName);
+        execEditorCommand(commandName)
       }
-    } else if (eventName === "change") {
-      const className = `${commandName}-option`;
-      const optionSelectedIndex = document.getElementsByClassName(className);
-      const value = optionSelectedIndex[dom.selectedIndex].value;
-      execEditorCommand(commandName, value);
+    } else if (eventName === 'change') {
+      const className = `${commandName}-option`
+      const optionSelectedIndex = document.getElementsByClassName(className)
+      const value = optionSelectedIndex[dom.selectedIndex].value
+      execEditorCommand(commandName, value)
     }
-  });
-};
+  })
+}
 
 const commandMap = {
   undo: {
-    name: "撤销",
-    command: "undo",
+    name: '撤销',
+    command: 'undo'
   },
   redo: {
-    name: "重做",
-    command: "redo",
+    name: '重做',
+    command: 'redo'
   },
   fontName: {
-    name: "字体名",
-    command: "fontName",
+    name: '字体名',
+    command: 'fontName',
     render: () => {
       const options = [
-        { label: "微软雅黑", value: "Microsoft YaHei" },
-        { label: "新罗马", value: "Times New Roman" },
-        { label: "宋体", value: "SimSun" },
-        { label: "平方", value: "PingFang SC" },
-        { label: "华文楷体", value: "STKaiti" },
-        { label: "Arial", value: "Arial" },
-        { label: "Calibri", value: "Calibri" },
-        { label: "Comic Sans MS", value: "Comic Sans MS" },
-        { label: "Verdana", value: "Verdana" },
-      ];
-      return selectRender("fontName", options, "字体名");
-    },
+        { label: '微软雅黑', value: 'Microsoft YaHei' },
+        { label: '新罗马', value: 'Times New Roman' },
+        { label: '宋体', value: 'SimSun' },
+        { label: '平方', value: 'PingFang SC' },
+        { label: '华文楷体', value: 'STKaiti' },
+        { label: 'Arial', value: 'Arial' },
+        { label: 'Calibri', value: 'Calibri' },
+        { label: 'Comic Sans MS', value: 'Comic Sans MS' },
+        { label: 'Verdana', value: 'Verdana' }
+      ]
+      return selectRender('fontName', options, '字体名')
+    }
   },
   fontSize: {
-    name: "字体大小",
-    command: "fontSize",
+    name: '字体大小',
+    command: 'fontSize',
     render: () => {
       const options = [
-        { label: "特小", value: "1" },
-        { label: "小", value: "2" },
-        { label: "正常", value: "3" },
-        { label: "略大", value: "4" },
-        { label: "大", value: "5" },
-        { label: "很大", value: "6" },
-        { label: "极大", value: "7" },
-      ];
-      return selectRender("fontSize", options, "字体大小");
-    },
+        { label: '特小', value: '1' },
+        { label: '小', value: '2' },
+        { label: '正常', value: '3' },
+        { label: '略大', value: '4' },
+        { label: '大', value: '5' },
+        { label: '很大', value: '6' },
+        { label: '极大', value: '7' }
+      ]
+      return selectRender('fontSize', options, '字体大小')
+    }
   },
   heading: {
-    name: "标题",
-    command: "heading",
+    name: '标题',
+    command: 'heading',
     render: () => {
       const options = [
-        { label: "H1", value: "H1" },
-        { label: "H2", value: "H2" },
-        { label: "H3", value: "H3" },
-        { label: "H4", value: "H4" },
-        { label: "H5", value: "H5" },
-        { label: "H6", value: "H6" },
-      ];
-      return selectRender("heading", options, "标题");
-    },
+        { label: 'H1', value: 'H1' },
+        { label: 'H2', value: 'H2' },
+        { label: 'H3', value: 'H3' },
+        { label: 'H4', value: 'H4' },
+        { label: 'H5', value: 'H5' },
+        { label: 'H6', value: 'H6' }
+      ]
+      return selectRender('heading', options, '标题')
+    }
   },
   bold: {
-    name: "加粗",
-    command: "bold",
+    name: '加粗',
+    command: 'bold'
   },
   italic: {
-    name: "斜体",
-    command: "italic",
+    name: '斜体',
+    command: 'italic'
   },
   underline: {
-    name: "下划线",
-    command: "underline",
+    name: '下划线',
+    command: 'underline'
   },
   strikeThrough: {
-    name: "删除线",
-    command: "strikeThrough",
+    name: '删除线',
+    command: 'strikeThrough'
   },
   backColor: {
-    name: "背景颜色",
-    command: "backColor",
+    name: '背景颜色',
+    command: 'backColor',
     render: () => {
       const options = [
-        { label: "黑", value: "black" },
-        { label: "红", value: "red" },
-        { label: "橙", value: "orange" },
-        { label: "蓝", value: "blue" },
-        { label: "绿", value: "green" },
-        { label: "白", value: "white" },
-        { label: "灰", value: "#999" },
-        { label: "浅灰", value: "#ddd" },
-      ];
-      return `<span class="title-c tool">背景颜色</span>` + selectRender("backColor", options, "背景颜色");
-    },
+        { label: '黑', value: 'black' },
+        { label: '红', value: 'red' },
+        { label: '橙', value: 'orange' },
+        { label: '蓝', value: 'blue' },
+        { label: '绿', value: 'green' },
+        { label: '白', value: 'white' },
+        { label: '灰', value: '#999' },
+        { label: '浅灰', value: '#ddd' }
+      ]
+      return `<span class="title-c tool">背景颜色</span>` + selectRender('backColor', options, '背景颜色')
+    }
   },
   foreColor: {
-    name: "字体颜色",
-    command: "foreColor",
+    name: '字体颜色',
+    command: 'foreColor',
     render: () => {
       const options = [
-        { label: "黑", value: "black" },
-        { label: "红", value: "red" },
-        { label: "橙", value: "orange" },
-        { label: "蓝", value: "blue" },
-        { label: "绿", value: "green" },
-        { label: "白", value: "white" },
-        { label: "灰", value: "#999" },
-        { label: "浅灰", value: "#ddd" },
-      ];
-      return `<span class="title-c tool">字体颜色</span>` + selectRender("foreColor", options, "字体颜色");
-    },
+        { label: '黑', value: 'black' },
+        { label: '红', value: 'red' },
+        { label: '橙', value: 'orange' },
+        { label: '蓝', value: 'blue' },
+        { label: '绿', value: 'green' },
+        { label: '白', value: 'white' },
+        { label: '灰', value: '#999' },
+        { label: '浅灰', value: '#ddd' }
+      ]
+      return `<span class="title-c tool">字体颜色</span>` + selectRender('foreColor', options, '字体颜色')
+    }
   },
   superscript: {
-    name: "上标",
-    command: "superscript",
+    name: '上标',
+    command: 'superscript'
   },
   subscript: {
-    name: "下标",
-    command: "subscript",
+    name: '下标',
+    command: 'subscript'
   },
   justifyCenter: {
-    name: "居中对齐",
-    command: "justifyCenter",
+    name: '居中对齐',
+    command: 'justifyCenter'
   },
   justifyFull: {
-    name: "两端对齐",
-    command: "justifyFull",
+    name: '两端对齐',
+    command: 'justifyFull'
   },
   justifyLeft: {
-    name: "左对齐",
-    command: "justifyLeft",
+    name: '左对齐',
+    command: 'justifyLeft'
   },
   justifyRight: {
-    name: "右对齐",
-    command: "justifyRight",
+    name: '右对齐',
+    command: 'justifyRight'
   },
   removeFormat: {
-    name: "清除样式",
-    command: "removeFormat",
+    name: '清除样式',
+    command: 'removeFormat'
   },
-  insertHorizontalRule: { // 水平线
-    name: "分割线",
-    command: "insertHorizontalRule",
+  insertHorizontalRule: {
+    // 水平线
+    name: '分割线',
+    command: 'insertHorizontalRule'
   },
   insertUnorderedList: {
-    name: "无序列表",
-    command: "insertUnorderedList",
+    name: '无序列表',
+    command: 'insertUnorderedList'
   },
   insertOrderedList: {
-    name: "有序列表",
-    command: "insertOrderedList",
+    name: '有序列表',
+    command: 'insertOrderedList'
   },
   increaseFontSize: {
-    name: "字体变大",
-    command: "increaseFontSize",
+    name: '字体变大',
+    command: 'increaseFontSize'
   },
   decreaseFontSize: {
-    name: "字体变小",
-    command: "decreaseFontSize",
+    name: '字体变小',
+    command: 'decreaseFontSize'
   },
   styleWithCSS: {
-    name: "标记方式",
-    command: "styleWithCSS",
+    name: '标记方式',
+    command: 'styleWithCSS',
     render: () => {
       const options = [
-        { label: "html标签", value: false },
-        { label: "css样式", value: true },
-      ];
-      return '<span class="title-c tool">标记方式</span>' + selectRender(
-        "styleWithCSS",
-        options,
-        "标记方式(使用html标签 还是css样式来生成标记)"
-      );
-    },
+        { label: 'html标签', value: false },
+        { label: 'css样式', value: true }
+      ]
+      return (
+        '<span class="title-c tool">标记方式</span>' +
+        selectRender('styleWithCSS', options, '标记方式(使用html标签 还是css样式来生成标记)')
+      )
+    }
   },
   createLink: {
-    name: "插入链接",
-    command: "createLink",
+    name: '插入链接',
+    command: 'createLink'
   },
   insertImage: {
-    name: "插入图片",
-    command: "insertImage",
+    name: '插入图片',
+    command: 'insertImage'
   },
   contentReadOnly: {
-    name: "区域是否可以编辑",
-    command: "contentReadOnly",
+    name: '区域是否可以编辑',
+    command: 'contentReadOnly',
     render: () => {
       const options = [
-        { label: "是", value: true },
-        { label: "否", value: false },
-      ];
-      return '<span>区域是否可以编辑</span>' + selectRender("contentReadOnly", options, "区域是否可以编辑");
-    },
+        { label: '是', value: true },
+        { label: '否', value: false }
+      ]
+      return '<span>区域是否可以编辑</span>' + selectRender('contentReadOnly', options, '区域是否可以编辑')
+    }
   },
-  indent: { // margin: 0 0 0 40px;  添加了blockquote标签
-    name: "缩进",
+  indent: {
+    // margin: 0 0 0 40px;  添加了blockquote标签
+    name: '缩进',
     command: 'indent'
   },
   outdent: {
-    name: "减小缩进",
+    name: '减小缩进',
     command: 'outdent'
   },
-  insertParagraph: { // margin: 0 0 0 40px;  添加了blockquote标签
-    name: "插入段落",
+  insertParagraph: {
+    // margin: 0 0 0 40px;  添加了blockquote标签
+    name: '插入段落',
     command: 'insertParagraph'
   },
   unlink: {
-    name: "去除链接",
+    name: '去除链接',
     command: 'unlink'
   }
-};
+}
 
-const commandZoneDom = document.getElementById("commandZone");
-const editor = document.getElementById("editor");
+const commandZoneDom = document.getElementById('commandZone')
+const editor = document.getElementById('editor')
 
 // 渲染按钮执行区域
 function renderExecButton() {
   const htmlList = commands.map((commandName) => {
-    const command = commandMap[commandName];
+    const command = commandMap[commandName]
     if (!command) {
-      return "";
+      return ''
     }
     if (command.render) {
-      return command.render();
+      return command.render()
     }
     return `<button class="btn tool" id="${commandName}">${command.name}</button>`
     // return `
     //           <img class="icon tool" id="${commandName}" title="${command.name}" src="./icons/${commandName}.svg"/>
     //       `;
-  });
-  commandZoneDom.innerHTML = htmlList.join("\n");
+  })
+  commandZoneDom.innerHTML = htmlList.join('\n')
 }
 
 // 打印选择文本区
-editor.addEventListener("mouseup", () => {
-  console.log(document.getSelection());
-});
+editor.addEventListener('mouseup', () => {
+  console.log(document.getSelection())
+})
 
 setTimeout(() => {
-  commands.forEach((commandName) => handleEventListener(commandName));
-}, 100);
+  commands.forEach((commandName) => handleEventListener(commandName))
+}, 100)
 
 function viewOrEdit() {
-  const editable = document.getElementById("editable");
-  editable.addEventListener("click", (e) => {
-    const html = e.target.innerHTML.trim();
-    const editable = html !== "编辑";
-    e.target.innerHTML = editable ? "编辑" : "只展示";
-    editor.setAttribute("contentEditable", !editable);
-  });
+  const editable = document.getElementById('editable')
+  editable.addEventListener('click', (e) => {
+    const html = e.target.innerHTML.trim()
+    const editable = html !== '编辑'
+    e.target.innerHTML = editable ? '编辑' : '只展示'
+    editor.setAttribute('contentEditable', !editable)
+  })
 }
 
 function insertDefaultHtml() {
@@ -358,11 +357,10 @@ function insertDefaultHtml() {
 <hr>
 
 <p style="text-align: left;"><span style="font-family: &quot;Times New Roman&quot;; font-size: x-large;">左对齐</span></p><p style="text-align: center;"><span style="font-family: &quot;Times New Roman&quot;; font-size: x-large;">居中对齐</span></p><p style="text-align: right;"><font face="Times New Roman" size="5">右对齐</font></p>
-`;
-  editor.innerHTML = defaultHtml;
-
+`
+  editor.innerHTML = defaultHtml
 }
 
-viewOrEdit();
+viewOrEdit()
 insertDefaultHtml()
 renderExecButton()

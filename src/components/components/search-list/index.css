@@ -1,7 +1,7 @@
-.remodel-placeholder{
-  color: rgb(201,204,209);
+.remodel-placeholder {
+  color: rgb(201, 204, 209);
 }
-.clickInput{
+.clickInput {
   line-height: 24px;
   display: inline-block;
   width: 100%;
@@ -13,60 +13,67 @@
   color: #515a6e;
   background-color: #fff;
   cursor: pointer;
-  transition: border 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
-  -webkit-transition: border 0.2s ease-in-out, background 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
+  transition:
+    border 0.2s ease-in-out,
+    background 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    -webkit-box-shadow 0.2s ease-in-out;
+  -webkit-transition:
+    border 0.2s ease-in-out,
+    background 0.2s ease-in-out,
+    -webkit-box-shadow 0.2s ease-in-out;
 }
-.clickInput:hover{
+.clickInput:hover {
   border-color: #57a3f3;
 }
-.treeData-wrap{
+.treeData-wrap {
   padding: 0 15px;
   box-sizing: border-box;
 }
-.treeData-search-input{
+.treeData-search-input {
   margin-top: 5px;
 }
-.input-list-wrap{
+.input-list-wrap {
   display: inline-block;
   margin: 0 35px 20px 0;
 }
-.text-input{
+.text-input {
   display: flex;
   align-content: center;
   line-height: 32px;
   font-size: 12px;
 }
-.text-input .title-name{
+.text-input .title-name {
   display: block;
   width: 70px;
   min-width: 30px;
   line-height: 32px;
 }
-.search-input{
+.search-input {
   width: 200px;
 }
-.btn-wrap{
+.btn-wrap {
   display: inline-flex;
   margin: 0 0 20px 0;
   align-items: center;
 }
-.ivu-input-number-input{
+.ivu-input-number-input {
   vertical-align: super;
 }
-.section-hr{
+.section-hr {
   display: inline-block;
   width: 20px;
   height: 32px;
   line-height: 32px;
   text-align: center;
 }
-.displayBtn{
+.displayBtn {
   margin-left: 15px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-.displayBtn:hover{
+.displayBtn:hover {
   color: #2d8cf0;
 }

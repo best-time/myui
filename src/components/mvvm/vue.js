@@ -1,20 +1,16 @@
 class Vue {
-
   constructor(options) {
     // 1.通过数据存储数据
-    this.$options = options || {}; // save options
-    this.$el =
-      typeof options.el === 'string'
-        ? document.querySelector(options.el)
-        : options.el; // get dom
-    this.$data = options.data; // get data
-    this.$methods = options.methods;
+    this.$options = options || {} // save options
+    this.$el = typeof options.el === 'string' ? document.querySelector(options.el) : options.el // get dom
+    this.$data = options.data // get data
+    this.$methods = options.methods
     // 2.将数据变getter\setter，注入到vue实例中
-    this._proxyData(this.$data);
+    this._proxyData(this.$data)
     // 3.调用observe对象，监听数据变化
-    new Observer(this.$data);
+    new Observer(this.$data)
     // 4.调用compiler对象，解析指令和差值表达式
-    new Compiler(this);
+    new Compiler(this)
   }
 
   // data 属性放到 vue 实例上 并增加 set get
@@ -26,16 +22,15 @@ class Vue {
         enumerable: true,
         configurable: true,
         get() {
-          return data[key];
+          return data[key]
         },
         set(newValue) {
           if (data[key] === newValue) {
-            return;
+            return
           }
-          data[key] = newValue;
-        },
-      });
-    });
+          data[key] = newValue
+        }
+      })
+    })
   }
-
 }

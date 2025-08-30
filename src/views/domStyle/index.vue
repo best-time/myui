@@ -1,8 +1,7 @@
 <template>
   <div class="dom-style">
     <div class="dom-box" ref="divRef">
-      <p>第一行数据
-        <i ref="iRef">i标签数据</i><span ref="spanRef">span标签数据</span></p>
+      <p>第一行数据 <i ref="iRef">i标签数据</i><span ref="spanRef">span标签数据</span></p>
     </div>
     <p>i标签宽高: {{ iStyle.width }}/{{ iStyle.height }}</p>
     <p>span标签数据: {{ spanStyle.width }}/{{ spanStyle.height }}</p>
@@ -15,7 +14,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, computed, nextTick} from 'vue'
+import { ref, onMounted, computed, nextTick } from 'vue'
 
 const divRef = ref(null)
 const iRef = ref(null)
@@ -28,14 +27,12 @@ const spanStyle = computed(() => ({
   width: spanRef.value?.offsetWidth + 'px',
   height: spanRef.value?.offsetHeight + 'px'
 }))
-onMounted(() => {
-
-})
+onMounted(() => {})
 </script>
 
 <style lang="scss" scoped>
 i {
-  color: blue
+  color: blue;
 }
 
 span {

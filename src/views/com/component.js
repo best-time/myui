@@ -6,24 +6,30 @@ export const TitleCom = defineComponent({
   },
   setup(props) {
     return () => {
-      return h('div', {
-        class: 'title',
-        style: {
-          'line-height': '32px'
-        }
-      }, [h(ElButton, {
-        type: 'primary',
-        onClick: () =>
-          console.log(props.title)
-      }, '按钮')])
+      return h(
+        'div',
+        {
+          class: 'title',
+          style: {
+            'line-height': '32px'
+          }
+        },
+        [
+          h(
+            ElButton,
+            {
+              type: 'primary',
+              onClick: () => console.log(props.title)
+            },
+            '按钮'
+          )
+        ]
+      )
     }
   }
 })
 
-export const FComponent = (
-  props,
-  context
-) => {
+export const FComponent = (props, context) => {
   // return (
   //   <span onClick={() => context.emit('sendMessage', props.message)}>
   //     {props.message} {' '}

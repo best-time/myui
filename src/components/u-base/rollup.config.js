@@ -1,24 +1,24 @@
-import typescript from "rollup-plugin-typescript";
-import sourceMaps from "rollup-plugin-sourcemaps";
-import serve from 'rollup-plugin-serve';
-import livereload from 'rollup-plugin-livereload';
+import typescript from 'rollup-plugin-typescript'
+import sourceMaps from 'rollup-plugin-sourcemaps'
+import serve from 'rollup-plugin-serve'
+import livereload from 'rollup-plugin-livereload'
 
 export default {
-  input: "./src/main.ts",
+  input: './src/main.ts',
   output: [
     {
-      format: "cjs",
-      file: "lib/bundle.cjs.js",
+      format: 'cjs',
+      file: 'lib/bundle.cjs.js',
       sourcemap: true
     },
     {
-      format: "es",
-      file: "lib/bundle.esm.js",
+      format: 'es',
+      file: 'lib/bundle.esm.js',
       sourcemap: true
     },
     {
-      format: "iife",
-      file: "lib/bundle.iife.js",
+      format: 'iife',
+      file: 'lib/bundle.iife.js',
       sourcemap: true
     }
     /**
@@ -32,8 +32,8 @@ export default {
   ],
   plugins: [
     typescript({
-      exclude: "node_modules/**",
-      typescript: require("typescript")
+      exclude: 'node_modules/**',
+      typescript: require('typescript')
     }),
     sourceMaps(),
     livereload(),
@@ -44,5 +44,5 @@ export default {
       openPage: '/public/index.html', // 打开的页面
       contentBase: ''
     })
-  ],
-};
+  ]
+}

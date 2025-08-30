@@ -6,41 +6,29 @@
     ></div>
 
     <div class="loading-item-one">
-      <div
-        class="xm__skeleton--circle xm__skeleton--opacity"
-        style="width: 50px; height: 50px"
-      ></div>
+      <div class="xm__skeleton--circle xm__skeleton--opacity" style="width: 50px; height: 50px"></div>
 
-      <div
-        class="xm__skeleton--bar xm__skeleton--loading"
-        style="width: 40%; height: 50px"
-      ></div>
+      <div class="xm__skeleton--bar xm__skeleton--loading" style="width: 40%; height: 50px"></div>
     </div>
     <div class="loading-item-two">
-      <div
-        class="xm__skeleton--bar xm__skeleton--opacity"
-        style="width: 80%; height: 50px"
-      ></div>
+      <div class="xm__skeleton--bar xm__skeleton--opacity" style="width: 80%; height: 50px"></div>
     </div>
     <div class="loading-item-three">
-      <div
-        class="xm__skeleton--bar xm__skeleton--opacity"
-        style="width: 60%; height: 50px"
-      ></div>
+      <div class="xm__skeleton--bar xm__skeleton--opacity" style="width: 60%; height: 50px"></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "skeleton",
+  name: 'skeleton',
   data() {
     return {
-      type: "circle",
-      animate: "circle", // loading
-      height: "50px",
-      width: "50px"
-    };
+      type: 'circle',
+      animate: 'circle', // loading
+      height: '50px',
+      width: '50px'
+    }
   },
   // props: {
   //   type: {
@@ -56,11 +44,11 @@ export default {
   // },
   computed: {
     animateClass() {
-      if (this.animate !== "") return "xm__skeleton--" + this.animate;
-      return "";
+      if (this.animate !== '') return 'xm__skeleton--' + this.animate
+      return ''
     }
   }
-};
+}
 </script>
 
 <style scoped lang="less">

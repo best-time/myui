@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>组件bbbbbbbb---{{title}}</h2>
+    <h2>组件bbbbbbbb---{{ title }}</h2>
     <el-button @click="update" type="primary">触发</el-button>
     <slot name="content" />
     <slot name="contentTips" />

@@ -13,22 +13,25 @@ const openDialog = () => {
     dialogFullscreen: false,
     dialogWidth: '50%',
     dialogTitle: '明细',
-    children: [{
-      topTagName: "新增",
-      iconName: "form",
-      // detailPage1 就是这次要打开的弹窗内容
-      component: () => import("@views/test/detailPage1.vue"),
-      data: {
-        params: {
-          aa: 11,
-          bb: 22,
+    children: [
+      {
+        topTagName: '新增',
+        iconName: 'form',
+        // detailPage1 就是这次要打开的弹窗内容
+        component: () => import('@views/test/detailPage1.vue'),
+        data: {
+          params: {
+            aa: 11,
+            bb: 22
+          },
+          edit: 'add'
         },
-        edit: 'add'
-      },
-      collbackFn: () => { //弹框内部组件 保存成功后的回调函数
-        console.log("当弹窗任务结束后，调用父页面的回掉函数。（比如我新增完成了需要刷新列表页面）--Home");
+        collbackFn: () => {
+          //弹框内部组件 保存成功后的回调函数
+          console.log('当弹窗任务结束后，调用父页面的回掉函数。（比如我新增完成了需要刷新列表页面）--Home')
+        }
       }
-    }],
+    ]
   })
 }
 </script>

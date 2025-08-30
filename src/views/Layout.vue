@@ -1,23 +1,17 @@
 <template>
   <section class="g-flexview">
-    <div style="height: 44px; background-color: #eee; width: 100%">
-      header
-    </div>
+    <div style="height: 44px; background-color: #eee; width: 100%">header</div>
     <section class="g-scrollview" ref="scrollView" id="scrollView">
-      <div :key="i" v-for="i in 20" class="c">
-        {{ i }}--乱七八糟的内容在这里，超出容器，将出现滚动条。
-      </div>
+      <div :key="i" v-for="i in 20" class="c">{{ i }}--乱七八糟的内容在这里，超出容器，将出现滚动条。</div>
     </section>
-    <div style="height: 44px; background-color: #ddd; width: 100%">
-      footer
-    </div>
+    <div style="height: 44px; background-color: #ddd; width: 100%">footer</div>
   </section>
 </template>
 
 <script>
 export default {
-  name: "layout"
-};
+  name: 'layout'
+}
 </script>
 
 <style lang="less" scoped>
@@ -34,13 +28,13 @@ export default {
   max-width: @max-width;
   min-width: @min-width;
   &:before {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: @navbar-height;
   }
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: @body-padding-bottom * 3;
@@ -66,7 +60,7 @@ export default {
   position: relative;
   margin-bottom: -1px;
   &:after {
-    content: "";
+    content: '';
     display: block;
     width: 100%;
     height: @body-padding-bottom;

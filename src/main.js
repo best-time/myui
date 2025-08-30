@@ -1,16 +1,16 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-import Router from './router/index.js';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import Router from './router/index.js'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import initComponents from './init/components.js'
 import pinia from './store'
-const app = createApp (App);
+const app = createApp(App)
 //全局注册Element Icon
 for (let iconName in ElementPlusIconsVue) {
-  app.component (iconName, ElementPlusIconsVue[iconName]);
+  app.component(iconName, ElementPlusIconsVue[iconName])
 }
 app.use(initComponents)
 /*
@@ -32,11 +32,8 @@ lineno：发生错误的行号（数值）
 colno：发生错误的行的列号（数值）
 error：错误对象（对象)
  */
-window.onError = function(message, source, lineno, colno, error) {
+window.onError = function (message, source, lineno, colno, error) {
   console.log(message, source, lineno, colno, error, '全局')
   // do something
 }
 app.use(ElementPlus).use(pinia).use(Router).mount('#app')
-
-
-

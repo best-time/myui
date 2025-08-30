@@ -6,11 +6,11 @@
 </template>
 
 <script setup>
-import { useAttrs, defineAsyncComponent }from 'vue'
-import {useBasic} from './base'
+import { useAttrs, defineAsyncComponent } from 'vue'
+import { useBasic } from './base'
 
 const SecondCom = defineAsyncComponent(() => import('./SecondCom.vue'))
 const attrs = useAttrs()
 console.log(attrs)
-const [ , { changeShow, register }] = useBasic()
+const [, { changeShow, register }] = useBasic()
 </script>

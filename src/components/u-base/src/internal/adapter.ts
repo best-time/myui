@@ -1,6 +1,6 @@
-import {isString, getObjKeys} from './base';
+import { isString, getObjKeys } from './base'
 
-const unDef = void 0;
+const unDef = void 0
 
 /** adapter demo
      let response = { nickname: { a: { b: { c: ["c"] } } }, counts: 2 };
@@ -12,18 +12,18 @@ const unDef = void 0;
 const adapter = (response: any, info: any) => {
   return getObjKeys(info).reduce((res, key) => {
     let keyArr = isString(info[key]) ? info[key].split('.') : [],
-      len = keyArr.length;
+      len = keyArr.length
     if (len > 1) {
       let i = -1,
-        tmp = null;
+        tmp = null
       while (++i < len) {
-        tmp = tmp ? tmp[keyArr[i]] : response[keyArr[i]];
-        if (!tmp) break;
+        tmp = tmp ? tmp[keyArr[i]] : response[keyArr[i]]
+        if (!tmp) break
       }
-      res[key] = tmp;
+      res[key] = tmp
     } else {
-      res[key] = isString(info[key]) ? response[info[key]] : unDef;
+      res[key] = isString(info[key]) ? response[info[key]] : unDef
     }
-    return res;
-  }, {});
-};
+    return res
+  }, {})
+}

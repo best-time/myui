@@ -1,10 +1,10 @@
 /** 交互提示组件（不需要额外引入css） */
 function theDialog() {
-  const doc = document;
+  const doc = document
 
   /** 输出样式 */
   function outputStyle() {
-    if (doc.getElementById('the-dialog-style')) return;
+    if (doc.getElementById('the-dialog-style')) return
     const css = `.the-dialog, .the-dialog div, .the-dialog button, .the-dialog p{ padding: 0px; margin: 0px; box-sizing: border-box; }
     .the-dialog{ width: 100%; height: 100vh; background-color: rgba(0,0,0,0.4); position: fixed; top: 0; left: 0; z-index: 999; transition: .2s all; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; }
     .the-dialog .the-dialog-box{ width: 78%; max-width: 360px; padding: 24px 24px 12px; box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12); border-radius: 2px; background-color: #fff; overflow: hidden; animation: dialogBoxShow .2s; transition: .2s all; }
@@ -36,18 +36,18 @@ function theDialog() {
       0% { opacity: 0; transform: translate(-50%, 300%); }
       50% { opacity: 1; transform: translate(-50%, -100%); }
       100% { transform: translate(-50%, 0%); }
-    }`;
-    const style = doc.createElement('style');
-    style.type = 'text/css';
-    style.id = 'the-dialog-style';
-    style.appendChild(doc.createTextNode(css));
-    const head = doc.getElementsByTagName('head')[0];
-    head.appendChild(style);
+    }`
+    const style = doc.createElement('style')
+    style.type = 'text/css'
+    style.id = 'the-dialog-style'
+    style.appendChild(doc.createTextNode(css))
+    const head = doc.getElementsByTagName('head')[0]
+    head.appendChild(style)
   }
 
   /** 输出组件模板 */
   function outputTemplate() {
-    if (doc.querySelector('.the-dialog')) return;
+    if (doc.querySelector('.the-dialog')) return
     const template = `<div class="the-dialog the-dialog-hide">
             <div class="the-dialog-box hide">
               <div class="t"></div>
@@ -68,33 +68,33 @@ function theDialog() {
               <div class="the-ring"></div>
               <div class="the-text"></div>
             </div>
-        </div>`;
-    doc.body.insertAdjacentHTML('beforeend', template);
+        </div>`
+    doc.body.insertAdjacentHTML('beforeend', template)
   }
 
-  outputStyle();
-  outputTemplate();
+  outputStyle()
+  outputTemplate()
 
   /** 整体 */
-  const box = doc.querySelector('.the-dialog');
-  const alert = box.children[0];
-  const alertTitle = alert.querySelector('.t');
-  const alertContent = alert.querySelector('.c');
-  const alertConfirm = alert.querySelector('.the-confirm');
-  const confirm = box.children[1];
-  const confirmTitle = confirm.querySelector('.t');
-  const confirmContent = confirm.querySelector('.c');
-  const confirmConfirm = confirm.querySelector('.the-confirm');
-  const confirmCancel = confirm.querySelector('.the-cancel');
-  const load = box.children[2];
-  const loadText = load.querySelector('.the-text');
+  const box = doc.querySelector('.the-dialog')
+  const alert = box.children[0]
+  const alertTitle = alert.querySelector('.t')
+  const alertContent = alert.querySelector('.c')
+  const alertConfirm = alert.querySelector('.the-confirm')
+  const confirm = box.children[1]
+  const confirmTitle = confirm.querySelector('.t')
+  const confirmContent = confirm.querySelector('.c')
+  const confirmConfirm = confirm.querySelector('.the-confirm')
+  const confirmCancel = confirm.querySelector('.the-cancel')
+  const load = box.children[2]
+  const loadText = load.querySelector('.the-text')
 
   function hideBox() {
-    box.classList.add('the-dialog-hide');
+    box.classList.add('the-dialog-hide')
   }
 
   function showBox() {
-    box.classList.remove('the-dialog-hide');
+    box.classList.remove('the-dialog-hide')
   }
 
   /**
@@ -102,13 +102,13 @@ function theDialog() {
    * @param {HTMLElement} el 显示的节点
    */
   function showNode(el) {
-    [alert, confirm, load].forEach(item => {
+    ;[alert, confirm, load].forEach((item) => {
       if (item === el) {
-        item.classList.remove('hide');
+        item.classList.remove('hide')
       } else {
-        item.classList.add('hide');
+        item.classList.add('hide')
       }
-    });
+    })
   }
 
   return {
@@ -119,14 +119,14 @@ function theDialog() {
      * @param {string} title 提示文字
      */
     alert(content = '内容', callback = null, title = '提示') {
-      alertTitle.textContent = title;
-      alertContent.textContent = content;
+      alertTitle.textContent = title
+      alertContent.textContent = content
       alertConfirm.onclick = function () {
-        hideBox();
-        if (typeof callback === 'function') callback();
+        hideBox()
+        if (typeof callback === 'function') callback()
       }
-      showBox();
-      showNode(alert);
+      showBox()
+      showNode(alert)
     },
     /**
      * 确认弹框
@@ -139,29 +139,29 @@ function theDialog() {
      * @param {Function} fail 取消回调
      */
     confirm(option, callback = null, fail = null) {
-      confirmTitle.textContent = option.title || '提示';
-      confirmContent.textContent = option.content || '内容';
-      confirmConfirm.textContent = option.comfirmText || '确定';
-      confirmCancel.textContent = option.cancelText || '取消';
+      confirmTitle.textContent = option.title || '提示'
+      confirmContent.textContent = option.content || '内容'
+      confirmConfirm.textContent = option.comfirmText || '确定'
+      confirmCancel.textContent = option.cancelText || '取消'
       confirmConfirm.onclick = function () {
-        hideBox();
-        if (typeof callback === 'function') callback();
+        hideBox()
+        if (typeof callback === 'function') callback()
       }
       confirmCancel.onclick = function () {
-        hideBox();
-        if (typeof fail === 'function') fail();
+        hideBox()
+        if (typeof fail === 'function') fail()
       }
-      showBox();
-      showNode(confirm);
+      showBox()
+      showNode(confirm)
     },
     /**
      * 显示加载
      * @param {string} content 加载提示文字
      */
     loading(content = '加载中') {
-      loadText.textContent = content;
-      showBox();
-      showNode(load);
+      loadText.textContent = content
+      showBox()
+      showNode(load)
     },
     /**
      * 显示提示条
@@ -169,52 +169,56 @@ function theDialog() {
      * @param {number} time 消失的时间
      */
     toast(content = 'toast', time = 1400) {
-      const toast = doc.createElement('div');
-      toast.className = 'the-toast';
-      toast.innerHTML = `<p>${content}</p>`;
-      doc.body.appendChild(toast);
+      const toast = doc.createElement('div')
+      toast.className = 'the-toast'
+      toast.innerHTML = `<p>${content}</p>`
+      doc.body.appendChild(toast)
       setTimeout(() => {
-        doc.body.removeChild(toast);
-      }, time);
+        doc.body.removeChild(toast)
+      }, time)
     },
     /** 关闭组件（配合loading用） */
     hide() {
-      hideBox();
+      hideBox()
     }
   }
 }
 
-const dialog = theDialog();
+const dialog = theDialog()
 
 function showAlert() {
-  dialog.alert('这是一个提示框');
+  dialog.alert('这是一个提示框')
 }
 
-let count = 0;
+let count = 0
 
 function showComfirm() {
-  dialog.confirm({
-    content: count > 0 ? `第${count}次点击继续` : '这是一个确认提示框',
-    title: '是否继续',
-    comfirmText: '继续',
-    cancelText: '取消继续'
-  }, function () {
-    count++;
-    showComfirm();
-  }, function () {
-    count = 0;
-    dialog.alert('已经取消继续');
-  });
+  dialog.confirm(
+    {
+      content: count > 0 ? `第${count}次点击继续` : '这是一个确认提示框',
+      title: '是否继续',
+      comfirmText: '继续',
+      cancelText: '取消继续'
+    },
+    function () {
+      count++
+      showComfirm()
+    },
+    function () {
+      count = 0
+      dialog.alert('已经取消继续')
+    }
+  )
 }
 
 function showLoad() {
-  dialog.loading();
+  dialog.loading()
   setTimeout(() => {
-    dialog.hide();
-    dialog.toast('加载完成！');
-  }, 2000);
+    dialog.hide()
+    dialog.toast('加载完成！')
+  }, 2000)
 }
 
 function showToast() {
-  dialog.toast('显示提示条~');
+  dialog.toast('显示提示条~')
 }

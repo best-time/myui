@@ -2,8 +2,14 @@
 * 全局挂载的弹框组件
 *-->
 <template>
-  <el-dialog :fullscreen="dailogInfo.dialogFullscreen" v-model="dialogVisbled" :width="dailogInfo.dialogWidth"
-             @closed="dialogClose" :append-to-body="false" draggable>
+  <el-dialog
+    :fullscreen="dailogInfo.dialogFullscreen"
+    v-model="dialogVisbled"
+    :width="dailogInfo.dialogWidth"
+    @closed="dialogClose"
+    :append-to-body="false"
+    draggable
+  >
     <template #header>
       <!-- svg图标可自行使用符合项目的风格 -->
       <svg-icon name="module" />
@@ -22,8 +28,13 @@
       <template v-for="(item, index) in dailogInfo.children" :key="index">
         <transition name="fade-transform" mode="out-in">
           <div v-show="index === dialogActiveTag">
-            <component @toCloseDialog="dialogClose" :is="item.component" :conf="item.data" :id="index"
-                       @removePage="componentRemove" />
+            <component
+              @toCloseDialog="dialogClose"
+              :is="item.component"
+              :conf="item.data"
+              :id="index"
+              @removePage="componentRemove"
+            />
           </div>
         </transition>
       </template>
@@ -32,7 +43,7 @@
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch } from 'vue'
 import usedialogStore from '../../store/dialog'
 
 const dialogStore = usedialogStore()
@@ -42,13 +53,13 @@ const dailogInfo = computed(() => {
 })
 /** 每当push子级页面时当前选中项都默认选中push后的组件 */
 watch(
-    () => activeComponent.value,
-    (val) => {
-      if (val != null && val != undefined) {
-        dialogActiveTag.value = activeComponent.value
-        dialogStore.initActiveComponent()
-      }
+  () => activeComponent.value,
+  (val) => {
+    if (val != null && val != undefined) {
+      dialogActiveTag.value = activeComponent.value
+      dialogStore.initActiveComponent()
     }
+  }
 )
 
 const dialogActiveTag = ref(0)
@@ -66,7 +77,7 @@ const tabClose = (index: number) => {
   }
   //激活项>删除项 则直接赋删除项
   if (dialogActiveTag.value > index) {
-    dialogActiveTag.value = index;
+    dialogActiveTag.value = index
   }
   if (!dailogInfo.value.children.length) {
     dialogClose()
@@ -74,7 +85,7 @@ const tabClose = (index: number) => {
 }
 /**设置激活的组件 */
 const handTabClick = (tab: any) => {
-  dialogActiveTag.value = Number(tab.index);
+  dialogActiveTag.value = Number(tab.index)
 }
 /**子级组件关闭
  * @params {id} 关闭项

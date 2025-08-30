@@ -1,7 +1,5 @@
 <template>
-  <div class="box" contenteditable oninput="">
-    输入
-  </div>
+  <div class="box" contenteditable oninput="">输入</div>
 </template>
 
 <script setup>
@@ -45,22 +43,22 @@ observer：构造MutationObserver对象。
   attributes/characterData/childList（或更高级特定项）至少有一项为true；
   特定项存在, 对应选项可以忽略或必须为true
  */
-const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-let list = document.querySelector(`.box`);
+const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+let list = document.querySelector(`.box`)
 
 // options
 const config = {
   attributes: true,
   childList: true,
   characterData: true,
-  subtree: true,
-};
+  subtree: true
+}
 // instance
-const observer = new MutationObserver(function(mutations) {
-  console.log(`mutations =`, mutations); // MutationRecord
-  mutations.forEach(function(mutation) {
+const observer = new MutationObserver(function (mutations) {
+  console.log(`mutations =`, mutations) // MutationRecord
+  mutations.forEach(function (mutation) {
     // console.log("mutation =", mutation);
-    if (mutation.type === "characterData") {
+    if (mutation.type === 'characterData') {
       // target & object === typeof(mutation.target)
       // console.log("A child node has been added OR removed.", mutation.target, typeof(mutation.target));
       // console.log("[...mutation.addedNodes].length", [...mutation.addedNodes].length);
@@ -74,36 +72,39 @@ const observer = new MutationObserver(function(mutations) {
       //     console.log(`A child node ${mutation.target} has been removed!`, mutation.target);
       // }
     }
-    if (mutation.type === "childList") {
+    if (mutation.type === 'childList') {
       if (mutation.target && [...mutation.addedNodes].length) {
-        console.log(`dom新增`, mutation.target);
+        console.log(`dom新增`, mutation.target)
       }
       if (mutation.target && [...mutation.removedNodes].length) {
-        console.log(`dom删除`, mutation.target);
+        console.log(`dom删除`, mutation.target)
       }
       // do somwthings
-      let list_values = [];
-      list_values = [].slice.call(list.children).map(function(node) {
-        return node.innerHTML;
-      }).filter(function(str) {
-        return str !== "<br>"
-      });
-      console.log(list_values);
+      let list_values = []
+      list_values = [].slice
+        .call(list.children)
+        .map(function (node) {
+          return node.innerHTML
+        })
+        .filter(function (str) {
+          return str !== '<br>'
+        })
+      console.log(list_values)
     }
-    if (mutation.type === "attributes") {
-      console.log("属性更改mutation =", mutation);
+    if (mutation.type === 'attributes') {
+      console.log('属性更改mutation =', mutation)
       // console.log("list style =", list.style);
-      let {
-        width,
-        height,
-      } = list.style;
-      console.log("style = ", JSON.stringify({
-        width,
-        height
-      }));
+      let { width, height } = list.style
+      console.log(
+        'style = ',
+        JSON.stringify({
+          width,
+          height
+        })
+      )
     }
-  });
-});
+  })
+})
 // Later, you can stop observing
 // setTimeout(() => {
 //     observer.disconnect();
@@ -126,9 +127,8 @@ const observer = new MutationObserver(function(mutations) {
 
 onMounted(() => {
   // target
-  list = document.querySelector(`.box`);
-  observer.observe(list, config);
-
+  list = document.querySelector(`.box`)
+  observer.observe(list, config)
 })
 </script>
 

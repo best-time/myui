@@ -8,7 +8,7 @@
 import VirtualList from './demo/VirtualList.vue'
 import Item from './demo/Item.vue'
 
-let data = [];
+let data = []
 for (let id = 0; id < 1000; id++) {
   data.push({
     id,
@@ -18,10 +18,10 @@ for (let id = 0; id < 1000; id++) {
 
 export default {
   name: 'app',
-  data(){
+  data() {
     return {
       data
-    };
+    }
   },
   components: {
     VirtualList,
@@ -31,15 +31,14 @@ export default {
 </script>
 
 <style>
-html{
+html {
   height: 100%;
 }
-body{
+body {
   height: 100%;
-  margin:0;
+  margin: 0;
 }
-#app{
-  height:100%;
+#app {
+  height: 100%;
 }
-
 </style>

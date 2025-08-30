@@ -4,16 +4,18 @@
 </template>
 
 <script setup>
-
 import Loading from './modal3/index.js'
-import {defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 const open = () => {
-  Loading({
-    mask: true,
-    text:'数据获取中',
-    title: '第2个弹窗-组件a',
-    component: defineAsyncComponent(() => import('./a.vue'))
-  }, 'a')
+  Loading(
+    {
+      mask: true,
+      text: '数据获取中',
+      title: '第2个弹窗-组件a',
+      component: defineAsyncComponent(() => import('./a.vue'))
+    },
+    'a'
+  )
 }
 </script>

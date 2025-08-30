@@ -4,8 +4,6 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, onMounted } from 'vue'
-
 const divRef = useTemplateRef('dv')
 
 const tasks = Array.from({ length: 100000 }, (_, i) => () => {

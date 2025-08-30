@@ -1,11 +1,11 @@
 <template>
   <el-descriptions class="t_detail" size="small" v-bind="$attrs" :column="descColumn">
     <el-descriptions-item
-        v-for="(item, key) in descData"
-        :key="key"
-        :label="item.label"
-        :span="item.span || 1"
-        v-bind="$attrs"
+      v-for="(item, key) in descData"
+      :key="key"
+      :label="item.label"
+      :span="item.span || 1"
+      v-bind="$attrs"
     >
       <template v-if="item.slotName">
         <slot :name="item.slotName"></slot>
@@ -16,22 +16,22 @@
             <span v-if="item.filters && item.filters.list">
               {{
                 constantEscape(
-                    dataList[item.fieldName],
-                    listTypeInfo[item.filters.list],
-                    item.filters.key || 'value',
-                    item.filters.label || 'label'
+                  dataList[item.fieldName],
+                  listTypeInfo[item.filters.list],
+                  item.filters.key || 'value',
+                  item.filters.label || 'label'
                 )
               }}
             </span>
             <span v-else>{{ item.value }}</span>
-            <el-icon :size="item.iconSize" :color="item.iconColor" style="cursor: pointer;margin-left:2px;top:1px;">
+            <el-icon :size="item.iconSize" :color="item.iconColor" style="cursor: pointer; margin-left: 2px; top: 1px">
               <Warning />
             </el-icon>
           </span>
           <template #content v-if="item.tooltip">
             <span v-if="typeof item.tooltip === 'string'">{{ item.tooltip }}</span>
             <template v-else-if="typeof item.tooltip === 'function'">
-<!--              <render-tooltip :render="item.tooltip" :item="item" />-->
+              <!--              <render-tooltip :render="item.tooltip" :item="item" />-->
               <el-tooltip :bind="item"></el-tooltip>
             </template>
           </template>
@@ -40,10 +40,10 @@
           <span v-if="item.filters && item.filters.list">
             {{
               constantEscape(
-                  dataList[item.fieldName],
-                  listTypeInfo[item.filters.list],
-                  item.filters.key || 'value',
-                  item.filters.label || 'label'
+                dataList[item.fieldName],
+                listTypeInfo[item.filters.list],
+                item.filters.key || 'value',
+                item.filters.label || 'label'
               )
             }}
           </span>
@@ -55,7 +55,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: "CDetail"
+  name: 'CDetail'
 }
 </script>
 <script setup lang="ts">

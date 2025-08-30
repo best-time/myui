@@ -7,8 +7,7 @@
       :class="[
         'list-item',
         {
-          'is-dragover':
-            index === dropIndex && item.draggable && config.exchange
+          'is-dragover': index === dropIndex && item.draggable && config.exchange
         }
       ]"
       @dragstart="onDragstart($event, index)"
@@ -25,7 +24,7 @@
 
 <script>
 export default {
-  name: "Draggable",
+  name: 'Draggable',
   props: {
     list: {
       type: Array,
@@ -34,8 +33,8 @@ export default {
     config: {
       type: Object,
       default: () => ({
-        name: "",
-        uuidField: "id",
+        name: '',
+        uuidField: 'id',
         push: true,
         pull: true,
         exchange: true
@@ -46,27 +45,27 @@ export default {
     return {
       dragIndex: null,
       dropIndex: null
-    };
+    }
   },
   computed: {
     isPush() {
-      const { dropIndex, dragIndex } = this;
+      const { dropIndex, dragIndex } = this
 
-      return dropIndex !== null && dragIndex === null;
+      return dropIndex !== null && dragIndex === null
     },
 
     isExchange() {
-      const { dropIndex, dragIndex } = this;
+      const { dropIndex, dragIndex } = this
 
-      return dragIndex !== null && dropIndex !== null;
+      return dragIndex !== null && dropIndex !== null
     },
 
     pushCbName() {
       const {
         config: { name }
-      } = this;
+      } = this
 
-      return `${name}-push-callback`;
+      return `${name}-push-callback`
     }
   },
 
@@ -76,37 +75,37 @@ export default {
         list,
         config: { name },
         transferData
-      } = this;
+      } = this
 
-      this.dragIndex = i;
+      this.dragIndex = i
 
       if (name) {
-        transferData({ e, key: name, type: "set", data: list[i] });
+        transferData({ e, key: name, type: 'set', data: list[i] })
       } else {
-        throw new Error("缺少配置关联名name");
+        throw new Error('缺少配置关联名name')
       }
 
-      this.$emit("drag-start", i);
+      this.$emit('drag-start', i)
     },
 
     onDragenter(i) {
-      this.dropIndex = i;
+      this.dropIndex = i
 
-      this.$emit("drag-enter", i);
+      this.$emit('drag-enter', i)
     },
 
     onDragover(i) {
-      const { dragIndex, dropIndex } = this;
+      const { dragIndex, dropIndex } = this
 
-      if (i === dragIndex || i === dropIndex) return;
+      if (i === dragIndex || i === dropIndex) return
 
-      this.dropIndex = i;
+      this.dropIndex = i
 
-      this.$emit("drag-over", i);
+      this.$emit('drag-over', i)
     },
 
     onDragleave() {
-      this.dropIndex = null;
+      this.dropIndex = null
     },
 
     onDrop(e) {
@@ -123,43 +122,39 @@ export default {
         storage,
         resetIndex,
         transferData
-      } = this;
+      } = this
 
-      if (dropIndex === dragIndex || !exchange) return;
+      if (dropIndex === dragIndex || !exchange) return
 
       if (isPush) {
         if (!enablePush) {
-          resetIndex();
-          return;
+          resetIndex()
+          return
         }
 
         if (name) {
-          list.splice(
-            dropIndex,
-            0,
-            transferData({ e, key: name, type: "get" })
-          );
+          list.splice(dropIndex, 0, transferData({ e, key: name, type: 'get' }))
 
-          storage("set", pushCbName, true);
+          storage('set', pushCbName, true)
         } else {
-          resetIndex();
-          throw new Error("缺少配置关联属性name");
+          resetIndex()
+          throw new Error('缺少配置关联属性name')
         }
 
-        resetIndex();
+        resetIndex()
 
-        return;
+        return
       }
 
       if (isExchange) {
-        const drapItem = list[dragIndex];
-        const dropItem = list[dropIndex];
+        const drapItem = list[dragIndex]
+        const dropItem = list[dropIndex]
 
-        list.splice(dropIndex, 1, drapItem);
-        list.splice(dragIndex, 1, dropItem);
+        list.splice(dropIndex, 1, drapItem)
+        list.splice(dragIndex, 1, dropItem)
       }
 
-      resetIndex();
+      resetIndex()
     },
 
     onDragend() {
@@ -172,55 +167,55 @@ export default {
 
         storage,
         resetIndex
-      } = this;
+      } = this
 
       if (enablePull) {
-        const isPushSuccess = storage("get", pushCbName);
+        const isPushSuccess = storage('get', pushCbName)
 
         if (isPushSuccess) {
-          list.splice(dragIndex, 1);
+          list.splice(dragIndex, 1)
         }
       }
 
-      resetIndex();
+      resetIndex()
 
-      storage("remove", pushCbName);
+      storage('remove', pushCbName)
 
-      this.$emit("drag-end");
+      this.$emit('drag-end')
     },
 
     storage(type, key, value) {
       return {
         get() {
-          return JSON.parse(localStorage.getItem(key));
+          return JSON.parse(localStorage.getItem(key))
         },
 
         set() {
-          localStorage.setItem(key, JSON.stringify(value));
+          localStorage.setItem(key, JSON.stringify(value))
         },
 
         remove() {
-          localStorage.removeItem(key);
+          localStorage.removeItem(key)
         }
-      }[type]();
+      }[type]()
     },
 
     resetIndex() {
-      this.dropIndex = null;
-      this.dragIndex = null;
+      this.dropIndex = null
+      this.dragIndex = null
     },
 
     transferData({ e, key, type, data } = {}) {
-      if (type === "get") {
-        return JSON.parse(e.dataTransfer.getData(`${key}-drag-key`));
+      if (type === 'get') {
+        return JSON.parse(e.dataTransfer.getData(`${key}-drag-key`))
       }
 
-      if (type === "set") {
-        e.dataTransfer.setData(`${key}-drag-key`, JSON.stringify(data));
+      if (type === 'set') {
+        e.dataTransfer.setData(`${key}-drag-key`, JSON.stringify(data))
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -241,7 +236,7 @@ ul {
 }
 
 .list-item.is-dragover::before {
-  content: "";
+  content: '';
 
   position: absolute;
   bottom: -7px;
@@ -254,7 +249,7 @@ ul {
 }
 
 .list-item.is-dragover::after {
-  content: "";
+  content: '';
 
   position: absolute;
   bottom: -11px;

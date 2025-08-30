@@ -1,4 +1,4 @@
-import { defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'SimpleComponent',
@@ -9,5 +9,4 @@ export default defineComponent({
     }
   },
   template: `<div>{{ message }}</div>`
-});
-
+})

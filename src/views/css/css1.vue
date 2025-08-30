@@ -5,14 +5,54 @@
     </header>
     <main>
       <h2>Main Content</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique, fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at nunc.</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae vestibulum massa. Aenean at ante tristique,
+        fringilla risus eget, tempus quam. Proin sed justo nec urna pretium tristique. Vestibulum ante ipsum primis in
+        faucibus orci luctus et ultrices posuere cubilia curae; Ut sit amet metus ac purus venenatis ullamcorper et at
+        nunc.
+      </p>
       <h2>111</h2>
     </main>
   </div>
@@ -21,9 +61,7 @@
   </footer>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss">
 .wrapper {
@@ -37,7 +75,8 @@ main {
   flex-grow: 1;
 }
 
-header, footer {
+header,
+footer {
   background-color: #f2f2f2;
   padding: 20px;
 }

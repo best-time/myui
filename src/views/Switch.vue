@@ -1,11 +1,6 @@
 <template>
   <div>
-    <input
-      type="checkbox"
-      v-model="checked"
-      class="xm__switch"
-      :disabled="disabled"
-    />
+    <input type="checkbox" v-model="checked" class="xm__switch" :disabled="disabled" />
   </div>
 </template>
 
@@ -15,7 +10,7 @@ export default {
     return {
       checked: false,
       disabled: false
-    };
+    }
   },
   watch: {
     checked(val) {
@@ -23,11 +18,10 @@ export default {
       // this.$emit("input", val);
     }
   }
-};
+}
 </script>
 
 <style scoped lang="less">
-
 .border-radius (@radius: 4px) {
   border-radius: @radius;
 }
@@ -70,7 +64,7 @@ export default {
 
   &:after,
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

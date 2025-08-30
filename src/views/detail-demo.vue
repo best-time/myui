@@ -1,25 +1,23 @@
 <template>
   <div class="t_detail_demo">
-    <el-radio-group
-        v-model="descColumn"
-        size="small"
-        style="margin-bottom: 15px"
-    >
+    <el-radio-group v-model="descColumn" size="small" style="margin-bottom: 15px">
       <el-radio-button :label="1">一行展示</el-radio-button>
       <el-radio-button :label="2">一行展示2项</el-radio-button>
       <el-radio-button :label="3">一行展示3项</el-radio-button>
       <el-radio-button :label="4">一行展示4项</el-radio-button>
     </el-radio-group>
-    <t-detail :descData="DataSource.descData"
-              :listTypeInfo="DataSource.listTypeInfo"
-              :dataList="DataSource.dataList"
-              :descColumn="descColumn" >
+    <t-detail
+      :descData="DataSource.descData"
+      :listTypeInfo="DataSource.listTypeInfo"
+      :dataList="DataSource.dataList"
+      :descColumn="descColumn"
+    >
       <template #slotName>
-        <div style="color: red; display: inline-block;">
-        <span>{{ DataSource.dataList.stocktakePlanNo }}</span>
-        <span>--</span>
-        <span>{{ DataSource.dataList.planStocktakeUserName }}</span>
-          |   <span style="margin-left: 100px;">这是插槽数据</span>
+        <div style="color: red; display: inline-block">
+          <span>{{ DataSource.dataList.stocktakePlanNo }}</span>
+          <span>--</span>
+          <span>{{ DataSource.dataList.planStocktakeUserName }}</span>
+          | <span style="margin-left: 100px">这是插槽数据</span>
         </div>
       </template>
     </t-detail>
@@ -34,21 +32,21 @@ const DataSource = reactive({
     stockTakeTypeList: [
       {
         label: '在制品',
-        value: 1,
+        value: 1
       },
       {
         label: '待检品',
-        value: 2,
+        value: 2
       },
       {
         label: '合格品',
-        value: 3,
+        value: 3
       },
       {
         label: '报废品',
-        value: 4,
-      },
-    ],
+        value: 4
+      }
+    ]
   },
   dataList: {
     id: '1498904492217241602',
@@ -66,66 +64,66 @@ const DataSource = reactive({
     originTypeListLabel: '在制品,合格品',
     planStocktakeUserName: '张三',
     planStocktakeUserId: 0,
-    createRemark: '测试',
+    createRemark: '测试'
   },
   descData: [
     {
       label: '盘点单编号：',
       fieldName: 'stocktakePlanNo',
-      value: '',
+      value: ''
     },
     {
       label: '盘点单状态：',
       fieldName: 'stocktakeJobStatusLabel',
-      value: '',
+      value: ''
     },
     {
       label: '盘点负责人：',
       fieldName: 'planStocktakeUserName',
-      value: '',
+      value: ''
     },
     {
       label: '计划盘点日期：',
       fieldName: 'planStocktakeDate',
       value: '',
-      tooltip: 'tooltip字符串显示',
+      tooltip: 'tooltip字符串显示'
     },
     {
       label: '插槽显示编号+负责人：',
       slotName: 'slotName',
       span: 4,
-      value: '',
+      value: ''
     },
     {
       label: '字典回显：',
       fieldName: 'stocktakeJobStatus',
       value: '',
       filters: {
-        list: 'stockTakeTypeList',
-      },
+        list: 'stockTakeTypeList'
+      }
     },
     {
       label: '车间：',
       fieldName: 'workshopLabel',
-      value: '',
+      value: ''
     },
     {
       label: '仓库：',
       fieldName: 'warehouseName',
-      value: '',
+      value: ''
     },
     {
       label: '盘点所有物料：',
       fieldName: 'originTypeListLabel',
-      value: '',
+      value: ''
     },
     {
       label: '备注：',
       fieldName: 'createRemark',
       value: '',
-      span: 4,
-    },
-  ],
+      span: 4
+    }
+  ]
 })
 onMounted(() => {
   DataSource.descData.map((item) => {

@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import {defineComponent, h, reactive, ref, computed, resolveComponent} from 'vue'
-import {Home, NotFound, About} from './com.js'
+import { defineComponent, h, reactive, ref, computed, resolveComponent } from 'vue'
+import { Home, NotFound, About } from './com.js'
 
 function confirm() {
   console.log('confirm')
@@ -24,7 +24,6 @@ function confirm() {
 
 const cRef = ref(null)
 const homeRef = ref(null)
-
 
 const MyComponent = defineComponent({
   name: 'MyComponent',
@@ -41,32 +40,36 @@ const MyComponent = defineComponent({
   setup(props, context) {
     console.log(context)
     const ButtonCounter = resolveComponent('ElButton')
-    const {attrs, emit, slots, expose} = context
+    const { attrs, emit, slots, expose } = context
     const r = ref('1111')
 
-    function getParams() {
-
-    }
+    function getParams() {}
 
     expose({
       r,
       getParams
     })
     return () => {
-      return h('div', [props.message, h('span', {
-        style: {color: 'red', marginLeft: '12px'},
-        onClick: () => {
-          console.log(attrs, slots)
-          emit('confirm')
-        }
-      }, props.count),
+      return h('div', [
+        props.message,
+        h(
+          'span',
+          {
+            style: { color: 'red', marginLeft: '12px' },
+            onClick: () => {
+              console.log(attrs, slots)
+              emit('confirm')
+            }
+          },
+          props.count
+        ),
         slots?.default?.() || null,
         slots.head(),
-        h(ButtonCounter, {type: 'primary'}, '按钮')])
+        h(ButtonCounter, { type: 'primary' }, '按钮')
+      ])
     }
   }
-});
-
+})
 </script>
 
 <style lang="less">

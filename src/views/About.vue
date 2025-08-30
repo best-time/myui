@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page {{ a }}</h1>
+    <h2>use defineModel -This is an about page {{ a }}</h2>
     <el-input v-model="name" placeholder="请输入name"></el-input>
     <p>{{ name }}</p>
     <el-input v-model="count" placeholder="请输入count"></el-input>
@@ -10,7 +10,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
 // 带默认值
 const name = defineModel('name', {
   default: 'david'

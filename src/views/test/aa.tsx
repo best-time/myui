@@ -1,7 +1,5 @@
 const ADemo = () => {
-    return (<>a-demo组件</>)
+  return <>a-demo组件</>
 }
 
-export {
-    ADemo
-}
+export { ADemo }

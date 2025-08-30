@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 const BasicCom = defineAsyncComponent(() => import('./BasicCom.vue'))
 

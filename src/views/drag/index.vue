@@ -30,16 +30,15 @@
         <span class="lev">{{ item.name }}</span>
       </li>
     </ul>
-
   </div>
 </template>
 
 <script>
-import Drag from "./drag.vue";
+import Drag from './drag.vue'
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Drag,
+    Drag
   },
   data() {
     return {
@@ -49,7 +48,7 @@ export default {
       })),
 
       config1: {
-        name: "test",
+        name: 'test',
         push: true,
         pull: true,
         exchange: true
@@ -61,39 +60,36 @@ export default {
       })),
 
       config2: {
-        name: "test",
+        name: 'test',
         push: true,
         pull: true,
         exchange: true
       },
       currMoveItem: false,
-      currMoveIndex: false,
-
-
-    };
+      currMoveIndex: false
+    }
   },
   methods: {
     start(item, index) {
-      this.currMoveItem = item; // 当前移动元素
-      this.currMoveIndex = index; // 当前移动数组下标
+      this.currMoveItem = item // 当前移动元素
+      this.currMoveIndex = index // 当前移动数组下标
       // console.log('开始移动',item,index);
     },
     over(ev) {
-      ev.preventDefault();
+      ev.preventDefault()
     },
     drop(index) {
       // console.log('放下',index);
-      if (index - this.currMoveIndex === 0) return false; // 原地移动
+      if (index - this.currMoveIndex === 0) return false // 原地移动
 
       // console.log('从'+this.currMoveIndex+'移动到'+index);
-      this.list1.splice(this.currMoveIndex, 1); // 删除元素之前所在位置
-      this.list1.splice(index, 0, this.currMoveItem); // 在需要放下元素的位置前插入移动元素
-      this.currMoveIndex = false;
-      this.currMoveItem = false;
-    },
-
+      this.list1.splice(this.currMoveIndex, 1) // 删除元素之前所在位置
+      this.list1.splice(index, 0, this.currMoveItem) // 在需要放下元素的位置前插入移动元素
+      this.currMoveIndex = false
+      this.currMoveItem = false
+    }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -121,11 +117,10 @@ export default {
   }
 }
 
-
 body {
   height: 100vh;
   width: 100vw;
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 #app-2 {
@@ -150,11 +145,11 @@ body {
   bottom: 30px;
   left: 30px;
   right: 300px;
-  box-shadow: 0 0 2px #AAA;
+  box-shadow: 0 0 2px #aaa;
   background-color: white;
 }
 
 .box-shaddow {
-  box-shadow:  10px 10px 15px 0px rgba(125,125,125,1);
+  box-shadow: 10px 10px 15px 0px rgba(125, 125, 125, 1);
 }
 </style>

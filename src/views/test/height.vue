@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">hover  max-height</div>
+    <div class="title">hover max-height</div>
     <div class="body">
       <div>
         <p>这是一段内容1111</p>
@@ -53,7 +53,6 @@
   height: 200px;
 }
 
-
 .container3 .body {
   display: grid;
   grid-template-rows: 0fr;
@@ -65,7 +64,5 @@
 }
 .container3:hover .body {
   grid-template-rows: 1fr;
-
 }
-
 </style>

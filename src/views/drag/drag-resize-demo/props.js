@@ -44,77 +44,77 @@ export default {
       type: Number,
       default: 50,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     gridY: {
       type: Number,
       default: 50,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     parentW: {
       type: Number,
       default: 0,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     parentH: {
       type: Number,
       default: 0,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     w: {
       type: [String, Number],
       default: 200,
       validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
+        return typeof val === 'string' ? val === 'auto' : val >= 0
       }
     },
     h: {
       type: [String, Number],
       default: 200,
       validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
+        return typeof val === 'string' ? val === 'auto' : val >= 0
       }
     },
     minw: {
       type: Number,
       default: 50,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     minh: {
       type: Number,
       default: 50,
       validator(val) {
-        return val >= 0;
+        return val >= 0
       }
     },
     x: {
       type: Number,
       default: 0,
       validator(val) {
-        return typeof val === "number";
+        return typeof val === 'number'
       }
     },
     y: {
       type: Number,
       default: 0,
       validator(val) {
-        return typeof val === "number";
+        return typeof val === 'number'
       }
     },
     z: {
       type: [String, Number],
-      default: "auto",
+      default: 'auto',
       validator(val) {
-        return typeof val === "string" ? val === "auto" : val >= 0;
+        return typeof val === 'string' ? val === 'auto' : val >= 0
       }
     },
     dragHandle: {
@@ -128,20 +128,20 @@ export default {
     sticks: {
       type: Array,
       default() {
-        return ["tl", "tm", "tr", "mr", "br", "bm", "bl", "ml"];
+        return ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml']
       }
     },
     axis: {
       type: String,
-      default: "both",
+      default: 'both',
       validator(val) {
-        return ["x", "y", "both", "none"].indexOf(val) !== -1;
+        return ['x', 'y', 'both', 'none'].indexOf(val) !== -1
       }
     },
     contentClass: {
       type: String,
       required: false,
-      default: ""
+      default: ''
     }
   }
-};
+}

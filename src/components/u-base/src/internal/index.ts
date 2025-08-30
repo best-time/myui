@@ -9,16 +9,16 @@ import {
   getObjKeys,
   deepGet,
   filterObj,
-  ErrorResult,
-} from './base';
-import extend from './extend';
-import omit from './omit';
-import pick from './pick';
-import num from './num';
-import partial from './partial';
-import curry from './curry';
-import {ymd, ymdFull, countDaysInMonth} from './date';
-import * as arr from './arr';
+  ErrorResult
+} from './base'
+import extend from './extend'
+import omit from './omit'
+import pick from './pick'
+import num from './num'
+import partial from './partial'
+import curry from './curry'
+import { ymd, ymdFull, countDaysInMonth } from './date'
+import * as arr from './arr'
 
 export {
   partial,
@@ -41,5 +41,5 @@ export {
   deepGet,
   filterObj,
   ErrorResult,
-    arr
-};
+  arr
+}

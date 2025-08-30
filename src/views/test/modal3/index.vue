@@ -4,15 +4,15 @@ import { ref } from 'vue'
 defineProps({
   text: {
     type: String,
-    default: '加载中...',
+    default: '加载中...'
   },
   title: {
     type: String,
-    default: '标题',
+    default: '标题'
   },
   mask: {
     type: Boolean,
-    default: false,
+    default: false
   },
   component: {}
 })
@@ -30,13 +30,11 @@ function close() {
 const beforeClose = () => {
   emit('before-close')
 }
-function confirm() {
-
-}
+function confirm() {}
 
 defineExpose({
   close,
-  open,
+  open
 })
 </script>
 <script>
@@ -45,33 +43,25 @@ export default {
 }
 </script>
 <template>
-  <el-dialog
-      v-model="visible"
-      :title="title"
-      clas="custom-dialog"
-      width="500"
-      :before-close="beforeClose"
-  >
+  <el-dialog v-model="visible" :title="title" clas="custom-dialog" width="500" :before-close="beforeClose">
     <component :is="component"></component>
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="confirm">
-          确定
-        </el-button>
+        <el-button type="primary" @click="confirm"> 确定 </el-button>
       </div>
     </template>
   </el-dialog>
 
-<!--  <div v-show="visible" class="loading-container" :class="{ pe: !mask }">-->
-<!--    <div class="loading-wrapper" :class="{ mask: mask, pe: !mask }">-->
-<!--      <img-->
-<!--          src="https://zhanchi-static.oss-cn-shenzhen.aliyuncs.com/zhancchi_recruit/loading.gif"-->
-<!--          alt=""-->
-<!--      />-->
-<!--      <span class="loading-text">{{ text }}</span>-->
-<!--    </div>-->
-<!--  </div>-->
+  <!--  <div v-show="visible" class="loading-container" :class="{ pe: !mask }">-->
+  <!--    <div class="loading-wrapper" :class="{ mask: mask, pe: !mask }">-->
+  <!--      <img-->
+  <!--          src="https://zhanchi-static.oss-cn-shenzhen.aliyuncs.com/zhancchi_recruit/loading.gif"-->
+  <!--          alt=""-->
+  <!--      />-->
+  <!--      <span class="loading-text">{{ text }}</span>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </template>
 <style lang="scss" scoped>
 .loading-container {
@@ -121,4 +111,3 @@ export default {
   pointer-events: none;
 }
 </style>
-

@@ -1,10 +1,10 @@
-(function () {
+;(function () {
   /**
    * 查找单个元素
-   * @param {string} name 
+   * @param {string} name
    * @returns {HTMLElement}
    */
-  const $ = name => document.querySelector(name);
+  const $ = (name) => document.querySelector(name)
 
   /**
    * 输出`iframe`到指定节点中
@@ -14,22 +14,22 @@
    * @param {number} size.height 高度
    */
   function createViewFrame(parent, size) {
-    const scriptId = "the-iframe-script";
-    const frame = document.createElement("iframe");
-    frame.width = size ? size.width : parent.clientWidth;
-    frame.height = size ? size.height : parent.clientHeight;
-    frame.frameBorder = "0";
-    parent.appendChild(frame);
+    const scriptId = 'the-iframe-script'
+    const frame = document.createElement('iframe')
+    frame.width = size ? size.width : parent.clientWidth
+    frame.height = size ? size.height : parent.clientHeight
+    frame.frameBorder = '0'
+    parent.appendChild(frame)
 
     /**
      * 输出脚本
      * @param {string} value 脚本代码
      */
     function outputScript(value) {
-      const script = frame.contentDocument.createElement("script");
-      script.id = scriptId;
-      script.innerHTML = value;
-      frame.contentDocument.body.appendChild(script);
+      const script = frame.contentDocument.createElement('script')
+      script.id = scriptId
+      script.innerHTML = value
+      frame.contentDocument.body.appendChild(script)
     }
 
     /**
@@ -37,36 +37,36 @@
      * @param {string} code 页面内容
      */
     function getHTML(code) {
-      let head = "";
-      let body = "";
-      let script = "";
+      let head = ''
+      let body = ''
+      let script = ''
 
       // 一个页面可能有多个`script`标签，所以递归把所有的抽出来
       function getScript() {
-        const result = code.match(/<script>([\s\S]*?)<\/script>/);
+        const result = code.match(/<script>([\s\S]*?)<\/script>/)
         if (result) {
-          const value = result[1];
-          script += value.charAt(value.length - 1) === ";" ? value : `;${value}`;
-          code = code.replace(result[0], "");
-          getScript();
+          const value = result[1]
+          script += value.charAt(value.length - 1) === ';' ? value : `;${value}`
+          code = code.replace(result[0], '')
+          getScript()
         }
       }
 
-      getScript();
+      getScript()
 
-      const headResult = code.match(/<head>([\s\S]*?)<\/head>/);
+      const headResult = code.match(/<head>([\s\S]*?)<\/head>/)
 
       if (headResult) {
-        head = headResult[1];
-        code = code.replace(headResult[0], "");
+        head = headResult[1]
+        code = code.replace(headResult[0], '')
       }
 
-      const bodyResult = code.match(/<body>([\s\S]*?)<\/body>/);
+      const bodyResult = code.match(/<body>([\s\S]*?)<\/body>/)
 
       if (bodyResult) {
-        body = bodyResult[1];
+        body = bodyResult[1]
       } else {
-        body = code;
+        body = code
       }
 
       return {
@@ -82,42 +82,42 @@
     return {
       /**
        * 更新内容
-       * @param {string} code 
+       * @param {string} code
        */
       updateContent(code) {
-        const html = getHTML(code);
-        frame.contentDocument.body.innerHTML = html.body;
-        frame.contentDocument.head.innerHTML = html.head;
+        const html = getHTML(code)
+        frame.contentDocument.body.innerHTML = html.body
+        frame.contentDocument.head.innerHTML = html.head
 
         // 判断脚本是否需要更新
         const frameScript = frame.contentDocument.getElementById(scriptId)
         if (frameScript) {
           if (frameScript.innerHTML != html.script) {
             // frame.contentDocument.location.reload();
-            frameScript.innerHTML = html.script;
+            frameScript.innerHTML = html.script
           }
         } else {
-          outputScript(html.script);
+          outputScript(html.script)
         }
       }
     }
   }
-  const codeBox = $(".code-box");
-  const viewBox = $(".view-box");
-  const viewFrame = createViewFrame(viewBox);
+  const codeBox = $('.code-box')
+  const viewBox = $('.view-box')
+  const viewFrame = createViewFrame(viewBox)
 
-  /** 
+  /**
    * 节流定时器
    * @type {number}
    */
-  let timer;
+  let timer
 
   codeBox.oninput = function () {
     // console.log(this.value);
-    clearTimeout(timer);
+    clearTimeout(timer)
     timer = setTimeout(function () {
-      viewFrame.updateContent(codeBox.value);
-    }, 300);
+      viewFrame.updateContent(codeBox.value)
+    }, 300)
   }
 
   let template = `<html>
@@ -132,6 +132,5 @@
     function alert1() { alert(n1); }
     function alert2() { alert(n2); }
   </script>
-  </html>`;
-
-})();
+  </html>`
+})()

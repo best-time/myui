@@ -20,28 +20,15 @@
         style="width: 100%"
       >
         <!-- 多选框 -->
-        <el-table-column
-          type="selection"
-          width="55"
-          v-if="multiple"
-        ></el-table-column>
+        <el-table-column type="selection" width="55" v-if="multiple"></el-table-column>
         <!-- 单选框 -->
         <el-table-column width="55" v-if="radio">
           <template slot-scope="scope">
-            <el-radio
-              v-model="radioValue"
-              :label="scope.row[rowKey]"
-              >&nbsp;</el-radio
-            >
+            <el-radio v-model="radioValue" :label="scope.row[rowKey]">&nbsp;</el-radio>
           </template>
         </el-table-column>
         <!-- 序号 -->
-        <el-table-column
-          v-if="index"
-          type="index"
-          width="50"
-          :label="indexLabel"
-        ></el-table-column>
+        <el-table-column v-if="index" type="index" width="50" :label="indexLabel"></el-table-column>
         <!-- 其他数据 -->
         <el-table-column
           v-for="(item, index) in columns"
@@ -54,12 +41,7 @@
           <template slot-scope="{ row, column, $index }">
             <!-- 如果有插槽内容，则显示插槽 -->
             <template v-if="item.slot">
-              <slot
-                :name="item.slot"
-                :row="row"
-                :column="column"
-                :index="$index"
-              ></slot>
+              <slot :name="item.slot" :row="row" :column="column" :index="$index"></slot>
             </template>
             <!-- 如果没有，则显示默认的数据 -->
             <template v-else>
@@ -103,7 +85,7 @@ export default {
     //   表格的数据  必传
     data: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     // 表格的表头内容和对应的字段，还有是否定位 宽度等 必传
     /*
@@ -119,77 +101,77 @@ export default {
     */
     columns: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     // 表格是否显示序号 默认为显示
     index: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 序号的标题设置
     indexLabel: {
       type: String,
-      default: "序号",
+      default: '序号'
     },
     // 表格是否显示边框 默认为显示
     border: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 表格是否显示斑马条纹的颜色 默认为显示
     stripe: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // Table 的尺寸  medium / small / mini  默认为 medium
     size: {
       type: String,
-      default: "medium",
+      default: 'medium'
     },
     // 是否显示表头， 默认为显示
     showHeader: {
       type: Boolean,
-      default: true,
+      default: true
     },
     //  是否高亮当前点击行  默认为false
     heightLinght: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 默认情况下若内容过多会折行显示，为true时多余的内容会在 hover 时以 tooltip 的形式显示出来。
     showTooltip: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 表格最大高度，是需要固定表头的时候设置这个值 默认为空
     height: {
       type: [String, Number],
-      default: "",
+      default: ''
     },
     // 数据的唯一值，默认为id，在多选点击行选中 和 单选时 单选按钮选中时 需要使用这个值
     rowKey: {
       type: String,
-      default: "id",
+      default: 'id'
     },
     // 表格是否需要作为单选，如果为单选，则会显示单选按钮  并返回一个方法来接受选择的数据 如果需要开启 则需要传递 rowKey  这个唯一值
     radio: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 是否需要作为多选模式，默认为false,如果多选，则会显示多选框，并返回一个方法来接受选择的数据
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 这个主要是为多选时服务，是否在多选时点击行就选中数据，element默认是只能选中多选框才能选中数据，如果开启，则需要传递下面的rowKey，如果唯一值为id，则不需要，默认为id，
     rowSelect: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 当没有数据时，需要展示的文字提示
     emptyText: {
       type: String,
-      default: "暂无数据",
+      default: '暂无数据'
     },
     // 给某一行添加class添加样式 Function(row, rowIndex)/String
     rowClassName: [String, Function],
@@ -201,58 +183,58 @@ export default {
     // 是否显示分页，默认为显示
     page: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 当前显示的页数
     currentPage: {
       type: Number,
-      default: 1,
+      default: 1
     },
     // 每页显示的数量
     pageSize: {
       type: Number,
-      default: 20,
+      default: 20
     },
     // 总条数
     total: {
       type: Number,
-      default: 0,
+      default: 0
     },
     // 页码按钮的数量，当总页数超过该值时会折叠，大于等于 5 且小于等于 21 的奇数
     pagerCount: {
       type: Number,
-      default: 5,
+      default: 5
     },
     //每页显示个数选择器的选项设置
     pageSizeArr: {
       type: Array,
-      default: [10, 20, 30, 40, 50, 100],
+      default: [10, 20, 30, 40, 50, 100]
     },
     // 是否使用小型分页样式  默认为false
     small: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 是否为分页按钮添加背景色  默认为true
     background: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 	只有一页时是否隐藏  默认为false
     hideOn: {
       type: Boolean,
-      default: false,
+      default: false
     },
     layout: {
       type: String,
-      default: "prev, pager, next,sizes, total,jumper",
-    },
+      default: 'prev, pager, next,sizes, total,jumper'
+    }
   },
   data() {
     return {
-      radioValue: "", //单选按钮绑定的值
-      selectList: [], //选中的值
-    };
+      radioValue: '', //单选按钮绑定的值
+      selectList: [] //选中的值
+    }
   },
   computed: {},
   watch: {},
@@ -260,83 +242,83 @@ export default {
   methods: {
     //   获取行的classname
     getRowClass({ row, rowIndex }) {
-      let rowClass = this.rowClassName;
-      if (typeof rowClass === "string") {
-        return rowClass;
-      } else if (typeof rowClass === "function") {
-        return rowClass(row, rowIndex);
+      let rowClass = this.rowClassName
+      if (typeof rowClass === 'string') {
+        return rowClass
+      } else if (typeof rowClass === 'function') {
+        return rowClass(row, rowIndex)
       }
     },
     // 获取列的className
     getCellClass({ row, column, rowIndex, columnIndex }) {
-      let cellClass = this.cellClassName;
-      if (typeof cellClass === "string") {
-        return cellClass;
-      } else if (typeof cellClass === "function") {
-        return cellClass(row, column, rowIndex, columnIndex);
+      let cellClass = this.cellClassName
+      if (typeof cellClass === 'string') {
+        return cellClass
+      } else if (typeof cellClass === 'function') {
+        return cellClass(row, column, rowIndex, columnIndex)
       }
     },
     // 获取表头的className
     getHeadClass({ row, rowIndex }) {
-      let headClass = this.headClassNmae;
-      if (typeof headClass === "string") {
-        return headClass;
-      } else if (typeof headClass === "function") {
-        return headClass(row, rowIndex);
+      let headClass = this.headClassNmae
+      if (typeof headClass === 'string') {
+        return headClass
+      } else if (typeof headClass === 'function') {
+        return headClass(row, rowIndex)
       }
     },
     // 点击多选框时的数据
     handleSelectionChange(val) {
-      this.selectList = val;
-      this.$emit("selectChange", this.selectList);
+      this.selectList = val
+      this.$emit('selectChange', this.selectList)
     },
     // 某一行被点击时
     handRowClick(row, column) {
       // 如果为单选时
       if (this.radio) {
-        this.selectList = [];
-        this.radioValue = row[this.rowKey]; //将选中的值赋值用于单选按钮的选中
-        this.$refs.tableBox.setCurrentRow(row); //单选时 element提供了一个方法 来使选中的高亮
-        this.selectList.push(row);
-        this.$emit("selectChange", this.selectList);
+        this.selectList = []
+        this.radioValue = row[this.rowKey] //将选中的值赋值用于单选按钮的选中
+        this.$refs.tableBox.setCurrentRow(row) //单选时 element提供了一个方法 来使选中的高亮
+        this.selectList.push(row)
+        this.$emit('selectChange', this.selectList)
       }
       //如果为多选时，需要点击行来选中数据 rowSelect为true ， rowKey为列表唯一值
       if (this.multiple && this.rowSelect && this.rowKey) {
         //   先判断点击的数据是否已在选中数据中存在 不过需要一个列表的唯一值来判断  默认为id
         let index = this.selectList.findIndex((item) => {
-          return item[this.rowKey] == row[this.rowKey];
-        });
+          return item[this.rowKey] == row[this.rowKey]
+        })
         if (index == -1) {
           // 如果未存在，设置已选状态
-          this.$refs.tableBox.toggleRowSelection(row, true); //设置复选框为选中状态
+          this.$refs.tableBox.toggleRowSelection(row, true) //设置复选框为选中状态
         } else {
           // 如果已存在，设置未选状态
-          this.$refs.tableBox.toggleRowSelection(row, false); //设置复选框为未选状态
+          this.$refs.tableBox.toggleRowSelection(row, false) //设置复选框为未选状态
         }
       }
     },
     //   选取页数
     handleCurrentChange(val) {
-      this.currentPage = val;
-      this.$emit("pageChange", {
+      this.currentPage = val
+      this.$emit('pageChange', {
         currentPage: this.currentPage,
-        pageSize: this.pageSize,
-      });
+        pageSize: this.pageSize
+      })
     },
     // 选取每页显示的数量
     handleSizeChange(val) {
-      let num = this.currentPage * val;
+      let num = this.currentPage * val
       if (this.total < num && this.total > 0) {
-        this.currentPage = Math.ceil(this.total / val);
+        this.currentPage = Math.ceil(this.total / val)
       }
-      this.pageSize = val;
-      this.$emit("pageChange", {
+      this.pageSize = val
+      this.$emit('pageChange', {
         currentPage: this.currentPage,
-        pageSize: this.pageSize,
-      });
-    },
-  },
-};
+        pageSize: this.pageSize
+      })
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -407,7 +389,7 @@ export default {
 .list_table /deep/.el-table tr {
   color: #424142;
   font-size: 14px;
-  font-family: "黑体";
+  font-family: '黑体';
   th {
     text-align: center;
     font-weight: bold;

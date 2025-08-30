@@ -1,29 +1,16 @@
 <template>
   <el-table
-      :data="tableData"
-      @selection-change="handleSelectionChange"
-      @row-click="handleRowClick"
-      ref="tableRef"
-      border
-      style="width: 100%">
-    <el-table-column
-        type="selection"
-        width="55">
-    </el-table-column>
-    <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-    </el-table-column>
-    <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-    </el-table-column>
-    <el-table-column
-        prop="address"
-        label="地址">
-    </el-table-column>
+    :data="tableData"
+    @selection-change="handleSelectionChange"
+    @row-click="handleRowClick"
+    ref="tableRef"
+    border
+    style="width: 100%"
+  >
+    <el-table-column type="selection" width="55"> </el-table-column>
+    <el-table-column prop="date" label="日期" width="180"> </el-table-column>
+    <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+    <el-table-column prop="address" label="地址"> </el-table-column>
   </el-table>
 </template>
 
@@ -40,9 +27,9 @@ const tableData = [
   { date: '2023-01-07', name: 'Sam Green4', address: 'Sidney No. 1 Lake Park' },
   { date: '2023-01-08', name: 'Sam Green5', address: 'Sidney No. 1 Lake Park' },
   { date: '2023-01-09', name: 'Sam Green6', address: 'Sidney No. 1 Lake Park' },
-  { date: '2023-01-10', name: 'Sam Green7', address: 'Sidney No. 1 Lake Park' },
+  { date: '2023-01-10', name: 'Sam Green7', address: 'Sidney No. 1 Lake Park' }
   // ... 更多数据
-];
+]
 
-const { tableRef, state, handleSelectionChange, handleRowClick } = useShiftSelect(tableData);
+const { tableRef, state, handleSelectionChange, handleRowClick } = useShiftSelect(tableData)
 </script>

@@ -1,4 +1,4 @@
-import {ref, computed, defineComponent, h} from 'vue'
+import { ref, computed, defineComponent, h } from 'vue'
 
 const useColor = () => {
   const colorIndex = ref(0)
@@ -25,12 +25,8 @@ const useColor = () => {
 
 // 使用 `组合式 API` 的方式调用 defineComponent
 export const Home = defineComponent(
-  (props,{expose}) => {
-    const {
-      colorIndex,
-      colors,
-      changeColor
-    } = useColor()
+  (props, { expose }) => {
+    const { colorIndex, colors, changeColor } = useColor()
 
     expose({
       changeColor

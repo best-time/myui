@@ -1,97 +1,97 @@
 <template>
   <div>
-    <header class="m-navbar navbar-bottom-line-color" :class="classes" :style="{backgroundColor: bgcolor, height: height}">
-        <div class="navbar-item">
-            <span>返回</span>
+    <header
+      class="m-navbar navbar-bottom-line-color"
+      :class="classes"
+      :style="{ backgroundColor: bgcolor, height: height }"
+    >
+      <div class="navbar-item">
+        <span>返回</span>
+      </div>
+      <div class="navbar-center-box" :style="{ height: height }">
+        <div class="navbar-center">
+          <slot name="center"
+            ><span class="center-title" :style="{ color: color, fontSize: fontsize }">{{ title }}</span></slot
+          >
         </div>
-        <div class="navbar-center-box" :style="{height: height}">
-            <div class="navbar-center">
-                <slot name="center"><span class="center-title" :style="{color: color, fontSize: fontsize}">{{title}}</span></slot>
-            </div>
-        </div>
-        <div class="navbar-item">
-            <span>右侧内容</span>
-        </div>
+      </div>
+      <div class="navbar-item">
+        <span>右侧内容</span>
+      </div>
     </header>
 
+    <navbar slot="navbar" title="NavBar">
+      <router-link to="/asidebar" slot="left">
+        <navbar-back-icon></navbar-back-icon>
+      </router-link>
+    </navbar>
 
+    <navbar title="NavBar1" class="demo-small-pitch"></navbar>
 
+    <navbar title="NavBar2" class="demo-small-pitch">
+      <router-link to="/asidebar" slot="left">
+        <navbar-back-icon></navbar-back-icon>
+      </router-link>
 
+      <router-link to="/asidebar" slot="right">
+        <navbar-next-icon></navbar-next-icon>
+      </router-link>
+    </navbar>
 
-        <navbar slot="navbar" title="NavBar">
-            <router-link to="/asidebar" slot="left">
-                <navbar-back-icon></navbar-back-icon>
-            </router-link>
-        </navbar>
+    <navbar class="demo-small-pitch">
+      <router-link to="/asidebar" slot="left">
+        <navbar-back-icon>返回</navbar-back-icon>
+      </router-link>
 
-        <navbar title="NavBar1" class="demo-small-pitch"></navbar>
+      <img slot="center" src="http://static.ydcss.com/www/img/logo.png" />
 
-        <navbar title="NavBar2" class="demo-small-pitch">
-            <router-link to="/asidebar" slot="left">
-                <navbar-back-icon></navbar-back-icon>
-            </router-link>
+      <router-link to="/asidebar" slot="right">
+        <navbar-next-icon>前进</navbar-next-icon>
+      </router-link>
+    </navbar>
 
-            <router-link to="/asidebar" slot="right">
-                <navbar-next-icon></navbar-next-icon>
-            </router-link>
-        </navbar>
+    <navbar title="什么鬼，这个标题怎么那么长啊" class="demo-small-pitch">
+      <router-link to="/asidebar" slot="left">
+        <icon name="home-outline" size="18px" color="#666"></icon>
+      </router-link>
+      <router-link to="/asidebar" slot="right">
+        <icon name="share1" size="18px" color="#666"></icon>
+      </router-link>
+      <router-link to="/asidebar" slot="right">
+        <icon name="share1" size="18px" color="#666"></icon>
+      </router-link>
+      <router-link to="/asidebar" slot="right">
+        <icon name="share1" size="18px" color="#666"></icon>
+      </router-link>
+    </navbar>
 
-        <navbar class="demo-small-pitch">
-            <router-link to="/asidebar" slot="left">
-                <navbar-back-icon>返回</navbar-back-icon>
-            </router-link>
-
-            <img slot="center" src="http://static.ydcss.com/www/img/logo.png">
-
-            <router-link to="/asidebar" slot="right">
-                <navbar-next-icon>前进</navbar-next-icon>
-            </router-link>
-        </navbar>
-
-        <navbar title="什么鬼，这个标题怎么那么长啊" class="demo-small-pitch">
-            <router-link to="/asidebar" slot="left">
-                <icon name="home-outline" size="18px" color="#666"></icon>
-            </router-link>
-            <router-link to="/asidebar" slot="right">
-                <icon name="share1" size="18px" color="#666"></icon>
-            </router-link>
-            <router-link to="/asidebar" slot="right">
-                <icon name="share1" size="18px" color="#666"></icon>
-            </router-link>
-            <router-link to="/asidebar" slot="right">
-                <icon name="share1" size="18px" color="#666"></icon>
-            </router-link>
-        </navbar>
-
-        <navbar title="Props可修改边框颜色啦~" class="demo-small-pitch" border-color="#337EF6" bgcolor="#FCCECD"></navbar>
-
-
+    <navbar title="Props可修改边框颜色啦~" class="demo-small-pitch" border-color="#337EF6" bgcolor="#FCCECD"></navbar>
   </div>
 </template>
 
 <script>
 export default {
-  name: "nav-bar",
+  name: 'nav-bar',
   data() {
     return {
-      height: "44px",
+      height: '44px',
       fixed: true,
       color: '#5C5C5C',
-      fontsize: "14px",
-      title: "什么鬼，这个标题怎么那么长啊",
-      bgcolor: "#fff"
+      fontsize: '14px',
+      title: '什么鬼，这个标题怎么那么长啊',
+      bgcolor: '#fff'
     }
   },
   computed: {
-        classes() {
-            return this.fixed ? 'navbar-fixed' : '';
-        }
+    classes() {
+      return this.fixed ? 'navbar-fixed' : ''
     }
+  }
 }
 </script>
 <style scoped lang="less">
 @navbar-height: 44px;
-@navbar-border-color: #B2B2B2;
+@navbar-border-color: #b2b2b2;
 @base-zindex: 1;
 @navbar-center-width: 50%;
 @body-padding-vertical: 12px;
@@ -105,8 +105,8 @@ export default {
   left: 0;
   width: 100%;
   border-bottom: 1px solid @color;
-  -webkit-transform: scaleY(.5);
-  transform: scaleY(.5);
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
 }
@@ -178,7 +178,8 @@ export default {
   }
 }
 
-.back-icon:before, .next-icon:before {
+.back-icon:before,
+.next-icon:before {
   display: inline-block;
   /* font-family: @iconfont-inlay; */
   /* font-size: @navbar-icon-fontsize; */
@@ -193,9 +194,7 @@ export default {
   content: '\e608';
 }
 
-
 .demo-small-pitch {
   margin-top: 20px;
 }
-
 </style>

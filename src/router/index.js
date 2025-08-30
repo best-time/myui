@@ -2,7 +2,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EntryRoutes from './entry.js'
 import Home from '../views/Home.vue'
-import Vue2 from '../views/vue2.vue'
 import DirectiveDemo from '../views/directive-test.vue'
 import DetailDemo from '../views/detail-demo.vue'
 // import TestDemo from '../views/test/f1.vue';
@@ -13,11 +12,6 @@ export const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/a2',
-    name: 'vue2',
-    component: Vue2
   },
   // 指令样例
   {

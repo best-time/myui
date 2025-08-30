@@ -1,10 +1,6 @@
 <template>
-  <el-dialog
-      :title="title"
-      v-model="dialogVisible"
-      width="30%"
-      @close="close">
-    <span>{{content}}</span>
+  <el-dialog :title="title" v-model="dialogVisible" width="30%" @close="close">
+    <span>{{ content }}</span>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="close">取 消</el-button>
@@ -30,11 +26,10 @@ export default defineComponent({
       default: '提示'
     }
   },
-  setup () {
+  setup() {
     return {
       dialogVisible: true
     }
   }
 })
 </script>
-

@@ -1,9 +1,9 @@
-import scrollComponent from "./scroll.vue";
+import scrollComponent from './scroll.vue'
 
-var vscroll = {};
+var vscroll = {}
 
-vscroll.install = function(Vue) {
-    Vue.component("v-scroll", scrollComponent);
+vscroll.install = function (Vue) {
+  Vue.component('v-scroll', scrollComponent)
 }
 
-export default vscroll;
+export default vscroll

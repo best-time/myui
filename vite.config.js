@@ -6,6 +6,7 @@ import {ElementPlusResolver} from 'unplugin-vue-components/resolvers';
 import ElementPlus from 'unplugin-element-plus/vite';
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path, { resolve} from 'path'
+import { VineVitePlugin } from 'vue-vine/vite'
 // const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig ({
@@ -36,6 +37,7 @@ export default defineConfig ({
     }
   },
   plugins: [
+    VineVitePlugin(),
     vue (),
     AutoImport ({
       imports: [
@@ -81,5 +83,8 @@ export default defineConfig ({
     //     rewrite: (path) => path.replace(/^\/api/, '')
     //   },
     // }
+    hmr: {
+      // overlay: false
+    }
   }
 })

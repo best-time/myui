@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="append" type="primary">点击</el-button>
+  <el-button @click="append" type="primary">idle-点击</el-button>
   <div ref="dv"></div>
 </template>
 

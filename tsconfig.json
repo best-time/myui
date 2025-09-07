@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "types": ["vue-vine/macros"],
     "paths": {
       "@/*": ["src/*"]
     }

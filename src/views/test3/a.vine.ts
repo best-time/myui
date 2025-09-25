@@ -6,7 +6,7 @@ const BC = function () {
 }
 
 export default function MyComponent() {
-  const userName = ref('Vine')
+  const userName = ref('Vine-demo')
   const num = ref(0)
   const randomPick = () => {
     num.value = Math.floor(Math.random() * 1000)

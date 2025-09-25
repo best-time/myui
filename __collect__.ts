@@ -1,8 +1,11 @@
-import { getCurrentInstance, nextTick, onMounted, onUnmounted, onBeforeUnmount, onBeforeMount } from 'vue'
+import { watch, getCurrentInstance, nextTick, onMounted, onUnmounted, onBeforeUnmount, onBeforeMount } from 'vue'
+import type { WatchCallback, WatchOptions, WatchSource, WatchStopHandle } from 'vue'
 
 type Fn = () => void
 
 const toString = Object.prototype.toString
+export const hasOwn = <T extends object, K extends keyof T>(val: T, key: K): key is K =>
+  Object.prototype.hasOwnProperty.call(val, key)
 
 /*
 await promiseTimeout(100, true).catch((error) => {
@@ -138,4 +141,33 @@ export function tryOnMounted(fn: Fn, sync = true, target?: any) {
 export function tryOnUnmounted(fn: Fn, target?: any) {
   const instance = getLifeCycleTarget(target)
   if (instance) onUnmounted(fn, target)
+}
+
+export function watchDeep<T = any, Immediate extends Readonly<boolean> = false>(
+  source: T | WatchSource<T>,
+  cb: any,
+  options?: Omit<WatchOptions<Immediate>, 'deep'>
+) {
+  return watch(source as any, cb, {
+    ...options,
+    deep: true
+  })
+}
+
+export function watchImmediate<T = any>(source: T, cb: any, options?: Omit<WatchOptions, 'immediate'>) {
+  return watch(source as any, cb, {
+    ...options,
+    immediate: true
+  })
+}
+
+export function watchOnce<T = any>(source: T, cb: any, options?: Omit<WatchOptions, 'once'>) {
+  return watch(
+    source as any,
+    cb,
+    {
+      ...options,
+      once: true,
+    },
+  )
 }

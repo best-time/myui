@@ -19,6 +19,7 @@ import virtualDemo from '../views/virtualList/demo.vue'
 // import lazyDemo3 from "../views/lazyImg/lazy-load.vue";
 import test1 from '../views/test/f1.vue'
 import Test3 from '../views/test3/a.vine.ts'
+import Test4 from '../views/test4/index.vue'
 import idleTest from '../views/test/idle/index.vue'
 import AsyncComponent from '../views/asyncComponent/index.vue'
 
@@ -45,6 +46,7 @@ const routeList = [
   { name: 'test1', component: test1 },
   { name: 'test', component: idleTest },
   { name: 'test3', component: Test3 },
+  { name: 'test4', component: Test4 },
   { name: 'asyncComponent', component: AsyncComponent },
   { name: 'suspense', component: () => import('../views/suspense/index.vue') },
   { name: 'event', component: () => import('../views/attrEvent/page.vue') },

@@ -9,7 +9,7 @@
 
 <script>
 // import item from "./item";
-import VScroll from './scroll'
+import VScroll from './scroll.vue'
 export default {
   components: { VScroll },
   data() {

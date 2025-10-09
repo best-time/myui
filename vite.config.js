@@ -73,9 +73,13 @@ export default defineConfig ({
     }),
     vueJsx(),
   ],
+  build: {
+    sourcemap: true
+  },
   server: {
-    port: 8000, // 设置服务启动端口号
+    port: 7999, // 设置服务启动端口号
     open: true, // 设置服务启动时是否自动打开浏览器
+    hmr: false,
     // proxy: {
     //   '/api': {
     //     target: 'http://API网关所在域名',
@@ -83,8 +87,8 @@ export default defineConfig ({
     //     rewrite: (path) => path.replace(/^\/api/, '')
     //   },
     // }
-    hmr: {
+    // hmr: {
       // overlay: false
-    }
+    // }
   }
 })

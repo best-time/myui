@@ -26,8 +26,8 @@
       const cvs = document.querySelector('canvas')
       const ctx = cvs.getContext('2d')
       function init() {
-        const w = 500
-        const h = 300
+        const w = 1000
+        const h = 600
         cvs.width = w * devicePixelRatio
         cvs.height = h * devicePixelRatio
         cvs.style.width = w + 'px'
@@ -82,9 +82,10 @@
           const sy = e.offsetY
           const { startX, startY, endX, endY } = shape
 
-          window.onmousemove = (e) => {
-            const x = e.clientX - cvsRect.left
-            const y = e.clientY - cvsRect.top
+          window.onmousemove = (ev) => {
+            console.log(ev.clientX, ev.clientY, ev.screenX, ev.screenY, cvsRect)
+            const x = ev.clientX - cvsRect.left
+            const y = ev.clientY - cvsRect.top
             const dx = x - sx
             const dy = y - sy
             shape.startX = startX + dx

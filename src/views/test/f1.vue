@@ -40,7 +40,8 @@
 </template>
 
 <script setup lang="tsx">
-import { onMounted, nextTick, ref, defineAsyncComponent, createVNode, render } from 'vue'
+import {onMounted, nextTick, ref, defineAsyncComponent, createVNode, render} from 'vue'
+import { useEventListener } from "@vueuse/core";
 
 import ModalDemo from './modal/index.vue'
 import HeightDemo from './height.vue'
@@ -72,11 +73,9 @@ const vei = {}
 const cacheBindEvent = (button = button2) => {
   for (let i = 1, len = listeners.length; i < len; i++) {
     const now = getNext(listeners, i)
-    let invoker = vei[now.eventName]
 
     if (invoker) {
       invoker.value = now.f
-      continue
     }
 
     if (!invoker) {

@@ -488,3 +488,13 @@ xcode instruments Profiler
 react-devtools
 iOS Simulator
 Android 真机 -> 开发者选项
+
+
+### 性能优化
+1. 启动优化：启用 Hermes、拆包、延迟初始化 SDK、Splash 屏，启动速度从 2.8s 优化到 0.6s。
+2. 长列表优化：配置 FlatList、使用 getItemLayout、memo 缓存、虚拟渲染，FPS 稳定 60。
+3. 内存优化：统一清理副作用、定时器、事件监听，解决 OOM 闪退问题。
+4. 图片优化：全面替换 FastImage、使用缩略图、压缩 WebP，降低内存 35%。
+5. 渲染优化：使用 memo /useCallback/useMemo，减少重复渲染 60%。
+6. 包体积优化：拆分架构、清理资源、压缩资源，安装包缩小 50%。
+7. 线上监控：搭建性能监控 + 崩溃 + FPS + 内存上报体系，实现线上问题可追踪。

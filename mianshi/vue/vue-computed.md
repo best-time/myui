@@ -178,5 +178,5 @@ computed 计算完毕，释放Dep.target，并且Dep.target 恢复上一个watch
 
 4、手动 watcher.depend， 让 data 再收集一次 Dep.target，于是 data 又收集到 恢复了的页面watcher
 
-![img.png](img.png)
-![img_1.png](img_1.png)
+![img.png](../img.png)
+![img_1.png](../img_1.png)

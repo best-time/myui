@@ -35,6 +35,7 @@ const person: Person = { name: 'John', age: 25 }
 ### TypeScript 中 const 和 readonly 的区别
 
 const可以防止 **变量的值** 被修改，在运行时检查，使用const变量保存的数组，可以使用push，pop等方法
+
 readonly可以防止 **变量的属性** 被修改，在编译时检查，使用Readonly Array声明的数组不能使用push，pop等方法
 
 ### any、never、unknown、null & undefined 和 void 区别
@@ -52,9 +53,11 @@ readonly可以防止 **变量的属性** 被修改，在编译时检查，使用
 ### any unknown区别
 
 unknown 类型会更加严格：在对 unknown 类型的值执行大多数操作之前，我们必须进行某种形式的检查。
+
 any 类型的值执行操作之前，不会进行任何检查。
 
 any 和 unknown 都是顶级类型，但是 unknown 更加严格，不像 any 那样不做类型检查，
+
 反而 unknown 因为未知性质，不允许访问属性，不允许赋值给其他有明确类型的变量。
 
 ### 同名的 interface 或者同名的 interface 和 class 可以合并吗

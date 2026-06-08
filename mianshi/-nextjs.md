@@ -313,7 +313,7 @@ export async function GET() {
 }
 ```
 
-2.✅ 权限控制（鉴权中心）
+2. ✅ 权限控制（鉴权中心）
 Middleware 做全局鉴权
 Server Components 做数据权限
 Prisma 动态拼接 where

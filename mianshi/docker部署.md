@@ -112,3 +112,95 @@ gyljr-admin 项目名
 进入容器内部：docker exec -it <容器ID> /bin/bash
 
 查看容器内部文件：docker exec -it <容器ID> ls
+
+
+### nginx/default.conf
+
+```javascript
+server {
+    listen 80;   # 端口号是80
+    server_name localhost;
+    
+    location / {
+        root   /usr/share/nginx/html;  # nginx 默认会从这个路径下加载网页，这是 nginx 默认的网页根目录
+        index  index.html index.htm;
+    }
+
+    error_page  404              /404.html;  # 错误404处理
+    error_page  500 502 503 504  /50x.html;  # 错误5XX处理
+
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+
+```
+
+
+### nginx 反向代理
+
+```javascript
+ proxy: {
+        '/api': {
+          target: `http://xxx.xx.x.x:xxxx`, // 后端地址服务地址
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      }
+
+```
+
+
+#### 模拟koa服务
+
+npm i koa koa-router nodemon
+
+http://localhost:1000/Account/SignIn
+
+```javascript
+const Koa = require('koa');
+const Router = require('koa-router');
+
+const app = new Koa();
+const router = new Router();
+
+async function handleRequest(ctx) {
+    try {
+        ctx.body = {
+            "code": 200,
+            "status": 1,
+            "message": "ok",
+            "data": {
+                "userRole": 1,
+                "userId": "000000000000000001",
+                "companyId": "1000000000000000001",
+                "userName": "test",
+            }
+        }
+    } catch(error) {
+        ctx.status = 500;
+        ctx.body = {
+            error: 'Internal Server Error'
+        };
+    }
+}
+
+router.post('/Account/SignIn', async(ctx) = >{
+    await handleRequest(ctx);
+});
+
+
+// 使用路由中间件
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+// 启动服务器
+const port = 1000;
+app.listen(port, () = >{
+    console.log(`Server is running on port $ {
+        port
+    }`);
+});
+
+```

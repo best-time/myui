@@ -1,0 +1,48 @@
+// 不换行，外加单行省略号
+.minxin-no-wrap() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// 多行文本省略号
+.minxin-no-wrap-more-line(@lineclamp) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @lineclamp;
+  -webkit-box-orient: vertical;
+}
+
+// hover 的时候，才有滚动条
+.minxin-hove-scroll-bar() {
+  overflow: hidden;
+
+  &:hover {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: #fff;
+    }
+
+    /*滚动条中间滑动部分*/
+    &::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background-color: rgba(144, 147, 153, 0.3);
+    }
+  }
+}
+
+.flex() {
+  display: flex;
+}
+.color(@textColor: @color-zero) {
+  color: @textColor;
+}
+.bg-color(@color: #eee) {
+  background-color: @color;
+}
+.border(@color: #ededed, @width: 1px, @style: solid) {
+  border: @width @style @color
+}

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>虚拟滚动 + 搜索 + 无限加载</title>
+    <style>
+      .select-box {
+        position: relative;
+        width: 280px;
+        margin: 50px;
+      }
+      .search-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 12px;
+        border: none;
+        border-bottom: 1px solid #eee;
+        outline: none;
+      }
+      .select-input {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        border-radius: 4px;
+        user-select: none;
+      }
+      .dropdown {
+        position: absolute;
+        top: 42px;
+        left: 0;
+        right: 0;
+        max-height: 250px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        background: #fff;
+        display: none;
+        border-radius: 4px;
+      }
+      .scroll-container {
+        position: relative;
+        width: 100%;
+      }
+      .option {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 12px;
+        cursor: pointer;
+      }
+      .option:hover {
+        background: #f5f5f5;
+      }
+      .load-tip {
+        text-align: center;
+        padding: 8px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="select-box">
+      <div class="select-input" id="selectInput">请选择</div>
+      <div class="dropdown" id="dropdown">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜索" />
+        <div class="scroll-container" id="scrollContainer"></div>
+        <div class="load-tip" id="loadTip">加载中...</div>
+      </div>
+    </div>
+
+    <script>
+      // ==================== 配置 ====================
+      const itemHeight = 36
+      const visibleCount = 7
+      const pageSize = 50
+
+      // ==================== DOM ====================
+      const selectInput = document.getElementById('selectInput')
+      const dropdown = document.getElementById('dropdown')
+      const scrollContainer = document.getElementById('scrollContainer')
+      const loadTip = document.getElementById('loadTip')
+      const searchInput = document.getElementById('searchInput')
+
+      // ==================== 状态 ====================
+      let list = [] // 总数据
+      let showList = [] // 显示数据（搜索后）
+      let page = 1
+      let loading = false
+      let hasMore = true
+      let keyword = '' // 搜索关键词
+
+      // ==================== 模拟接口 ====================
+      function fetchData() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const data = Array.from({ length: pageSize }, (_, i) => ({
+              value: (page - 1) * pageSize + i + 1,
+              label: `选项${(page - 1) * pageSize + i + 1}`
+            }))
+            resolve(data)
+          }, 400)
+        })
+      }
+
+      // ==================== 搜索过滤（核心） ====================
+      function doSearch() {
+        keyword = searchInput.value.trim()
+
+        if (!keyword) {
+          showList = [...list]
+        } else {
+          // 前端过滤（真实项目可以是后端接口）
+          showList = list.filter((item) => item.label.includes(keyword))
+        }
+
+        renderVirtualList()
+      }
+
+      // ==================== 虚拟滚动渲染 ====================
+      function renderVirtualList() {
+        const { scrollTop } = dropdown
+        const start = Math.floor(scrollTop / itemHeight)
+        const end = start + visibleCount + 2
+
+        // 截取可视区域数据
+        const renderItems = showList.slice(start, end)
+
+        scrollContainer.innerHTML = ''
+        scrollContainer.style.height = `${showList.length * itemHeight}px`
+
+        renderItems.forEach((item, i) => {
+          const div = document.createElement('div')
+          div.className = 'option'
+          div.innerText = item.label
+          div.style.top = `${(start + i) * itemHeight}px`
+          div.onclick = () => {
+            selectInput.innerText = item.label
+            dropdown.style.display = 'none'
+          }
+          scrollContainer.appendChild(div)
+        })
+      }
+
+      // ==================== 加载更多 ====================
+      async function loadMore() {
+        if (!hasMore || loading) return
+        loading = true
+        loadTip.innerText = '加载中...'
+
+        const newData = await fetchData()
+        list = [...list, ...newData]
+        page++
+
+        // 搜索后加载新数据也要重新过滤
+        doSearch()
+
+        loading = false
+        if (page > 20) {
+          hasMore = false
+        }
+        loadTip.innerText = hasMore ? '上拉加载更多' : '没有更多了'
+      }
+
+      // ==================== 滚动 ====================
+      dropdown.addEventListener('scroll', () => {
+        renderVirtualList()
+        const { scrollTop, scrollHeight, clientHeight } = dropdown
+        if (scrollTop + clientHeight + 50 >= scrollHeight) {
+          loadMore()
+        }
+      })
+
+      // ==================== 搜索事件（防抖优化） ====================
+      searchInput.addEventListener('input', (e) => {
+        doSearch()
+      })
+
+      // ==================== 点击展开 ====================
+      selectInput.addEventListener('click', (e) => {
+        e.stopPropagation()
+        const isOpen = dropdown.style.display === 'block'
+        dropdown.style.display = isOpen ? 'none' : 'block'
+        if (!isOpen && list.length === 0) {
+          loadMore()
+        }
+      })
+
+      document.addEventListener('click', (e) => {
+        // console.log(e, e.target.className)
+        if(e.target.className !== 'search-input') {
+          dropdown.style.display = 'none';
+        }
+      })
+    </script>
+  </body>
+</html>

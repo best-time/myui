@@ -1,0 +1,284 @@
+@import './color.less';
+@import './mixin.less';
+
+.font-misans {
+  font-family: 'MiSans';
+}
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+.v-full {
+  .w-100;
+  .h-100;
+}
+.block {
+  display: block;
+}
+
+.color {
+  &-9 {
+    .color(@color-nine)
+  }
+  &-6 {
+    .color(@color-six)
+  }
+  &-3 {
+    .color(@color-three)
+  }
+  &-0 {
+    .color(@color-zero)
+  }
+  &-primary {
+    .color(@primary-color)
+  }
+  &-desc {
+    color: @text-color;
+  }
+}
+
+.text {
+  &-right {
+    text-align: right;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-center {
+    text-align: center;
+  }
+}
+
+.weight {
+  &-600 {
+    font-weight: 600;
+  }
+  &-500 {
+    font-weight: 500;
+  }
+  &-400 {
+    font-weight: 400;
+  }
+}
+
+.hidden {
+  &-x {
+    overflow-x: hidden;
+  }
+  &-y {
+    overflow-y: hidden;
+  }
+  &-xy {
+    overflow: hidden;
+  }
+}
+
+.x-hidden {
+  overflow-x: hidden;
+}
+.y-hidden {
+  overflow-y: hidden;
+}
+.xy-hidden {
+  overflow: hidden;
+}
+.y-auto {
+  overflow-y: auto;
+}
+.x-auto {
+  overflow-x: auto;
+}
+.pointer {
+  cursor: pointer;
+}
+.bg-white {
+  background-color: @white-color;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+.hover-primary:hover {
+  color: @primary-color !important;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+.flex {
+  &-1 {
+    flex: 1;
+  }
+  &-box {
+    .flex
+  }
+  &-row {
+    .flex;
+    flex-direction: row;
+  }
+  &-row-center {
+    .flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &-column {
+    .flex;
+    flex-direction: column;
+  }
+  &-column-center {
+    .flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &-center {
+    .flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.items-end {
+  align-items: flex-end;
+}
+.items-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-start {
+  justify-content: flex-start;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between, .row-space-between {
+  justify-content: space-between;
+}
+
+
+:deep(.el-table-v2) {
+  // 固定列无阴影
+  &.kol-table-fix-no-shadow {
+    .el-table-v2__left {
+      box-shadow: none;
+    }
+  }
+}
+
+.gap(@i) when(@i <= 30) {
+  .gap-@{i} {
+    gap: @i + 0px;
+  }
+  .gap((@i + 2));
+}
+.gap(2);
+
+.font(@i) when(@i <= 32) {
+  .font-@{i} {
+    font-size: @i + 0px;
+  }
+  .font((@i + 2));
+}
+.font(10);
+
+.margin(@i) when(@i <= 32) {
+  .m-b-@{i} {
+    margin-bottom: @i + 0px;
+  }
+  .m-t-@{i} {
+    margin-top: @i + 0px;
+  }
+  .m-l-@{i} {
+    margin-left: @i + 0px;
+  }
+  .m-r-@{i} {
+    margin-right: @i + 0px;
+  }
+  .margin((@i + 2));
+}
+.margin(2);
+
+//padding
+.padding(@i) when(@i <= 32) {
+  .p-b-@{i} {
+    padding-bottom: @i + 0px;
+  }
+  .p-t-@{i} {
+    padding-top: @i + 0px;
+  }
+  .p-l-@{i} {
+    padding-left: @i + 0px;
+  }
+  .p-r-@{i} {
+    padding-right: @i + 0px;
+  }
+  .padding((@i + 2));
+}
+.padding(2);
+
+.padding-0 {
+  padding: 0;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+// 默认间距
+.padding-gap {
+  padding: 16px;
+}
+
+.borderRadius(@i) when(@i <= 12) {
+  .radius-@{i} {
+    border-radius: @i + 0px;
+  }
+  .borderRadius((@i + 2));
+}
+.borderRadius(2);
+
+.radius-half {
+  border-radius: 50%;
+}
+.radius-full {
+  border-radius: 100%;
+}
+
+// ant-design组件 样式覆盖
+.select--focus {
+  --ant-primary-color-hover: @primary-color;
+  .ant-select-selector {
+    &:hover {
+      border-color: @primary-color !important;
+    }
+  }
+}
+
+// 设置边框圆角
+.form-border-set {
+  &.ant-form {
+    .ant-input,
+    .ant-picker,
+    .ant-input-affix-wrapper,
+    .ant-select-selector {
+      border-radius: 6px;
+    }
+  }
+}
+
+.ellipsis-line-1 {
+  .minxin-no-wrap-more-line(1)
+}
+.ellipsis-line-2 {
+  .minxin-no-wrap-more-line(2)
+}

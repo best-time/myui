@@ -16,12 +16,17 @@ function threeSum(arr) {
     const res = []
     const len = arr.length
     arr.sort((a, b) => a-b)
+
     for(let i = 0; i < len; i++) {
         const cur = arr[i]
         // 最小值大于0
-        if(cur > 0) return res
+        if(cur > 0) {
+          return res
+        }
         // 当前值和前一个值相等  (答案不能包含重复项)
-        if(i > 0 && cur === arr[i - 1]) continue
+        if(i > 0 && cur === arr[i - 1]) {
+          continue
+        }
         let left = i + 1
         let right = len - 1
 

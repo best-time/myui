@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<body>
+<input id="input" />
+<div id="text"></div>
+
+<!--
+
+分层拆解核心逻辑（面试口述满分）
+1. Dep 依赖管理器
+每个属性对应一个 Dep 实例；
+depend()：读取数据时，把当前视图更新函数存入订阅列表；
+notify()：数据变更，遍历执行所有更新函数，刷新页面。
+
+2. Watcher 视图监听器
+接收页面渲染函数；
+实例化时临时挂载全局 activeWatcher，执行渲染函数触发属性 get；
+get 内部调用 dep.depend() 完成依赖收集；
+数据更新时执行 update() 重新渲染页面。
+
+3. observe 数据劫持（核心监听）
+遍历对象所有 key，通过 Object.defineProperty 定义访问器；
+getter：页面读取数据时收集依赖；
+setter：赋值时判断值是否变化，更新值并通知 Dep 派发视图更新；
+递归劫持对象，实现深层属性监听。
+
+4. 双向绑定闭环
+数据驱动视图：data.message = xxx → 触发 set → dep.notify → Watcher.update → 刷新输入框与文本；
+视图驱动数据：输入框 input 事件 → 手动赋值 data.message → 自动触发更新。
+关键缺陷（面试官必追问：Vue2 响应式缺点）
+无法监听对象新增 / 删除属性，需要 Vue.set / this.$set；
+无法监听数组下标修改、数组长度修改，Vue2 重写数组 7 个方法实现劫持；
+仅支持对象，不支持 Map/Set；
+递归劫持深层大对象，初始化性能开销大。
+
+Vue3 对比补充（加分项）
+Vue3 使用 Proxy 替代 Object.defineProperty：
+直接代理整个对象，不用遍历所有 key；
+支持监听新增、删除属性、数组下标、Map/Set；
+原生支持深层监听，无需递归初始化。
+
+Q：如何监听对象属性变化实现响应式？
+采用数据劫持 + 发布订阅模式：
+使用 Object.defineProperty 劫持对象属性的 get/set；
+读取属性时收集页面渲染函数（依赖收集 Dep）；
+修改属性时通知所有收集的渲染函数执行，更新视图；
+配合 Watcher 保存视图更新逻辑，形成完整响应式，结合输入框事件实现双向绑定。
+-->
+
+<script>
+  // 1. 依赖收集容器：存储需要更新的函数（Watcher）
+  let activeWatcher = null;
+  class Dep {
+    constructor() {
+      this.subs = []; // 存放所有依赖
+    }
+    // 收集依赖
+    depend() {
+      if (activeWatcher) {
+        this.subs.push(activeWatcher);
+      }
+    }
+    // 通知所有依赖更新
+    notify() {
+      this.subs.forEach(watcher => watcher.update());
+    }
+  }
+
+  // 2. 监听器：视图更新函数（Watcher）
+  class Watcher {
+    constructor(fn) {
+      this.updateFn = fn;
+      // 触发读取，收集依赖
+      activeWatcher = this;
+      this.updateFn();
+      activeWatcher = null;
+    }
+    update() {
+      this.updateFn();
+    }
+  }
+
+  // 3. 数据劫持：递归给对象添加 getter/setter
+  function observe(obj) {
+    if (typeof obj !== 'object' || obj === null) return obj;
+    Object.keys(obj).forEach(key => {
+      let val = obj[key];
+      const dep = new Dep();
+      // 递归劫持子对象
+      observe(val);
+
+      Object.defineProperty(obj, key, {
+        get() {
+          // 读取时收集依赖
+          dep.depend();
+          return val;
+        },
+        set(newVal) {
+          if (newVal === val) return;
+          val = newVal;
+          observe(newVal); // 新值如果是对象继续劫持
+          // 修改时派发更新
+          dep.notify();
+        }
+      })
+    })
+    return obj;
+  }
+
+  // ========== 双向绑定业务逻辑 ==========
+  // 原始数据
+  const data = observe({
+    message: '初始文本'
+  });
+
+  // 视图更新函数
+  function render() {
+    document.getElementById('input').value = data.message;
+    document.getElementById('text').innerText = data.message;
+  }
+  // 创建监听器，自动收集依赖
+  new Watcher(render);
+
+  // 视图 → 数据：输入框修改同步更新data
+  const inputDom = document.getElementById('input');
+  inputDom.addEventListener('input', (e) => {
+    data.message = e.target.value;
+  })
+</script>
+</body>
+</html>

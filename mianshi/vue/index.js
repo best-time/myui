@@ -1,3 +1,5 @@
+let activeEffect = null
+
 class Dep {
   constructor() {
     this.subscribers = new Set()
@@ -14,7 +16,6 @@ class Dep {
   }
 }
 
-let activeEffect = null
 
 class Watcher {
   constructor(effect) {
@@ -68,6 +69,8 @@ const reactive = (target) => {
   return new Proxy(target, handler)
 }
 
+
+// 测试使用...
 const state = reactive({
   count: 1
 })

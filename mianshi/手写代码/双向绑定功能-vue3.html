@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<body>
+<div id="app"></div>
+<input id="ipt" />
+
+<!--
+
+分层原理拆解（面试口述满分）
+1. 数据存储结构 WeakMap(targetMap)
+plaintext
+WeakMap {
+  原始对象 => Map {
+    属性key => Dep实例（存放所有依赖该key的effect）
+  }
+}
+WeakMap key 是弱引用对象，不阻碍 GC，无内存泄漏；
+每个对象的每个 key 独立拥有 Dep，精准更新，不全局刷新。
+
+2. Dep 依赖收集
+读取属性触发 get → dep.depend() 把当前 activeEffect 存入集合；
+修改 / 删除属性触发 set/deleteProperty → dep.notify() 批量执行副作用。
+
+3. ReactiveEffect 副作用
+effect(fn) 注册渲染 / 计算函数；
+run 执行时挂载全局 activeEffect，执行 fn 读取响应式变量触发收集；
+收集完成清空 activeEffect，避免无关收集。
+
+4. Proxy 相比 Vue2 Object.defineProperty 的优势
+代理整个对象，不用递归遍历所有 key 初始化；
+原生监听：新增属性、删除属性、数组下标、数组 length；
+拦截操作更丰富：get/set/deleteProperty/has 等 13 种捕获器；
+支持 Map、Set、WeakMap、WeakSet 集合类型。
+
+5. 完整响应式闭环
+数据→视图：修改 state.text → Proxy set 拦截 → dep.notify () → effect.run () 重新渲染 DOM；
+视图→数据：输入框 input 事件赋值 state.text，自动触发更新；
+新增属性：state.age=18 可被监听，Vue2 需要 $set。
+
+高频面试追问标准答案
+Q：为什么用 WeakMap 存储 targetMap？
+WeakMap 的 key 是弱引用，当原始对象无其他引用时可被垃圾回收；普通 Map 是强引用，会长期持有对象造成内存泄漏。
+
+Q：为什么用 Set 存储 Dep 里的 effect？
+同一个副作用可能多次读取同一个属性，Set 自动去重，避免重复执行更新函数。
+
+Q：Vue3 reactive 为什么不递归劫持？
+Proxy 是懒劫持：只代理外层对象，深层对象只有访问时才会创建 Proxy，减少初始化性能开销；Vue2 初始化递归遍历所有对象，大数据深层对象卡顿。
+
+Q：Reflect 作用是什么？
+保证 this 指向正确（传递 receiver），标准化对象读写操作，替代直接 target[key]。
+
+
+-->
+
+<script>
+  // 当前正在执行的副作用函数
+  let activeEffect = null;
+
+  // 依赖管理器：存放对应属性的所有副作用
+  class Dep {
+    constructor() {
+      this.effects = new Set(); // Set去重，避免重复收集
+    }
+    // 收集依赖
+    depend() {
+      if (activeEffect) this.effects.add(activeEffect);
+    }
+    // 触发所有副作用更新
+    notify() {
+      this.effects.forEach(effect => effect.run());
+    }
+  }
+
+  // 全局存储：targetMap = WeakMap<源对象, Map<key, Dep>>
+  const targetMap = new WeakMap();
+
+  // 获取某个对象+key对应的Dep实例
+  function getDep(target, key) {
+    let keyMap = targetMap.get(target);
+    if (!keyMap) {
+      targetMap.set(target, (keyMap = new Map()))
+    }
+    let dep = keyMap.get(key);
+    if (!dep) {
+      keyMap.set(key, (dep = new Dep()))
+    }
+    return dep;
+  }
+
+  // 副作用函数
+  class ReactiveEffect {
+    constructor(fn) {
+      this.fn = fn;
+    }
+    run() {
+      activeEffect = this;
+      this.fn(); // 执行触发get，收集依赖
+      activeEffect = null;
+    }
+  }
+
+  // 对外暴露：注册副作用（渲染函数、计算属性）
+  function effect(fn) {
+    const _effect = new ReactiveEffect(fn);
+    _effect.run();
+    return _effect;
+  }
+
+  // 拦截器：Proxy handler
+  const handlers = {
+    get(target, key, receiver) {
+      const dep = getDep(target, key);
+      dep.depend(); // 收集依赖
+      return Reflect.get(target, key, receiver);
+    },
+    set(target, key, value, receiver) {
+      const oldVal = Reflect.get(target, key, receiver);
+      const success = Reflect.set(target, key, value, receiver);
+      if (oldVal !== value) {
+        const dep = getDep(target, key);
+        dep.notify(); // 派发更新
+      }
+      return success;
+    },
+    // 监听删除属性（Vue2 defineProperty做不到）
+    deleteProperty(target, key) {
+      const hasKey = Reflect.has(target, key);
+      const success = Reflect.deleteProperty(target, key);
+      if (hasKey && success) {
+        const dep = getDep(target, key);
+        dep.notify();
+      }
+      return success;
+    }
+  };
+
+  // 生成响应式对象
+  function reactive(target) {
+    return new Proxy(target, handlers);
+  }
+
+  // ===================== 测试双向绑定 =====================
+  const state = reactive({
+    text: "Vue3 Proxy 响应式"
+  });
+
+  // 渲染副作用：数据驱动视图
+  function render() {
+    document.querySelector("#app").innerText = state.text;
+  }
+  effect(render);
+
+  // 视图驱动数据：输入框同步修改state
+  const ipt = document.getElementById("ipt");
+  ipt.value = state.text;
+  ipt.addEventListener("input", e => {
+    state.text = e.target.value;
+  });
+
+  // 测试新增属性（Vue2无法监听，Vue3支持）
+  // setTimeout(() => {
+  //   state.age = 18
+  // }, 2000)
+
+
+
+
+
+</script>
+
+<script>
+
+  function computed(getter) {
+    let value;
+    let dirty = true;
+    const _effect = new ReactiveEffect(() => {
+      dirty = true;
+    });
+
+    return {
+      get value() {
+        if (dirty) {
+          activeEffect = _effect;
+          value = getter();
+          activeEffect = null;
+          dirty = false;
+        }
+        // 收集当前读取computed的上层effect
+        if (activeEffect) {
+          const dep = new Dep();
+          dep.depend();
+          _effect.dep = dep;
+        }
+        return value;
+      }
+    };
+  }
+
+  // 使用示例
+  const double = computed(() => state.text + " 后缀");
+  effect(() => {
+    console.log(double.value);
+  })
+</script>
+</body>
+</html>

@@ -336,12 +336,12 @@ const App = () => (
 export default App
 ```
 
-### Memoization
+### Memorization
 
 实现方法：
 
-useMemo：用于 memoize 计算结果。
-useCallback：用于 memoize 回调函数。
+useMemo：用于 memorize 计算结果。
+useCallback：用于 memorize 回调函数。
 
 ```javascript
 import React, { useMemo, useCallback } from 'react'
@@ -393,7 +393,7 @@ export default ParentComponent
 作用：延迟加载组件，直到需要时才加载。
 好处：减少初始加载时间，提高应用性能。
 
-#### Memoization：
+#### Memorization：
 
 作用：缓存计算结果，避免不必要的重复计算。
 好处：提高组件的渲染性能，减少计算开销。

@@ -7,7 +7,9 @@
     const arr2 = [0,0,1,1,1,2,2,3,3,4]
 
     function removeDuplicate(list) {
-        if(!list.length) return 0
+        if(!list.length) {
+          return 0
+        }
         const len = list.length
         let slow = 0;
         let fast = 0

@@ -5,11 +5,17 @@
 如果已经到了叶子结点了还没有找到，则返回 null
 */
 function getElementById(node, id) {
-    if(!node) return null
-    if(node.id === id) return node
+    if(!node) {
+      return null
+    }
+    if(node.id === id) {
+      return node
+    }
     for(let i = 0 ; i < node.childNodes.length; i++) {
         let found = getElementById(node.childNodes[i], id)
-        if(found) return found
+        if(found) {
+          return found
+        }
     }
     return null
 }
@@ -18,7 +24,9 @@ function getElementById(node, id) {
 
 function getElementById2(node, id) {
     while(node) {
-        if(node.id === id) return node
+        if(node.id === id) {
+          return node
+        }
         node = nextElement(node)
     }
     return null

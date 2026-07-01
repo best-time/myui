@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>不定高虚拟滚动</title>
+  <style>
+      /* 视口容器：固定高度，滚动 */
+      .virtual-wrap {
+          width: 400px;
+          height: 400px;
+          overflow-y: auto;
+          border: 1px solid #ccc;
+      }
+      /* 占位层：撑起滚动高度，transform 偏移可视区域 */
+      .virtual-phantom {
+          position: relative;
+      }
+      /* 渲染条目容器 */
+      .virtual-list {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+      }
+      .item {
+          padding: 8px 12px;
+          border-bottom: 1px solid #eee;
+      }
+  </style>
+</head>
+<body>
+<div class="virtual-wrap" id="wrap"></div>
+
+<!--
+
+视口容器：固定高度，overflow 滚动，只渲染可视区域少量 DOM
+占位容器：高度 = 所有列表项预估高度总和，撑开滚动条（模拟完整列表）
+可视计算：滚动时算出当前起始 / 结束索引，只渲染区间内条目
+不定高关键：
+用预估高度初始化总占位高度
+条目渲染后读取真实高度，缓存，更新占位高度与偏移量
+滚动偏移通过已渲染条目真实高度累加计算，保证滚动精准
+
+
+解析:
+ 双层容器结构
+.virtual-wrap：视口，固定高度、滚动
+.virtual-phantom：占位层，高度 = 列表总高度，产生滚动条
+.virtual-list：真实渲染 DOM，通过 translate3d 上下偏移，模拟滚动位置
+
+2. 不定高核心缓存机制
+heightCache：存储每条真实渲染高度，首次渲染用预估高度兜底
+offsetCache：缓存每条顶部距离列表顶部的偏移量，避免重复累加计算
+条目渲染完成后读取 offsetHeight，和缓存对比，不一致则更新总高度、清空偏移缓存，重新渲染修正滚动
+
+3. 可视区域计算
+滚动时算出起始索引、结束索引
+上下增加 buffer 缓冲条数，快速滚动不会出现空白
+用 translate3d 整体偏移可视 DOM，不用逐个设置 top，性能更好
+
+4. 滚动性能优化
+requestAnimationFrame 节流滚动事件，一帧只渲染一次
+requestIdleCallback 读取 DOM 高度，不阻塞渲染主线程
+DocumentFragment 批量插入 DOM，减少重排
+translate3d 开启 GPU 加速
+
+
+框架版参考思路
+Vue：基于本逻辑封装组件，用 ref 获取条目真实高度，缓存到 Map
+React：useRef 绑定条目，useEffect 读取高度，useMemo 缓存区间数据
+
+-->
+<script>
+  class VariableVirtualScroll {
+    /**
+     * @param {HTMLElement} wrap 滚动容器
+     * @param {Array} list 原始长列表数据
+     * @param {Object} opts 配置
+     */
+    constructor(wrap, list, opts = {}) {
+      this.wrap = wrap;
+      this.dataList = list;
+      // 配置
+      this.itemEstimateHeight = opts.estimate || 80; // 预估单项高度
+      this.buffer = opts.buffer || 3; // 上下缓冲条数，防止滚动空白
+      // 缓存：key=索引，value=真实高度
+      this.heightCache = new Map();
+      // 每条顶部偏移量缓存
+      this.offsetCache = new Map();
+
+      // DOM
+      this.phantom = document.createElement('div');
+      this.phantom.className = 'virtual-phantom';
+      this.realList = document.createElement('div');
+      this.realList.className = 'virtual-list';
+      this.phantom.appendChild(this.realList);
+      this.wrap.appendChild(this.phantom);
+
+      // 绑定滚动
+      this.wrap.addEventListener('scroll', this.onScroll.bind(this));
+      // 初始化
+      this.init();
+    }
+
+    // 初始化总高度、渲染首屏
+    init() {
+      this.updatePhantomHeight();
+      this.render();
+    }
+
+    // 计算全部占位高度（有缓存用真实高度，无则预估）
+    getTotalHeight() {
+      let total = 0;
+      for (let i = 0; i < this.dataList.length; i++) {
+        total += this.heightCache.get(i) || this.itemEstimateHeight;
+      }
+      return total;
+    }
+
+    // 更新占位容器高度
+    updatePhantomHeight() {
+      this.phantom.style.height = `${this.getTotalHeight()}px`;
+    }
+
+    // 获取某条目的顶部偏移
+    getItemOffset(index) {
+      if (this.offsetCache.has(index)) {
+        return this.offsetCache.get(index)
+      }
+      let offset = 0;
+      for (let i = 0; i < index; i++) {
+        offset += this.heightCache.get(i) || this.itemEstimateHeight;
+      }
+      this.offsetCache.set(index, offset);
+      return offset;
+    }
+
+    // 根据滚动值计算可视区间
+    getVisibleRange() {
+      const scrollTop = this.wrap.scrollTop;
+      const viewHeight = this.wrap.clientHeight;
+      let startIndex = 0;
+      let accum = 0;
+
+      // 二分优化（数据量大推荐二分，这里简单遍历易懂）
+      for (let i = 0; i < this.dataList.length; i++) {
+        const h = this.heightCache.get(i) || this.itemEstimateHeight;
+        if (accum + h > scrollTop) {
+          startIndex = i;
+          break;
+        }
+        accum += h;
+      }
+
+      // 加上缓冲
+      startIndex = Math.max(0, startIndex - this.buffer);
+      let endIndex = startIndex;
+      let viewAccum = 0;
+      // 算出结束索引
+      while (endIndex < this.dataList.length && viewAccum < viewHeight) {
+        viewAccum += this.heightCache.get(endIndex) || this.itemEstimateHeight;
+        endIndex++;
+      }
+      endIndex = Math.min(this.dataList.length, endIndex + this.buffer);
+
+      return { startIndex, endIndex };
+    }
+
+    // 渲染可视区域条目
+    render() {
+      const { startIndex, endIndex } = this.getVisibleRange();
+      const visibleData = this.dataList.slice(startIndex, endIndex);
+      // 计算可视区域整体偏移
+      const offsetY = this.getItemOffset(startIndex);
+
+      // 清空旧DOM
+      this.realList.innerHTML = '';
+      this.realList.style.transform = `translate3d(0, ${offsetY}px)`;
+
+      // 创建条目
+      const frag = document.createDocumentFragment();
+      visibleData.forEach((item, idx) => {
+        const realIndex = startIndex + idx;
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.dataset.index = realIndex;
+        div.innerHTML = `ID:${item.id}<br/>${item.content}`;
+        frag.appendChild(div);
+      });
+      this.realList.appendChild(frag);
+
+      // 异步读取真实高度，更新缓存+重绘
+      requestIdleCallback(() => {
+        this.refreshItemHeight();
+      });
+    }
+
+    // 读取已渲染条目的真实高度，修正缓存
+    refreshItemHeight() {
+      const items = this.realList.querySelectorAll('.item');
+      let needUpdate = false;
+      items.forEach(el => {
+        const idx = Number(el.dataset.index);
+        const realH = el.offsetHeight;
+        const oldH = this.heightCache.get(idx);
+        if (oldH !== realH) {
+          this.heightCache.set(idx, realH);
+          // 高度变化，清空偏移缓存，下次重新计算
+          this.offsetCache.clear();
+          needUpdate = true;
+        }
+      });
+      // 高度发生变化，更新总占位高度+重新渲染
+      if (needUpdate) {
+        this.updatePhantomHeight();
+        this.render();
+      }
+    }
+
+    // 滚动节流（requestAnimationFrame防频繁渲染）
+    onScroll() {
+      if (this.rafId) {
+        cancelAnimationFrame(this.rafId)
+      }
+      this.rafId = requestAnimationFrame(() => {
+        this.render();
+      });
+    }
+
+    // 销毁实例
+    destroy() {
+      this.wrap.removeEventListener('scroll', this.onScroll);
+      if (this.rafId) {
+        cancelAnimationFrame(this.rafId)
+      }
+      this.wrap.innerHTML = '';
+      this.heightCache.clear();
+      this.offsetCache.clear();
+    }
+  }
+
+  // ==================== 测试：生成10000条不定高数据 ====================
+  const mockData = [];
+  for (let i = 0; i < 100000; i++) {
+    // 随机行数实现不定高度
+    const lines = Math.floor(Math.random() * 5) + 1;
+    const content = Array(lines).fill(`第${i}条测试文本`).join('<br/>');
+    mockData.push({ id: i, content });
+  }
+  console.log(mockData);
+  // 实例化
+  const wrapDom = document.getElementById('wrap');
+  const virtual = new VariableVirtualScroll(wrapDom, mockData, {
+    estimate: 70,
+    buffer: 3
+  });
+</script>
+</body>
+</html>

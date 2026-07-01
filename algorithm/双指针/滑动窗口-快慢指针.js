@@ -65,7 +65,7 @@ function getChildStr(s, t) {
         typeCnt--
       }
     }
-    const temp = s.slice(left, right)
+    // const temp = s.slice(left, right)
     while (typeCnt === 0) {
       if (right - left < minLen) {
         // 更新最小覆盖子串信息

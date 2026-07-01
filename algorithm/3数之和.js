@@ -19,9 +19,11 @@ let threeSumClosest = function (nums, target) {
     let end = len - 1
     while (start < end) {
       let sum = nums[start] + nums[end] + nums[i]
+
       if (Math.abs(target - sum) < Math.abs(target - result)) {
         result = sum
       }
+
       if (sum > target) {
         end--
       } else if (sum < target) {
